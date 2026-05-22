@@ -1,9 +1,11 @@
-import { Wave } from "@/components/ui/wave"
+import Navbar from "@/components/navbar"
+import Hero from "@/components/sections/hero"
 
 export default function Page() {
   return (
-    <main style={{ display: "flex", justifyContent: "center", alignItems: "center", minHeight: "100vh", background: "black" }}>
-      <Wave speed={0.5} tiles={1.2} />
+    <main>
+      <Navbar />
+      <Hero />
     </main>
   )
 }
