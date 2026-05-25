@@ -1,4 +1,4 @@
-@tailwind base;
+﻿@tailwind base;
 @tailwind components;
 @tailwind utilities;
 
@@ -26,11 +26,5 @@ body {
   }
 }
 
-html, body {
-  overscroll-behavior-y: contain;
-  overflow-x: hidden;
-}
+body { overscroll-behavior-y: contain; }
 
-body {
-  touch-action: pan-y;
-}
