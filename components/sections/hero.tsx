@@ -1,7 +1,6 @@
 ﻿"use client"
 
 import { motion } from "framer-motion"
-import { ArrowRight } from "lucide-react"
 import { Wave } from "@/components/ui/wave"
 
 export default function Hero() {
@@ -29,24 +28,10 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.3 }}
-          className="mt-6 text-base sm:text-lg md:text-xl text-white/80 max-w-2xl"
+          className="mt-6 text-base sm:text-lg md:text-xl text-white/70 max-w-2xl font-light tracking-wide"
         >
           Mulai, Tumbuh, dan Berkembang &mdash; Tanpa Batas.
         </motion.p>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-          className="mt-10 flex flex-col sm:flex-row gap-4"
-        >
-          <button className="group bg-white text-black px-8 py-3 rounded-full font-semibold flex items-center justify-center gap-2 hover:scale-105 transition-transform">
-            Mulai Sekarang <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-          </button>
-          <button className="border border-white/30 bg-white/5 backdrop-blur text-white px-8 py-3 rounded-full font-semibold hover:bg-white/10 transition-colors">
-            Pelajari Lebih
-          </button>
-        </motion.div>
 
       </div>
     </section>

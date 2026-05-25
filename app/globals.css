@@ -25,3 +25,12 @@ body {
     text-wrap: balance;
   }
 }
+
+html, body {
+  overscroll-behavior-y: contain;
+  overflow-x: hidden;
+}
+
+body {
+  touch-action: pan-y;
+}
