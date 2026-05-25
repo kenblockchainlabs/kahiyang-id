@@ -17,7 +17,7 @@ const frames = [
 
 export default function Layanan() {
   return (
-    <section id="layanan" className="relative bg-black py-24 px-4 overflow-hidden">
+    <section id="layanan" className="relative bg-black py-16 px-4 overflow-hidden">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-12">
           <motion.span initial={{ opacity: 0, y: -10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.3 }} transition={{ duration: 0.5 }} className="text-cyan-400 text-sm font-semibold tracking-widest uppercase">
@@ -37,3 +37,4 @@ export default function Layanan() {
     </section>
   )
 }
+
