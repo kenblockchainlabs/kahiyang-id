@@ -11,7 +11,6 @@ export const metadata: Metadata = {
   description: "Mulai, Tumbuh, dan Berkembang â€” Tanpa Batas.",
 };
 
-import LenisProvider from "@/components/providers/lenis-provider"
 
 export default function RootLayout({
   children,
