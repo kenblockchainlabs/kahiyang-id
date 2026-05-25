@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import { useState, useEffect, useRef } from "react"
 import { motion } from "framer-motion"
@@ -48,11 +48,7 @@ function FrameComponent({
   const videoRef = useRef<HTMLVideoElement>(null)
 
   useEffect(() => {
-    if (isHovered) {
-      videoRef.current?.play()
-    } else {
-      videoRef.current?.pause()
-    }
+    videoRef.current?.play()
   }, [isHovered])
 
   return (
@@ -90,8 +86,7 @@ function FrameComponent({
               src={video}
               loop
               muted
-              playsInline
-              ref={videoRef}
+              playsInline autoPlay preload="auto" ref={videoRef}
             />
           </div>
         </div>
@@ -241,3 +236,4 @@ export function DynamicFrameLayout({
     </div>
   )
 }
+
