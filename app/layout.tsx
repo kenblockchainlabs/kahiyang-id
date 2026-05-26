@@ -5,6 +5,7 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 import LenisProvider from "@/components/providers/lenis-provider"
+import ThemeProvider from "@/components/providers/theme-provider"
 
 export const metadata: Metadata = {
   title: "Negeri Kahiyang",
@@ -19,11 +20,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="id">
-      <body className={`${inter.className} bg-black text-white antialiased`}>
-        <LenisProvider>{children}</LenisProvider>
+      <body className={`${inter.className} antialiased`}>
+        <LenisProvider><ThemeProvider>{children}</ThemeProvider></LenisProvider>
       </body>
     </html>
   );
 }
+
 
 

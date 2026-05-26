@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import { motion } from "framer-motion"
 import { DynamicFrameLayout } from "@/components/ui/dynamic-frame-layout"
@@ -58,7 +58,7 @@ const frames = [
 
 export default function Layanan() {
   return (
-    <section id="layanan" className="relative bg-black py-16 px-4 overflow-hidden">
+    <section id="layanan" className="relative bg-transparent py-16 px-4 overflow-hidden">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-12">
 
@@ -73,7 +73,7 @@ export default function Layanan() {
             LAYANAN KAMI
           </motion.span>
 
-          {/* Heading — mask reveal dari bawah (preserves gradient) */}
+          {/* Heading â€” mask reveal dari bawah (preserves gradient) */}
           <div className="mt-3 overflow-hidden">
             <motion.h2
               initial={{ y: "110%" }}
@@ -86,7 +86,7 @@ export default function Layanan() {
             </motion.h2>
           </div>
 
-          {/* Paragraph — word stagger dengan blur */}
+          {/* Paragraph â€” word stagger dengan blur */}
           <p className="mt-4 text-base md:text-lg text-white/60 max-w-2xl mx-auto">
             <WordReveal
               text="Hover ke setiap frame, eksplor setiap sisi dari Negeri Kahiyang."
@@ -111,3 +111,5 @@ export default function Layanan() {
     </section>
   )
 }
+
+

@@ -1,11 +1,11 @@
-"use client"
+﻿"use client"
 
 import { motion } from "framer-motion"
 import AnimatedTextCycle from "@/components/ui/animated-text-cycle"
 
 export default function Tentang() {
   return (
-    <section id="tentang" className="relative bg-black py-24 px-4 overflow-hidden">
+    <section id="tentang" className="relative bg-transparent py-24 px-4 overflow-hidden">
       <div className="max-w-5xl mx-auto flex flex-col items-center text-center">
 
         {/* Label */}
@@ -19,7 +19,7 @@ export default function Tentang() {
           TENTANG KAMI
         </motion.span>
 
-        {/* Heading — 3-line mask reveal stagger dramatis */}
+        {/* Heading â€” 3-line mask reveal stagger dramatis */}
         <motion.h2
           className="text-3xl md:text-5xl font-light text-white/80 leading-tight max-w-4xl"
           initial="hidden"
@@ -107,3 +107,5 @@ export default function Tentang() {
     </section>
   )
 }
+
+
