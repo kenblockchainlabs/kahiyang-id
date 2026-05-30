@@ -13,7 +13,6 @@ const services = [
 export default function Layanan() {
   const ref = useRef<HTMLElement>(null)
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] })
-
   const scale = useTransform(scrollYProgress, [0, 0.15, 0.5, 0.85, 1], [0.88, 1, 1, 1, 0.92])
   const opacity = useTransform(scrollYProgress, [0, 0.12, 0.5, 0.88, 1], [0, 1, 1, 1, 0.5])
   const y = useTransform(scrollYProgress, [0, 0.15, 0.5, 0.85, 1], [60, 0, 0, 0, -40])
@@ -22,7 +21,6 @@ export default function Layanan() {
   return (
     <section id="layanan" ref={ref} className="relative w-full bg-[#f5f0e8]">
       <motion.div style={{ scale, opacity, y, borderRadius }} className="relative py-28 px-6 bg-[#f5f0e8] origin-top overflow-hidden">
-        {/* Frame — mobile-safe */}
         <div className="absolute z-10 pointer-events-none" style={{ top: "3vh", bottom: "3vh", left: "3vw", right: "3vw" }}>
           <div className="absolute top-0 left-[8%] right-[8%] h-px bg-gradient-to-r from-transparent via-black/[0.06] to-transparent" />
           <div className="absolute bottom-0 left-[8%] right-[8%] h-px bg-gradient-to-r from-transparent via-black/[0.06] to-transparent" />
@@ -30,13 +28,11 @@ export default function Layanan() {
           <div className="absolute right-0 top-[8%] bottom-[8%] w-px bg-gradient-to-b from-transparent via-black/[0.06] to-transparent" />
           {["top-0 left-0","top-0 right-0","bottom-0 left-0","bottom-0 right-0"].map((pos)=><div key={pos} className={"absolute "+pos+" w-2 h-2 rounded-full bg-cyan-500/40"}/>)}
         </div>
-
         <div className="relative z-20 max-w-6xl mx-auto">
           <motion.div initial={{opacity:0,y:50,scale:0.95}} whileInView={{opacity:1,y:0,scale:1}} transition={{duration:1.2,ease:[0.16,1,0.3,1]}} viewport={{once:true,margin:"-80px"}} className="mb-20">
             <div className="flex items-center gap-3 mb-6"><div className="w-8 h-px bg-cyan-500/60"/><span className="text-[11px] text-black/30 tracking-[0.3em] uppercase font-light">Layanan</span></div>
             <h2 className="text-4xl sm:text-5xl md:text-6xl font-light text-black/90 tracking-tight">Eksplor Layanan<br/><span className="text-black/20">Kami</span></h2>
           </motion.div>
-
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {services.map((s,i)=>(
               <motion.div key={s.num} initial={{opacity:0,y:60,scale:0.9}} whileInView={{opacity:1,y:0,scale:1}} transition={{duration:0.8,delay:i*0.15,ease:[0.16,1,0.3,1]}} viewport={{once:true,margin:"-50px"}} className="group relative p-8 rounded-2xl bg-white/60 border border-black/[0.06] hover:border-black/[0.12] transition-all duration-500 overflow-hidden backdrop-blur-sm">
@@ -51,9 +47,9 @@ export default function Layanan() {
                   <div className="mt-6 flex items-center gap-2 text-[12px] text-black/20 group-hover:text-black/50 transition-colors duration-300"><span className="tracking-[0.15em] uppercase">Pelajari</span><span>→</span></div>
                 </div>
               </motion.div>
-))}
+            ))}
           </div>
-        </div>
+</div>
       </motion.div>
     </section>
   )

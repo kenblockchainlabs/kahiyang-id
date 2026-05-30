@@ -6,7 +6,6 @@ import { useRef } from "react"
 export default function Tentang() {
   const ref = useRef<HTMLElement>(null)
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] })
-
   const scale = useTransform(scrollYProgress, [0, 0.15, 0.5, 0.85, 1], [0.88, 1, 1, 1, 0.92])
   const opacity = useTransform(scrollYProgress, [0, 0.12, 0.5, 0.88, 1], [0, 1, 1, 1, 0.5])
   const y = useTransform(scrollYProgress, [0, 0.15, 0.5, 0.85, 1], [60, 0, 0, 0, -40])
@@ -22,7 +21,6 @@ export default function Tentang() {
           <div className="absolute right-0 top-[8%] bottom-[8%] w-px bg-gradient-to-b from-transparent via-black/[0.06] to-transparent"/>
           {["top-0 left-0","top-0 right-0","bottom-0 left-0","bottom-0 right-0"].map((pos)=><div key={pos} className={"absolute "+pos+" w-2 h-2 rounded-full bg-cyan-500/40"}/>)}
         </div>
-
         <div className="relative z-20 max-w-4xl mx-auto text-center">
           <motion.div initial={{opacity:0,y:30}} whileInView={{opacity:1,y:0}} transition={{duration:1,ease:[0.16,1,0.3,1]}} viewport={{once:true,margin:"-100px"}} className="mb-12 flex items-center justify-center gap-3">
             <div className="w-8 h-px bg-cyan-500/60"/><span className="text-[11px] text-black/30 tracking-[0.3em] uppercase font-light">Tentang Kami</span><div className="w-8 h-px bg-cyan-500/60"/>

@@ -6,7 +6,6 @@ import { useRef } from "react"
 export default function CTA() {
   const ref = useRef<HTMLElement>(null)
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] })
-
   const scale = useTransform(scrollYProgress, [0, 0.15, 0.5, 1], [0.88, 1, 1, 1])
   const opacity = useTransform(scrollYProgress, [0, 0.12, 0.5, 1], [0, 1, 1, 1])
   const y = useTransform(scrollYProgress, [0, 0.15, 0.5, 1], [60, 0, 0, 0])
@@ -23,7 +22,6 @@ export default function CTA() {
           {["top-0 left-0","top-0 right-0","bottom-0 left-0","bottom-0 right-0"].map((pos)=><div key={pos} className={"absolute "+pos+" w-2 h-2 rounded-full bg-cyan-500/40"}/>)}
         </div>
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-cyan-500/[0.06] rounded-full blur-[120px] pointer-events-none"/>
-
         <div className="relative z-20 text-center max-w-3xl mx-auto">
           <motion.div initial={{opacity:0,y:30}} whileInView={{opacity:1,y:0}} transition={{duration:1,ease:[0.16,1,0.3,1]}} viewport={{once:true,margin:"-100px"}} className="mb-8 flex items-center justify-center gap-3">
             <div className="w-8 h-px bg-cyan-500/60"/><span className="text-[11px] text-black/30 tracking-[0.3em] uppercase font-light">Mulai Sekarang</span><div className="w-8 h-px bg-cyan-500/60"/>
