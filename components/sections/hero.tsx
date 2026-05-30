@@ -1,14 +1,31 @@
 ﻿"use client"
 
 import { motion, useScroll, useTransform } from "framer-motion"
-import { useRef } from "react"
-import { Wave } from "@/components/ui/wave"
+import { useRef, useEffect, useState } from "react"
 
 export default function Hero() {
   const ref = useRef<HTMLElement>(null)
+  const [hasWebGL, setHasWebGL] = useState(true)
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] })
 
-  // Neon — zoom 10x DALAM, lorong
+  // Detect WebGL support
+  useEffect(() => {
+    try {
+      const canvas = document.createElement("canvas")
+      const gl = canvas.getContext("webgl") || canvas.getContext("experimental-webgl")
+      if (!gl) { setHasWebGL(false); return }
+      // Test if WebGL actually works (not just supported)
+      const testCanvas = document.createElement("canvas")
+      testCanvas.width = 2
+      testCanvas.height = 2
+      const testGl = testCanvas.getContext("webgl")
+      if (!testGl) { setHasWebGL(false) }
+    } catch {
+      setHasWebGL(false)
+    }
+  }, [])
+
+  // Neon — zoom 10x lorong
   const waveScale = useTransform(scrollYProgress, [0, 0.5, 1], [1, 4, 10])
   const waveOpacity = useTransform(scrollYProgress, [0, 0.7, 1], [1, 0.9, 0.6])
 
@@ -21,38 +38,56 @@ export default function Hero() {
   const frameScale = useTransform(scrollYProgress, [0, 1], [1, 2])
   const frameOpacity = useTransform(scrollYProgress, [0, 0.2, 0.4], [1, 0.3, 0])
 
-  // Vignette lorong — makin gelap di pinggir
+  // Vignette lorong
   const vignetteOpacity = useTransform(scrollYProgress, [0, 0.3, 0.6, 0.85], [0, 0.3, 0.7, 1])
 
-  // BURN — BARU MUNCUL DI AKHIR (75-100%), pelan
-  const burnScale = useTransform(scrollYProgress, [0, 0.75, 0.82, 0.9, 0.96, 1], [0, 0, 0.02, 0.12, 0.5, 4])
-  const burnOpacity = useTransform(scrollYProgress, [0, 0.75, 0.82], [0, 0, 1])
+  // BURN — gradual, mulai di 45% (pas proses scroll)
+  const burnScale = useTransform(scrollYProgress, [0, 0.45, 0.55, 0.7, 0.85, 1], [0, 0, 0.03, 0.15, 0.6, 4])
+  const burnOpacity = useTransform(scrollYProgress, [0, 0.45, 0.55], [0, 0, 1])
 
-  // Hero fade — hitam hilang pas burn buka
-  const heroOpacity = useTransform(scrollYProgress, [0, 0.85, 1], [1, 1, 0])
+  // Hero fade
+  const heroOpacity = useTransform(scrollYProgress, [0, 0.9, 1], [1, 1, 0])
 
   const corners = ["top-0 left-0", "top-0 right-0", "bottom-0 left-0", "bottom-0 right-0"]
 
+  // Neon background — WebGL atau CSS fallback
+  function NeonBackground() {
+    if (hasWebGL) {
+      const { Wave } = require("@/components/ui/wave")
+      return (
+        <motion.div style={{ scale: waveScale, opacity: waveOpacity }} className="absolute inset-0 flex items-center justify-center origin-center">
+          <Wave speed={0.5} tiles={1.2} width={1920} height={1080} />
+        </motion.div>
+      )
+    }
+    // CSS fallback untuk HP yang gak support WebGL
+    return (
+      <motion.div style={{ scale: waveScale, opacity: waveOpacity }} className="absolute inset-0 flex items-center justify-center origin-center">
+        <div className="absolute inset-0" style={{
+          background: "radial-gradient(ellipse at 50% 50%, rgba(0,200,255,0.2) 0%, rgba(0,100,200,0.1) 30%, rgba(0,50,100,0.05) 60%, transparent 80%)"
+        }} />
+        <div className="absolute inset-0" style={{
+          background: "radial-gradient(circle at 30% 70%, rgba(0,255,200,0.1) 0%, transparent 50%), radial-gradient(circle at 70% 30%, rgba(0,150,255,0.1) 0%, transparent 50%)"
+        }} />
+      </motion.div>
+    )
+  }
+
   return (
-    <section ref={ref} className="relative w-full" style={{ height: "700vh" }}>
+    <section ref={ref} className="relative w-full" style={{ height: "500vh" }}>
       <motion.div style={{ opacity: heroOpacity }} className="sticky top-0 h-screen w-full overflow-hidden">
 
-        {/* === CLEAN hitam + neon — bersih, gak ada efek lain === */}
+        {/* === Hitam + Neon === */}
         <div className="absolute inset-0 z-10 bg-[#0a0a0a]">
-          {/* Neon — zoom 10x lorong */}
-          <motion.div style={{ scale: waveScale, opacity: waveOpacity }} className="absolute inset-0 flex items-center justify-center origin-center">
-            <Wave speed={0.5} tiles={1.2} width={1920} height={1080} />
-          </motion.div>
-
-          {/* Vignette lorong */}
+          <NeonBackground />
           <motion.div style={{ opacity: vignetteOpacity }} className="absolute inset-0 pointer-events-none">
             <div className="absolute inset-0" style={{
-              background: "radial-gradient(ellipse at center, transparent 10%, rgba(0,0,0,0.3) 40%, rgba(0,0,0,0.7) 70%, rgba(0,0,0,1) 100%)"
+background: "radial-gradient(ellipse at center, transparent 10%, rgba(0,0,0,0.3) 40%, rgba(0,0,0,0.7) 70%, rgba(0,0,0,1) 100%)"
             }} />
           </motion.div>
         </div>
 
-        {/* === BURN — BARU MUNCUL DI AKHIR, sections keliatan DI DALAM === */}
+        {/* === BURN — cream circle, gradual, irregular shape === */}
         <motion.div
           style={{ scale: burnScale, opacity: burnOpacity }}
           className="absolute inset-0 z-20 flex items-center justify-center origin-center pointer-events-none"
@@ -60,9 +95,8 @@ export default function Hero() {
           <div
             className="w-[50vmin] h-[50vmin]"
             style={{
-              borderRadius: "40% 60% 55% 45% / 55% 45% 60% 40%",
-              background: "radial-gradient(circle, #f5f0e8 0%, #f5f0e8 55%, #e8ddd0 65%, #d4c8b4 75%, #b8a890 85%, transparent 100%)",
-              boxShadow: "0 0 100px 50px rgba(168,152,128,0.4), 0 0 200px 100px rgba(106,94,78,0.2)"
+              borderRadius: "43% 57% 52% 48% / 55% 45% 60% 40%",
+              background: "radial-gradient(circle, #f5f0e8 0%, #f5f0e8 55%, #e8ddd0 68%, #d4c8b4 80%, transparent 100%)"
             }}
           />
         </motion.div>
@@ -70,7 +104,7 @@ export default function Hero() {
         {/* === Frame === */}
         <motion.div style={{ scale: frameScale, opacity: frameOpacity }} className="absolute inset-6 sm:inset-10 md:inset-16 z-30 pointer-events-none">
           <motion.div initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: 1.2, delay: 0.8, ease: [0.16, 1, 0.3, 1] }} className="absolute top-0 left-8 right-8 h-px bg-gradient-to-r from-transparent via-white/[0.15] to-transparent origin-center" />
-<motion.div initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: 1.2, delay: 1.0, ease: [0.16, 1, 0.3, 1] }} className="absolute bottom-0 left-8 right-8 h-px bg-gradient-to-r from-transparent via-white/[0.15] to-transparent origin-center" />
+          <motion.div initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: 1.2, delay: 1.0, ease: [0.16, 1, 0.3, 1] }} className="absolute bottom-0 left-8 right-8 h-px bg-gradient-to-r from-transparent via-white/[0.15] to-transparent origin-center" />
           <motion.div initial={{ scaleY: 0 }} animate={{ scaleY: 1 }} transition={{ duration: 1.2, delay: 0.9, ease: [0.16, 1, 0.3, 1] }} className="absolute left-0 top-8 bottom-8 w-px bg-gradient-to-b from-transparent via-white/[0.15] to-transparent origin-center" />
           <motion.div initial={{ scaleY: 0 }} animate={{ scaleY: 1 }} transition={{ duration: 1.2, delay: 1.1, ease: [0.16, 1, 0.3, 1] }} className="absolute right-0 top-8 bottom-8 w-px bg-gradient-to-b from-transparent via-white/[0.15] to-transparent origin-center" />
           {corners.map((pos, i) => (
@@ -92,7 +126,7 @@ export default function Hero() {
           <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.8, ease: [0.16, 1, 0.3, 1] }} className="mt-8 text-sm sm:text-base md:text-lg text-white/30 max-w-xl font-light tracking-[0.15em] leading-relaxed">
             Mulai, Tumbuh, dan Berkembang &mdash; Tanpa Batas.
           </motion.p>
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 1.1, ease: [0.16, 1, 0.3, 1] }} className="mt-12 flex items-center gap-4">
+<motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 1.1, ease: [0.16, 1, 0.3, 1] }} className="mt-12 flex items-center gap-4">
             <a href="#layanan" className="group relative rounded-full bg-white/[0.06] hover:bg-white/[0.12] border border-white/[0.1] hover:border-white/20 px-7 py-3 text-[13px] text-white/70 hover:text-white tracking-[0.2em] uppercase font-light transition-all duration-500 overflow-hidden">
               <span className="relative z-10">Eksplor</span>
             </a>
@@ -103,7 +137,7 @@ export default function Hero() {
         {/* === Scroll indicator === */}
         <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 1.5, ease: [0.16, 1, 0.3, 1] }} style={{ opacity: textOpacity }} className="absolute bottom-8 left-1/2 -translate-x-1/2 z-50 text-white/20 text-[10px] tracking-[0.5em] uppercase flex flex-col items-center gap-3 font-light">
           <span>Scroll</span>
-<motion.div animate={{ y: [0, 10, 0] }} transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }} className="w-px h-10 bg-gradient-to-b from-white/20 to-transparent" />
+          <motion.div animate={{ y: [0, 10, 0] }} transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }} className="w-px h-10 bg-gradient-to-b from-white/20 to-transparent" />
         </motion.div>
 
       </motion.div>
