@@ -15,27 +15,11 @@ class WaveSafe extends Component<{ children: ReactNode }, { ok: boolean }> {
 function MobileHero() {
   return (
     <section className="relative w-full h-screen bg-[#0a0a0a] overflow-hidden">
-      {/* CSS Neon Ring — konsisten di semua HP */}
-      <div className="absolute inset-0 flex items-center justify-center">
-        <div className="relative" style={{ width: "70vmin", height: "70vmin" }}>
-          {/* Outer glow */}
-          <div className="absolute inset-0 rounded-full animate-neon-pulse" style={{
-            background: "radial-gradient(ellipse at center, rgba(0,200,255,0.08) 0%, rgba(0,200,255,0.04) 40%, transparent 70%)"
-          }} />
-          {/* Ring */}
-          <div className="absolute inset-[15%] rounded-full animate-neon-ring" style={{
-            border: "2px solid rgba(0,200,255,0.3)",
-            boxShadow: "0 0 30px rgba(0,200,255,0.15), inset 0 0 30px rgba(0,200,255,0.08), 0 0 60px rgba(0,200,255,0.05)"
-          }} />
-          {/* Inner glow */}
-          <div className="absolute inset-[30%] rounded-full" style={{
-            background: "radial-gradient(circle, rgba(0,200,255,0.06) 0%, transparent 70%)"
-          }} />
-          {/* Center dot */}
-          <div className="absolute inset-[45%] rounded-full animate-neon-dot" style={{
-            background: "radial-gradient(circle, rgba(0,255,212,0.4) 0%, rgba(0,255,212,0.1) 50%, transparent 70%)"
-          }} />
-        </div>
+      {/* Wave — SAMA PERSIS kayak desktop */}
+      <div className="absolute inset-0 flex items-center justify-center hero-wave-zoom">
+        <WaveSafe>
+          <Wave speed={0.5} tiles={1.2} width={1920} height={1080} />
+        </WaveSafe>
       </div>
 
       {/* Gradient portal */}
@@ -61,7 +45,7 @@ function MobileHero() {
       <div className="relative z-30 flex flex-col items-center justify-center text-center px-4 h-full max-w-5xl mx-auto w-full">
         <div className="mb-8 flex items-center gap-3 hero-fade" style={{ animationDelay: "0.3s" }}>
           <div className="w-8 h-px bg-gradient-to-r from-transparent to-cyan-400/50" />
-<span className="text-[11px] text-white/30 tracking-[0.3em] uppercase font-light">Digital Ecosystem</span>
+          <span className="text-[11px] text-white/30 tracking-[0.3em] uppercase font-light">Digital Ecosystem</span>
           <div className="w-8 h-px bg-gradient-to-l from-transparent to-cyan-400/50" />
         </div>
         <h1 className="text-5xl font-light tracking-tight hero-fade" style={{ animationDelay: "0.5s" }}>
@@ -72,7 +56,7 @@ function MobileHero() {
           Mulai, Tumbuh, dan Berkembang &mdash; Tanpa Batas.
         </p>
         <div className="mt-12 flex items-center gap-4 hero-fade" style={{ animationDelay: "1.1s" }}>
-          <a href="#layanan" className="rounded-full bg-white/[0.06] border border-white/[0.1] px-7 py-3 text-[13px] text-white/70 tracking-[0.2em] uppercase font-light inline-block">
+<a href="#layanan" className="rounded-full bg-white/[0.06] border border-white/[0.1] px-7 py-3 text-[13px] text-white/70 tracking-[0.2em] uppercase font-light inline-block">
             Eksplor
           </a>
           <a href="#tentang" className="text-[13px] text-white/25 tracking-[0.2em] uppercase font-light">Tentang →</a>
@@ -121,14 +105,14 @@ function DesktopHero() {
         <motion.div style={{ scale: frameScale, opacity: frameOpacity }} className="absolute inset-6 sm:inset-10 md:inset-16 z-20 pointer-events-none">
           <motion.div initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: 1.2, delay: 0.8, ease: [0.16, 1, 0.3, 1] }} className="absolute top-0 left-8 right-8 h-px bg-gradient-to-r from-transparent via-white/[0.15] to-transparent origin-center" />
           <motion.div initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: 1.2, delay: 1.0, ease: [0.16, 1, 0.3, 1] }} className="absolute bottom-0 left-8 right-8 h-px bg-gradient-to-r from-transparent via-white/[0.15] to-transparent origin-center" />
-<motion.div initial={{ scaleY: 0 }} animate={{ scaleY: 1 }} transition={{ duration: 1.2, delay: 0.9, ease: [0.16, 1, 0.3, 1] }} className="absolute left-0 top-8 bottom-8 w-px bg-gradient-to-b from-transparent via-white/[0.15] to-transparent origin-center" />
+          <motion.div initial={{ scaleY: 0 }} animate={{ scaleY: 1 }} transition={{ duration: 1.2, delay: 0.9, ease: [0.16, 1, 0.3, 1] }} className="absolute left-0 top-8 bottom-8 w-px bg-gradient-to-b from-transparent via-white/[0.15] to-transparent origin-center" />
           <motion.div initial={{ scaleY: 0 }} animate={{ scaleY: 1 }} transition={{ duration: 1.2, delay: 1.1, ease: [0.16, 1, 0.3, 1] }} className="absolute right-0 top-8 bottom-8 w-px bg-gradient-to-b from-transparent via-white/[0.15] to-transparent origin-center" />
           {corners.map((pos, i) => (
             <motion.div key={pos} initial={{ scale: 0, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ duration: 0.5, delay: 1.3 + i * 0.1 }} className={"absolute " + pos + " w-2 h-2 rounded-full bg-cyan-400/50"} />
           ))}
         </motion.div>
 
-        <motion.div style={{ scale: textScale, opacity: textOpacity, y: textY }} className="relative z-30 flex flex-col items-center text-center px-4 max-w-5xl mx-auto w-full origin-center">
+<motion.div style={{ scale: textScale, opacity: textOpacity, y: textY }} className="relative z-30 flex flex-col items-center text-center px-4 max-w-5xl mx-auto w-full origin-center">
           <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }} className="mb-8 flex items-center gap-3">
             <div className="w-8 h-px bg-gradient-to-r from-transparent to-cyan-400/50" />
             <span className="text-[11px] sm:text-xs text-white/30 tracking-[0.3em] uppercase font-light">Digital Ecosystem</span>
@@ -166,6 +150,6 @@ export default function Hero() {
   }, [])
 
   if (isMobile === null) return <div className="h-screen bg-[#0a0a0a]" />
-if (isMobile) return <MobileHero />
+  if (isMobile) return <MobileHero />
   return <DesktopHero />
 }
