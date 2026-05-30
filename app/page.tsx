@@ -1,15 +1,18 @@
-﻿import Navbar from "@/components/navbar"
+﻿
+**3. Edit file app/page.tsx:**
+- Klik kiri di Explorer → app → page.tsx`
+- *Ctrl+A* (select all) → *Delete*
+- Paste ini:
+
+tsx
+import Navbar from "@/components/navbar"
 import Hero from "@/components/sections/hero"
-import Layanan from "@/components/sections/layanan"
-import Tentang from "@/components/sections/tentang"
 
 export default function Page() {
   return (
-    <main className="bg-black">
+    <main className="bg-[#0a0a0a]">
       <Navbar />
       <Hero />
-      <Layanan />
-      <Tentang />
     </main>
   )
 }
