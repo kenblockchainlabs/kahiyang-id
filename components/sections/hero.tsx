@@ -19,7 +19,7 @@ export default function Hero() {
   const corners = ["top-0 left-0", "top-0 right-0", "bottom-0 left-0", "bottom-0 right-0"]
 
   return (
-    <section ref={ref} className="relative h-[150vh] w-full bg-[#0a0a0a]">
+    <section ref={ref} className="relative h-[400vh] w-full bg-[#0a0a0a]">
       <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center">
         <motion.div style={{ scale: waveScale, opacity: waveOpacity }} className="absolute inset-0 z-0 flex items-center justify-center">
           <Wave speed={0.5} tiles={1.2} width={1920} height={1080} />
