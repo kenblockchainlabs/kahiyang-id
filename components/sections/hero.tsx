@@ -18,8 +18,8 @@ export default function Hero() {
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] })
 
   // Neon zoom 10x lorong
-  const waveScale = useTransform(scrollYProgress, [0, 0.5, 1], [1, 4, 10])
-  const waveOpacity = useTransform(scrollYProgress, [0, 0.7, 0.85], [1, 0.9, 0])
+  const waveScale = useTransform(scrollYProgress, [0, 0.5, 0.75], [1, 4, 8])
+  const waveOpacity = useTransform(scrollYProgress, [0, 0.6, 0.75], [1, 0.8, 0])
 
   // Text — hilang awal
   const textScale = useTransform(scrollYProgress, [0, 0.15, 0.25], [1, 1.3, 2])
@@ -31,25 +31,25 @@ export default function Hero() {
   const frameOpacity = useTransform(scrollYProgress, [0, 0.2, 0.4], [1, 0.3, 0])
 
   // Vignette lorong
-  const vignetteOpacity = useTransform(scrollYProgress, [0, 0.3, 0.6, 0.8], [0, 0.3, 0.7, 0])
+  const vignetteOpacity = useTransform(scrollYProgress, [0, 0.3, 0.6, 0.75], [0, 0.3, 0.7, 0])
 
-  // === SECTION ANIMATIONS — pop-in/compress-out bridge ===
-  // Layanan: muncul 80%, hilang 88%
-  const layananScale = useTransform(scrollYProgress, [0.8, 0.83, 0.87, 0.9], [0.88, 1, 1, 0.92])
-  const layananOpacity = useTransform(scrollYProgress, [0.8, 0.83, 0.87, 0.9], [0, 1, 1, 0])
-  const layananY = useTransform(scrollYProgress, [0.8, 0.83, 0.87, 0.9], [40, 0, 0, -30])
+  // === SECTION ANIMATIONS — overlap, no gap ===
+  // Layanan: 78-86%
+  const layananScale = useTransform(scrollYProgress, [0.78, 0.8, 0.84, 0.86], [0.88, 1, 1, 0.92])
+  const layananOpacity = useTransform(scrollYProgress, [0.78, 0.8, 0.84, 0.86], [0, 1, 1, 0])
+  const layananY = useTransform(scrollYProgress, [0.78, 0.8, 0.84, 0.86], [40, 0, 0, -30])
 
-  // Tentang: muncul 88%, hilang 94%
-  const tentangScale = useTransform(scrollYProgress, [0.88, 0.91, 0.93, 0.95], [0.88, 1, 1, 0.92])
-  const tentangOpacity = useTransform(scrollYProgress, [0.88, 0.91, 0.93, 0.95], [0, 1, 1, 0])
-  const tentangY = useTransform(scrollYProgress, [0.88, 0.91, 0.93, 0.95], [40, 0, 0, -30])
+  // Tentang: 84-92% (overlap dengan Layanan di 84-86%)
+  const tentangScale = useTransform(scrollYProgress, [0.84, 0.86, 0.9, 0.92], [0.88, 1, 1, 0.92])
+  const tentangOpacity = useTransform(scrollYProgress, [0.84, 0.86, 0.9, 0.92], [0, 1, 1, 0])
+  const tentangY = useTransform(scrollYProgress, [0.84, 0.86, 0.9, 0.92], [40, 0, 0, -30])
 
-  // CTA: muncul 95%, stay
-  const ctaScale = useTransform(scrollYProgress, [0.95, 0.97, 1], [0.88, 1, 1])
-  const ctaOpacity = useTransform(scrollYProgress, [0.95, 0.97, 1], [0, 1, 1])
-  const ctaY = useTransform(scrollYProgress, [0.95, 0.97, 1], [40, 0, 0])
+  // CTA: 90-100% (overlap dengan Tentang di 90-92%, STAY)
+  const ctaScale = useTransform(scrollYProgress, [0.9, 0.92, 1], [0.88, 1, 1])
+  const ctaOpacity = useTransform(scrollYProgress, [0.9, 0.92, 1], [0, 1, 1])
+  const ctaY = useTransform(scrollYProgress, [0.9, 0.92, 1], [40, 0, 0])
 
-  // MASK — burn mulai 80% (setelah zoom selesai), radius sampai 75%
+  // MASK — burn mulai 70%, selesai 90%
   useEffect(() => {
     let rafId: number
     const handleScroll = () => {
@@ -58,7 +58,7 @@ export default function Hero() {
         if (!ref.current || !maskRef.current) return
         const rect = ref.current.getBoundingClientRect()
         const progress = Math.max(0, Math.min(1, -rect.top / (rect.height - window.innerHeight)))
-        const burn = Math.max(0, Math.min(1, (progress - 0.8) / 0.15))
+        const burn = Math.max(0, Math.min(1, (progress - 0.7) / 0.2))
         const r = burn * 75
         const mask = `radial-gradient(circle at center, transparent 0%, transparent ${r}%, rgba(0,0,0,0.2) ${r + 1}%, black ${r + 3}%, black 100%)`
         maskRef.current.style.maskImage = mask
@@ -77,9 +77,9 @@ export default function Hero() {
       <div className="sticky top-0 h-screen w-full overflow-hidden">
 
         {/* === Cream bg === */}
-<div className="absolute inset-0 z-0 bg-[#f5f0e8]" />
+        <div className="absolute inset-0 z-0 bg-[#f5f0e8]" />
 
-        {/* === SECTIONS — muncul satu per satu, BERSIH tanpa hitam === */}
+{/* === SECTIONS — muncul satu per satu === */}
         <div className="absolute inset-0 z-[5] pointer-events-none">
 
           {/* LAYANAN */}
@@ -150,7 +150,7 @@ export default function Hero() {
 
         </div>
 
-        {/* === Hitam + Neon — MASK burn dari tengah === */}
+        {/* === Hitam + Neon + Mask === */}
         <div ref={maskRef} className="absolute inset-0 z-10 bg-[#0a0a0a]">
           <WaveSafe>
             <motion.div style={{ scale: waveScale, opacity: waveOpacity }} className="absolute inset-0 flex items-center justify-center origin-center">
