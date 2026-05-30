@@ -13,9 +13,13 @@ const links = [
 function Logo() {
   return (
     <svg width="32" height="32" viewBox="0 0 32 32" className="flex-shrink-0">
-      <circle cx="16" cy="16" r="15" fill="white" stroke="white" strokeWidth="1" />
-      <rect x="8" y="10" width="16" height="2.5" fill="black" />
-      <path d="M10 13.5 L16 23 L22 13.5 L19.5 13.5 L16 18.5 L12.5 13.5 Z" fill="black" />
+      {/* Lingkaran putih */}
+      <circle cx="16" cy="16" r="15" fill="white" />
+      {/* Garis horizontal */}
+      <rect x="8" y="10" width="16" height="2.5" rx="0.5" fill="black" />
+      {/* Huruf K menghadap ke bawah */}
+      <path d="M12 13.5 L12 23 L15 23 L12 18 L20 13.5 L17 13.5 L12 17 Z" fill="black" />
+      <path d="M12 18 L15 23 L20 13.5 L17 13.5 L12 18 Z" fill="black" />
     </svg>
   )
 }
@@ -88,13 +92,13 @@ export default function Navbar() {
             </div>
 
             <div className="flex-1 flex flex-col items-center justify-center gap-8">
-              {links.map((l, i) => (
+{links.map((l, i) => (
                 <motion.a
                   key={l.label}
                   href={l.href}
                   onClick={() => setOpen(false)}
                   initial={{ opacity: 0, y: 20 }}
-animate={{ opacity: 1, y: 0 }}
+                  animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.4, delay: 0.1 + i * 0.08 }}
                   className="text-white/80 hover:text-white text-2xl font-light tracking-[0.15em] uppercase transition-colors"
                 >
