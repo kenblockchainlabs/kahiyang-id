@@ -8,12 +8,23 @@ export default function Hero() {
   const ref = useRef<HTMLElement>(null)
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] })
 
-  const waveScale = useTransform(scrollYProgress, [0, 1], [1, 2.5])
-  const waveOpacity = useTransform(scrollYProgress, [0, 0.7, 1], [1, 0.8, 0])
-  const textScale = useTransform(scrollYProgress, [0, 0.5, 1], [1, 1.5, 5])
-  const textOpacity = useTransform(scrollYProgress, [0, 0.4, 0.7], [1, 0.6, 0])
-  const frameScale = useTransform(scrollYProgress, [0, 1], [1, 2.5])
-  const frameOpacity = useTransform(scrollYProgress, [0, 0.5, 0.8], [1, 0.4, 0])
+  // Zoom dalam — wave masuk ke portal
+  const waveScale = useTransform(scrollYProgress, [0, 0.3, 0.6, 1], [1, 1.3, 2, 4.5])
+  const waveOpacity = useTransform(scrollYProgress, [0, 0.5, 0.8, 1], [1, 0.9, 0.4, 0])
+
+  // Text zoom + mundur
+  const textScale = useTransform(scrollYProgress, [0, 0.2, 0.45, 0.6], [1, 1.3, 2.5, 8])
+  const textOpacity = useTransform(scrollYProgress, [0, 0.15, 0.35, 0.5], [1, 0.8, 0.4, 0])
+
+  // Frame zoom
+  const frameScale = useTransform(scrollYProgress, [0, 0.5, 1], [1, 1.5, 4])
+  const frameOpacity = useTransform(scrollYProgress, [0, 0.3, 0.6], [1, 0.4, 0])
+
+  // Overlay gelap — makin terang seiring zoom (portal feel)
+  const overlayOpacity = useTransform(scrollYProgress, [0, 0.3, 0.6, 0.85, 1], [0.3, 0.15, 0.05, 0, 0])
+
+  // GRADIENT PORTAL — hitam → cream, super smooth
+  const gradientOpacity = useTransform(scrollYProgress, [0, 0.5, 0.7, 0.85, 1], [0, 0, 0.3, 0.7, 1])
 
   const corners = ["top-0 left-0", "top-0 right-0", "bottom-0 left-0", "bottom-0 right-0"]
 
@@ -21,9 +32,19 @@ export default function Hero() {
     <section ref={ref} className="relative h-[300vh] w-full bg-[#0a0a0a]">
       <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center">
 
-        {/* Wave — TIDAK DIUBAH, cuma zoom */}
+        {/* Wave */}
         <motion.div style={{ scale: waveScale, opacity: waveOpacity }} className="absolute inset-0 z-0 flex items-center justify-center">
           <Wave speed={0.5} tiles={1.2} width={1920} height={1080} />
+        </motion.div>
+
+        {/* Dark overlay */}
+        <motion.div style={{ opacity: overlayOpacity }} className="absolute inset-0 z-10 bg-[#0a0a0a] pointer-events-none" />
+
+        {/* GRADIENT PORTAL — hitam ke cream, super smooth */}
+        <motion.div style={{ opacity: gradientOpacity }} className="absolute inset-0 z-15 pointer-events-none">
+          <div className="absolute inset-0" style={{
+            background: "linear-gradient(to bottom, #0a0a0a 0%, #0a0a0a 20%, #1a1814 40%, #2a251e 55%, #4a4238 70%, #8a7e6e 82%, #c4b9a8 90%, #f5f0e8 100%)"
+          }} />
         </motion.div>
 
         {/* Frame */}
@@ -34,7 +55,7 @@ export default function Hero() {
             <motion.div initial={{ scaleY: 0 }} animate={{ scaleY: 1 }} transition={{ duration: 1.2, delay: 0.9, ease: [0.16, 1, 0.3, 1] }} className="absolute left-0 top-[8%] bottom-[8%] w-px bg-gradient-to-b from-transparent via-white/[0.15] to-transparent origin-center" />
             <motion.div initial={{ scaleY: 0 }} animate={{ scaleY: 1 }} transition={{ duration: 1.2, delay: 1.1, ease: [0.16, 1, 0.3, 1] }} className="absolute right-0 top-[8%] bottom-[8%] w-px bg-gradient-to-b from-transparent via-white/[0.15] to-transparent origin-center" />
             {corners.map((pos, i) => (
-              <motion.div key={pos} initial={{ scale: 0, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ duration: 0.5, delay: 1.3 + i * 0.1 }} className={"absolute " + pos + " w-2 h-2 rounded-full bg-cyan-400/50"} />
+<motion.div key={pos} initial={{ scale: 0, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ duration: 0.5, delay: 1.3 + i * 0.1 }} className={"absolute " + pos + " w-2 h-2 rounded-full bg-cyan-400/50"} />
             ))}
           </motion.div>
         </div>
@@ -46,7 +67,7 @@ export default function Hero() {
             <span className="text-[11px] sm:text-xs text-white/30 tracking-[0.3em] uppercase font-light">Digital Ecosystem</span>
             <div className="w-8 h-px bg-gradient-to-l from-transparent to-cyan-400/50" />
           </motion.div>
-<motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.5, ease: [0.16, 1, 0.3, 1] }} className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-light tracking-tight">
+          <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.5, ease: [0.16, 1, 0.3, 1] }} className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-light tracking-tight">
             <span className="bg-gradient-to-b from-white via-white/90 to-white/40 bg-clip-text text-transparent">Negeri</span><br />
             <span className="bg-gradient-to-r from-cyan-200 via-white to-cyan-200 bg-clip-text text-transparent">Kahiyang</span>
           </motion.h1>
@@ -61,7 +82,7 @@ export default function Hero() {
           </motion.div>
         </motion.div>
 
-        {/* Scroll indicator — "Geser ke bawah" */}
+        {/* Scroll indicator */}
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1, delay: 1.8 }} style={{ opacity: textOpacity }} className="absolute bottom-10 left-1/2 -translate-x-1/2 z-50 flex flex-col items-center gap-3">
           <span className="text-white/30 text-[10px] tracking-[0.4em] uppercase font-light">Geser ke bawah</span>
           <motion.div animate={{ y: [0, 8, 0] }} transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}>
