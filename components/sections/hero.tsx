@@ -1,52 +1,85 @@
 ﻿"use client"
 
 import { motion, useScroll, useTransform } from "framer-motion"
-import { useRef } from "react"
-import { Wave } from "@/components/ui/wave"
+import { useRef, useState, useEffect } from "react"
+
+function WaveBackground() {
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    setIsMobile(window.innerWidth < 768)
+  }, [])
+
+  if (isMobile) {
+    // Mobile: CSS gradient animasi (no WebGL crash)
+    return (
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute inset-0 animate-pulse" style={{
+          background: "radial-gradient(ellipse at 50% 50%, rgba(0,200,255,0.15) 0%, rgba(0,100,200,0.08) 30%, rgba(0,50,100,0.04) 60%, transparent 80%)"
+        }} />
+        <div className="absolute inset-0" style={{
+          background: "radial-gradient(circle at 30% 70%, rgba(0,255,200,0.08) 0%, transparent 50%), radial-gradient(circle at 70% 30%, rgba(0,150,255,0.08) 0%, transparent 50%)"
+        }} />
+      </div>
+    )
+  }
+
+  // Desktop: Wave WebGL
+  const { Wave } = require("@/components/ui/wave")
+  return (
+    <div className="absolute inset-0 flex items-center justify-center">
+      <Wave speed={0.5} tiles={1.2} width={1920} height={1080} />
+    </div>
+  )
+}
 
 export default function Hero() {
   const ref = useRef<HTMLElement>(null)
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] })
 
-  const waveScale = useTransform(scrollYProgress, [0, 1], [1, 8])
-  const textScale = useTransform(scrollYProgress, [0, 0.4], [1, 10])
+  const bgScale = useTransform(scrollYProgress, [0, 1], [1, 6])
+  const textScale = useTransform(scrollYProgress, [0, 0.4], [1, 8])
   const textOpacity = useTransform(scrollYProgress, [0, 0.25, 0.4], [1, 0.5, 0])
-  const frameScale = useTransform(scrollYProgress, [0, 1], [1, 6])
+  const frameScale = useTransform(scrollYProgress, [0, 1], [1, 5])
   const frameOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0])
-  const gradientOpacity = useTransform(scrollYProgress, [0, 0.5, 0.8, 1], [0, 0, 0.5, 1])
+  const gradientOpacity = useTransform(scrollYProgress, [0, 0.4, 0.7, 1], [0, 0, 0.5, 1])
 
   const corners = ["top-0 left-0", "top-0 right-0", "bottom-0 left-0", "bottom-0 right-0"]
 
   return (
-    <section ref={ref} className="relative w-full bg-[#0a0a0a]">
+    <section ref={ref} className="relative w-full">
       <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center bg-[#0a0a0a]">
-        <motion.div style={{ scale: waveScale }} className="absolute inset-0 flex items-center justify-center origin-center">
-          <Wave speed={0.5} tiles={1.2} width={1920} height={1080} />
+        {/* Background — zoom */}
+        <motion.div style={{ scale: bgScale }} className="absolute inset-0 origin-center">
+          <WaveBackground />
         </motion.div>
 
+        {/* Gradient portal — hitam → cream */}
         <motion.div style={{ opacity: gradientOpacity }} className="absolute inset-0 z-10 pointer-events-none">
-          <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a] via-[#2a2520] to-[#f5f0e8]" />
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#2a2520] to-[#f5f0e8]" />
         </motion.div>
 
-        <div className="absolute z-20 pointer-events-none" style={{ top: "4vh", bottom: "4vh", left: "4vw", right: "4vw" }}>
+        {/* Frame */}
+        <div className="absolute inset-[4vh] sm:inset-[4vw] z-20 pointer-events-none">
           <motion.div style={{ scale: frameScale, opacity: frameOpacity }} className="absolute inset-0 origin-center">
             <motion.div initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: 1.2, delay: 0.8, ease: [0.16, 1, 0.3, 1] }} className="absolute top-0 left-[8%] right-[8%] h-px bg-gradient-to-r from-transparent via-white/[0.15] to-transparent origin-center" />
             <motion.div initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: 1.2, delay: 1.0, ease: [0.16, 1, 0.3, 1] }} className="absolute bottom-0 left-[8%] right-[8%] h-px bg-gradient-to-r from-transparent via-white/[0.15] to-transparent origin-center" />
             <motion.div initial={{ scaleY: 0 }} animate={{ scaleY: 1 }} transition={{ duration: 1.2, delay: 0.9, ease: [0.16, 1, 0.3, 1] }} className="absolute left-0 top-[8%] bottom-[8%] w-px bg-gradient-to-b from-transparent via-white/[0.15] to-transparent origin-center" />
-            <motion.div initial={{ scaleY: 0 }} animate={{ scaleY: 1 }} transition={{ duration: 1.2, delay: 1.1, ease: [0.16, 1, 0.3, 1] }} className="absolute right-0 top-[8%] bottom-[8%] w-px bg-gradient-to-b from-transparent via-white/[0.15] to-transparent origin-center" />
+<motion.div initial={{ scaleY: 0 }} animate={{ scaleY: 1 }} transition={{ duration: 1.2, delay: 1.1, ease: [0.16, 1, 0.3, 1] }} className="absolute right-0 top-[8%] bottom-[8%] w-px bg-gradient-to-b from-transparent via-white/[0.15] to-transparent origin-center" />
             {corners.map((pos, i) => (
               <motion.div key={pos} initial={{ scale: 0, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ duration: 0.5, delay: 1.3 + i * 0.1 }} className={"absolute " + pos + " w-2 h-2 rounded-full bg-cyan-400/50"} />
             ))}
           </motion.div>
         </div>
 
+        {/* Text */}
         <motion.div style={{ scale: textScale, opacity: textOpacity }} className="relative z-30 flex flex-col items-center text-center px-4 max-w-5xl mx-auto w-full origin-center">
           <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }} className="mb-8 flex items-center gap-3">
             <div className="w-8 h-px bg-gradient-to-r from-transparent to-cyan-400/50" />
             <span className="text-[11px] sm:text-xs text-white/30 tracking-[0.3em] uppercase font-light">Digital Ecosystem</span>
             <div className="w-8 h-px bg-gradient-to-l from-transparent to-cyan-400/50" />
           </motion.div>
-<motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.5, ease: [0.16, 1, 0.3, 1] }} className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-light tracking-tight">
+          <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.5, ease: [0.16, 1, 0.3, 1] }} className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-light tracking-tight">
             <span className="bg-gradient-to-b from-white via-white/90 to-white/40 bg-clip-text text-transparent">Negeri</span><br />
             <span className="bg-gradient-to-r from-cyan-200 via-white to-cyan-200 bg-clip-text text-transparent">Kahiyang</span>
           </motion.h1>
@@ -61,6 +94,7 @@ export default function Hero() {
           </motion.div>
         </motion.div>
 
+        {/* Scroll indicator */}
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1, delay: 1.8 }} style={{ opacity: textOpacity }} className="absolute bottom-10 left-1/2 -translate-x-1/2 z-50 flex flex-col items-center gap-3">
           <span className="text-white/30 text-[10px] tracking-[0.4em] uppercase font-light">Geser ke bawah</span>
           <motion.div animate={{ y: [0, 8, 0] }} transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}>
@@ -71,6 +105,7 @@ export default function Hero() {
         </motion.div>
       </div>
 
+      {/* Spacer — trigger zoom */}
       <div className="h-[300vh]" />
     </section>
   )

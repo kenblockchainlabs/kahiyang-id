@@ -1,4 +1,9 @@
-﻿@tailwind base;
+﻿html, body {
+  overscroll-behavior: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+@tailwind base;
 @tailwind components;
 @tailwind utilities;
 
