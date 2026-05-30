@@ -14,12 +14,12 @@ export default function Tentang() {
 
   return (
     <section id="tentang" ref={ref} className="relative w-full bg-[#f5f0e8]">
-      <motion.div style={{ scale, opacity, y, borderRadius }} className="relative py-32 px-6 flex items-center min-h-screen bg-[#f5f0e8] origin-top">
-        <div className="absolute inset-4 sm:inset-8 md:inset-12 z-10 pointer-events-none">
-          <div className="absolute top-0 left-6 right-6 h-px bg-gradient-to-r from-transparent via-black/[0.06] to-transparent"/>
-          <div className="absolute bottom-0 left-6 right-6 h-px bg-gradient-to-r from-transparent via-black/[0.06] to-transparent"/>
-          <div className="absolute left-0 top-6 bottom-6 w-px bg-gradient-to-b from-transparent via-black/[0.06] to-transparent"/>
-          <div className="absolute right-0 top-6 bottom-6 w-px bg-gradient-to-b from-transparent via-black/[0.06] to-transparent"/>
+      <motion.div style={{ scale, opacity, y, borderRadius }} className="relative py-32 px-6 flex items-center min-h-screen bg-[#f5f0e8] origin-top overflow-hidden">
+        <div className="absolute z-10 pointer-events-none" style={{ top: "3vh", bottom: "3vh", left: "3vw", right: "3vw" }}>
+          <div className="absolute top-0 left-[8%] right-[8%] h-px bg-gradient-to-r from-transparent via-black/[0.06] to-transparent"/>
+          <div className="absolute bottom-0 left-[8%] right-[8%] h-px bg-gradient-to-r from-transparent via-black/[0.06] to-transparent"/>
+          <div className="absolute left-0 top-[8%] bottom-[8%] w-px bg-gradient-to-b from-transparent via-black/[0.06] to-transparent"/>
+          <div className="absolute right-0 top-[8%] bottom-[8%] w-px bg-gradient-to-b from-transparent via-black/[0.06] to-transparent"/>
           {["top-0 left-0","top-0 right-0","bottom-0 left-0","bottom-0 right-0"].map((pos)=><div key={pos} className={"absolute "+pos+" w-2 h-2 rounded-full bg-cyan-500/40"}/>)}
         </div>
 
@@ -31,13 +31,13 @@ export default function Tentang() {
             Negeri Kahiyang adalah tempat untuk siapa saja yang siap <span className="bg-gradient-to-r from-cyan-700 to-cyan-500 bg-clip-text text-transparent">berkembang</span>
           </motion.h2>
           <motion.p initial={{opacity:0,y:40}} whileInView={{opacity:1,y:0}} transition={{duration:0.8,delay:0.4,ease:[0.16,1,0.3,1]}} viewport={{once:true,margin:"-100px"}} className="text-base sm:text-lg text-black/40 font-light leading-relaxed max-w-2xl mx-auto mb-16">
-Tumbuh bersama, eksplor versi terbaik dirimu, dan berkembang tanpa batas dalam ekosistem digital yang mendukung setiap langkahmu.
+            Tumbuh bersama, eksplor versi terbaik dirimu, dan berkembang tanpa batas dalam ekosistem digital yang mendukung setiap langkahmu.
           </motion.p>
           <motion.div initial={{opacity:0,y:40}} whileInView={{opacity:1,y:0}} transition={{duration:0.8,delay:0.6,ease:[0.16,1,0.3,1]}} viewport={{once:true,margin:"-100px"}} className="grid grid-cols-3 gap-8 max-w-lg mx-auto">
             {[{val:"500+",label:"Akun Dianalisa"},{val:"50+",label:"Murid Aktif"},{val:"24/7",label:"AI Agent"}].map((s,i)=>(
               <motion.div key={s.label} initial={{opacity:0,y:30,scale:0.9}} whileInView={{opacity:1,y:0,scale:1}} transition={{duration:0.6,delay:0.8+i*0.15,ease:[0.16,1,0.3,1]}} viewport={{once:true}} className="text-center">
                 <div className="text-2xl sm:text-3xl font-light text-black/80 mb-1">{s.val}</div>
-                <div className="text-[10px] text-black/25 tracking-[0.2em] uppercase">{s.label}</div>
+<div className="text-[10px] text-black/25 tracking-[0.2em] uppercase">{s.label}</div>
               </motion.div>
             ))}
           </motion.div>

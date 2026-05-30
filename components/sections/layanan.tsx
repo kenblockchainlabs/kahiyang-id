@@ -7,7 +7,7 @@ const services = [
   { num: "01", title: "Forensic Analysis", desc: "Bedah akun TikTok lo pakai data real — hook pattern, engagement rate, ad spend ratio, winning content formula.", tag: "Core" },
   { num: "02", title: "Kelas Affiliate", desc: "Dari nol sampai pecah telur. Basic Rp 199K (Zoom + Ebook) atau Pro Rp 1Jt (Private Grup + Live Session).", tag: "Education" },
   { num: "03", title: "Konsultasi", desc: "Case-by-case deep dive untuk akun yang stuck, strategy pivot, atau market share analysis.", tag: "Premium" },
-  { num: "04", title: "AI Agent", desc: "Instalasi Hermes AI Agent untuk kebutuhan instansi, lembaga, dan personal — automation tanpa batas.", tag: "Enterprise" },
+{ num: "04", title: "AI Agent", desc: "Instalasi Hermes AI Agent untuk kebutuhan instansi, lembaga, dan personal — automation tanpa batas.", tag: "Enterprise" },
 ]
 
 export default function Layanan() {
@@ -21,12 +21,13 @@ export default function Layanan() {
 
   return (
     <section id="layanan" ref={ref} className="relative w-full bg-[#f5f0e8]">
-      <motion.div style={{ scale, opacity, y, borderRadius }} className="relative py-28 px-6 bg-[#f5f0e8] origin-top">
-        <div className="absolute inset-4 sm:inset-8 md:inset-12 z-10 pointer-events-none">
-          <div className="absolute top-0 left-6 right-6 h-px bg-gradient-to-r from-transparent via-black/[0.06] to-transparent" />
-          <div className="absolute bottom-0 left-6 right-6 h-px bg-gradient-to-r from-transparent via-black/[0.06] to-transparent" />
-          <div className="absolute left-0 top-6 bottom-6 w-px bg-gradient-to-b from-transparent via-black/[0.06] to-transparent" />
-          <div className="absolute right-0 top-6 bottom-6 w-px bg-gradient-to-b from-transparent via-black/[0.06] to-transparent" />
+      <motion.div style={{ scale, opacity, y, borderRadius }} className="relative py-28 px-6 bg-[#f5f0e8] origin-top overflow-hidden">
+        {/* Frame — mobile-safe */}
+        <div className="absolute z-10 pointer-events-none" style={{ top: "3vh", bottom: "3vh", left: "3vw", right: "3vw" }}>
+          <div className="absolute top-0 left-[8%] right-[8%] h-px bg-gradient-to-r from-transparent via-black/[0.06] to-transparent" />
+          <div className="absolute bottom-0 left-[8%] right-[8%] h-px bg-gradient-to-r from-transparent via-black/[0.06] to-transparent" />
+          <div className="absolute left-0 top-[8%] bottom-[8%] w-px bg-gradient-to-b from-transparent via-black/[0.06] to-transparent" />
+          <div className="absolute right-0 top-[8%] bottom-[8%] w-px bg-gradient-to-b from-transparent via-black/[0.06] to-transparent" />
           {["top-0 left-0","top-0 right-0","bottom-0 left-0","bottom-0 right-0"].map((pos)=><div key={pos} className={"absolute "+pos+" w-2 h-2 rounded-full bg-cyan-500/40"}/>)}
         </div>
 
@@ -41,7 +42,7 @@ export default function Layanan() {
               <motion.div key={s.num} initial={{opacity:0,y:60,scale:0.9}} whileInView={{opacity:1,y:0,scale:1}} transition={{duration:0.8,delay:i*0.15,ease:[0.16,1,0.3,1]}} viewport={{once:true,margin:"-50px"}} className="group relative p-8 rounded-2xl bg-white/60 border border-black/[0.06] hover:border-black/[0.12] transition-all duration-500 overflow-hidden backdrop-blur-sm">
                 <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/[0.04] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"/>
                 <div className="relative z-10">
-<div className="flex items-center justify-between mb-6">
+                  <div className="flex items-center justify-between mb-6">
                     <span className="text-[11px] text-black/20 tracking-[0.3em] uppercase font-light">{s.num}</span>
                     <span className="text-[10px] text-cyan-700/60 tracking-[0.2em] uppercase font-light px-3 py-1 rounded-full border border-cyan-500/20">{s.tag}</span>
                   </div>
@@ -50,7 +51,7 @@ export default function Layanan() {
                   <div className="mt-6 flex items-center gap-2 text-[12px] text-black/20 group-hover:text-black/50 transition-colors duration-300"><span className="tracking-[0.15em] uppercase">Pelajari</span><span>→</span></div>
                 </div>
               </motion.div>
-            ))}
+))}
           </div>
         </div>
       </motion.div>
