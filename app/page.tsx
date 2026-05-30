@@ -6,12 +6,14 @@ import CTA from "@/components/sections/cta"
 
 export default function Page() {
   return (
-    <main className="bg-[#0a0a0a]">
+    <main className="bg-[#f5f0e8]">
       <Navbar />
       <Hero />
-      <Layanan />
-      <Tentang />
-      <CTA />
+      <div className="relative z-20">
+        <Layanan />
+        <Tentang />
+        <CTA />
+      </div>
     </main>
   )
 }
