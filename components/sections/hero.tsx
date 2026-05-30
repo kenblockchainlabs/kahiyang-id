@@ -15,16 +15,21 @@ class WaveSafe extends Component<{ children: ReactNode }, { ok: boolean }> {
 function MobileHero() {
   return (
     <section className="relative w-full h-screen bg-[#0a0a0a] overflow-hidden">
-      <div className="absolute inset-0 flex items-center justify-center">
+      {/* Wave — auto zoom animation (sama kayak desktop tapi CSS) */}
+      <div className="absolute inset-0 flex items-center justify-center hero-wave-zoom">
         <WaveSafe>
           <Wave speed={0.5} tiles={1.2} width={1920} height={1080} />
         </WaveSafe>
       </div>
 
-      <div className="absolute inset-0 z-10 pointer-events-none">
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#2a2520] to-[#f5f0e8]" />
+      {/* Gradient — pakai warna solid, bukan transparent */}
+      <div className="absolute inset-0 z-10 pointer-events-none hero-gradient-fade">
+        <div className="absolute inset-0" style={{
+          background: "linear-gradient(to bottom, rgba(10,10,10,0.3) 0%, rgba(42,37,32,0.6) 40%, #f5f0e8 100%)"
+        }} />
       </div>
 
+      {/* Frame — sama persis kayak desktop */}
       <div className="absolute inset-6 sm:inset-10 z-20 pointer-events-none">
         <div className="absolute top-0 left-8 right-8 h-px bg-gradient-to-r from-transparent via-white/[0.15] to-transparent origin-center hero-scale-x" style={{ animationDelay: "0.8s" }} />
         <div className="absolute bottom-0 left-8 right-8 h-px bg-gradient-to-r from-transparent via-white/[0.15] to-transparent origin-center hero-scale-x" style={{ animationDelay: "1.0s" }} />
@@ -36,6 +41,7 @@ function MobileHero() {
         <div className="absolute bottom-0 right-0 w-2 h-2 rounded-full bg-cyan-400/50 hero-fade" style={{ animationDelay: "1.6s" }} />
       </div>
 
+      {/* Text — sama persis kayak desktop */}
       <div className="relative z-30 flex flex-col items-center justify-center text-center px-4 h-full max-w-5xl mx-auto w-full">
         <div className="mb-8 flex items-center gap-3 hero-fade" style={{ animationDelay: "0.3s" }}>
           <div className="w-8 h-px bg-gradient-to-r from-transparent to-cyan-400/50" />
@@ -46,17 +52,18 @@ function MobileHero() {
           <span className="bg-gradient-to-b from-white via-white/90 to-white/40 bg-clip-text text-transparent">Negeri</span><br />
           <span className="bg-gradient-to-r from-cyan-200 via-white to-cyan-200 bg-clip-text text-transparent">Kahiyang</span>
         </h1>
-        <p className="mt-8 text-sm text-white/30 max-w-xl font-light tracking-[0.15em] leading-relaxed hero-fade" style={{ animationDelay: "0.8s" }}>
+<p className="mt-8 text-sm text-white/30 max-w-xl font-light tracking-[0.15em] leading-relaxed hero-fade" style={{ animationDelay: "0.8s" }}>
           Mulai, Tumbuh, dan Berkembang &mdash; Tanpa Batas.
         </p>
         <div className="mt-12 flex items-center gap-4 hero-fade" style={{ animationDelay: "1.1s" }}>
           <a href="#layanan" className="rounded-full bg-white/[0.06] border border-white/[0.1] px-7 py-3 text-[13px] text-white/70 tracking-[0.2em] uppercase font-light inline-block">
             Eksplor
           </a>
-<a href="#tentang" className="text-[13px] text-white/25 tracking-[0.2em] uppercase font-light">Tentang →</a>
+          <a href="#tentang" className="text-[13px] text-white/25 tracking-[0.2em] uppercase font-light">Tentang →</a>
         </div>
       </div>
 
+      {/* Scroll indicator */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-40 text-white/20 text-[10px] tracking-[0.5em] uppercase flex flex-col items-center gap-3 font-light hero-fade" style={{ animationDelay: "1.5s" }}>
         <span>Scroll</span>
         <div className="w-px h-10 bg-gradient-to-b from-white/20 to-transparent animate-bounce-slow" />
@@ -90,7 +97,9 @@ function DesktopHero() {
         </motion.div>
 
         <motion.div style={{ opacity: gradientOpacity }} className="absolute inset-0 z-10 pointer-events-none">
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#2a2520] to-[#f5f0e8]" />
+          <div className="absolute inset-0" style={{
+            background: "linear-gradient(to bottom, rgba(10,10,10,0.3) 0%, rgba(42,37,32,0.6) 40%, #f5f0e8 100%)"
+          }} />
         </motion.div>
 
         <motion.div style={{ scale: frameScale, opacity: frameOpacity }} className="absolute inset-6 sm:inset-10 md:inset-16 z-20 pointer-events-none">
@@ -99,13 +108,13 @@ function DesktopHero() {
           <motion.div initial={{ scaleY: 0 }} animate={{ scaleY: 1 }} transition={{ duration: 1.2, delay: 0.9, ease: [0.16, 1, 0.3, 1] }} className="absolute left-0 top-8 bottom-8 w-px bg-gradient-to-b from-transparent via-white/[0.15] to-transparent origin-center" />
           <motion.div initial={{ scaleY: 0 }} animate={{ scaleY: 1 }} transition={{ duration: 1.2, delay: 1.1, ease: [0.16, 1, 0.3, 1] }} className="absolute right-0 top-8 bottom-8 w-px bg-gradient-to-b from-transparent via-white/[0.15] to-transparent origin-center" />
           {corners.map((pos, i) => (
-            <motion.div key={pos} initial={{ scale: 0, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ duration: 0.5, delay: 1.3 + i * 0.1 }} className={"absolute " + pos + " w-2 h-2 rounded-full bg-cyan-400/50"} />
+<motion.div key={pos} initial={{ scale: 0, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ duration: 0.5, delay: 1.3 + i * 0.1 }} className={"absolute " + pos + " w-2 h-2 rounded-full bg-cyan-400/50"} />
           ))}
         </motion.div>
 
         <motion.div style={{ scale: textScale, opacity: textOpacity, y: textY }} className="relative z-30 flex flex-col items-center text-center px-4 max-w-5xl mx-auto w-full origin-center">
           <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }} className="mb-8 flex items-center gap-3">
-<div className="w-8 h-px bg-gradient-to-r from-transparent to-cyan-400/50" />
+            <div className="w-8 h-px bg-gradient-to-r from-transparent to-cyan-400/50" />
             <span className="text-[11px] sm:text-xs text-white/30 tracking-[0.3em] uppercase font-light">Digital Ecosystem</span>
             <div className="w-8 h-px bg-gradient-to-l from-transparent to-cyan-400/50" />
           </motion.div>
