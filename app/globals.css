@@ -29,6 +29,3 @@ body {
     text-wrap: balance;
   }
 }
-
-body { overscroll-behavior-y: contain; }
-
