@@ -17,13 +17,26 @@ function MobileHero() {
     <section className="relative w-full h-screen bg-[#0a0a0a] overflow-hidden">
       <div className="absolute inset-0 flex items-center justify-center">
         <WaveSafe>
-          <Wave speed={0.5} tiles={1.2} width={800} height={600} />
+          <Wave speed={0.5} tiles={1.2} width={1920} height={1080} />
         </WaveSafe>
       </div>
+
       <div className="absolute inset-0 z-10 pointer-events-none">
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#2a2520] to-[#f5f0e8]" />
       </div>
-      <div className="relative z-20 flex flex-col items-center justify-center text-center px-4 h-full">
+
+      <div className="absolute inset-6 sm:inset-10 z-20 pointer-events-none">
+        <div className="absolute top-0 left-8 right-8 h-px bg-gradient-to-r from-transparent via-white/[0.15] to-transparent origin-center hero-scale-x" style={{ animationDelay: "0.8s" }} />
+        <div className="absolute bottom-0 left-8 right-8 h-px bg-gradient-to-r from-transparent via-white/[0.15] to-transparent origin-center hero-scale-x" style={{ animationDelay: "1.0s" }} />
+        <div className="absolute left-0 top-8 bottom-8 w-px bg-gradient-to-b from-transparent via-white/[0.15] to-transparent origin-center hero-scale-y" style={{ animationDelay: "0.9s" }} />
+        <div className="absolute right-0 top-8 bottom-8 w-px bg-gradient-to-b from-transparent via-white/[0.15] to-transparent origin-center hero-scale-y" style={{ animationDelay: "1.1s" }} />
+        <div className="absolute top-0 left-0 w-2 h-2 rounded-full bg-cyan-400/50 hero-fade" style={{ animationDelay: "1.3s" }} />
+        <div className="absolute top-0 right-0 w-2 h-2 rounded-full bg-cyan-400/50 hero-fade" style={{ animationDelay: "1.4s" }} />
+        <div className="absolute bottom-0 left-0 w-2 h-2 rounded-full bg-cyan-400/50 hero-fade" style={{ animationDelay: "1.5s" }} />
+        <div className="absolute bottom-0 right-0 w-2 h-2 rounded-full bg-cyan-400/50 hero-fade" style={{ animationDelay: "1.6s" }} />
+      </div>
+
+      <div className="relative z-30 flex flex-col items-center justify-center text-center px-4 h-full max-w-5xl mx-auto w-full">
         <div className="mb-8 flex items-center gap-3 hero-fade" style={{ animationDelay: "0.3s" }}>
           <div className="w-8 h-px bg-gradient-to-r from-transparent to-cyan-400/50" />
           <span className="text-[11px] text-white/30 tracking-[0.3em] uppercase font-light">Digital Ecosystem</span>
@@ -36,13 +49,15 @@ function MobileHero() {
         <p className="mt-8 text-sm text-white/30 max-w-xl font-light tracking-[0.15em] leading-relaxed hero-fade" style={{ animationDelay: "0.8s" }}>
           Mulai, Tumbuh, dan Berkembang &mdash; Tanpa Batas.
         </p>
-        <div className="mt-12 hero-fade" style={{ animationDelay: "1.1s" }}>
+        <div className="mt-12 flex items-center gap-4 hero-fade" style={{ animationDelay: "1.1s" }}>
           <a href="#layanan" className="rounded-full bg-white/[0.06] border border-white/[0.1] px-7 py-3 text-[13px] text-white/70 tracking-[0.2em] uppercase font-light inline-block">
             Eksplor
           </a>
+<a href="#tentang" className="text-[13px] text-white/25 tracking-[0.2em] uppercase font-light">Tentang →</a>
         </div>
       </div>
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-30 text-white/20 text-[10px] tracking-[0.5em] uppercase flex flex-col items-center gap-3 font-light hero-fade" style={{ animationDelay: "1.5s" }}>
+
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-40 text-white/20 text-[10px] tracking-[0.5em] uppercase flex flex-col items-center gap-3 font-light hero-fade" style={{ animationDelay: "1.5s" }}>
         <span>Scroll</span>
         <div className="w-px h-10 bg-gradient-to-b from-white/20 to-transparent animate-bounce-slow" />
       </div>
@@ -67,7 +82,7 @@ function DesktopHero() {
 
   return (
     <section ref={ref} className="relative w-full bg-[#0a0a0a]" style={{ height: "400vh" }}>
-<div className="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center bg-[#0a0a0a]">
+      <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center bg-[#0a0a0a]">
         <motion.div style={{ scale: waveScale, opacity: waveOpacity }} className="absolute inset-0 z-0 flex items-center justify-center origin-center">
           <WaveSafe>
             <Wave speed={0.5} tiles={1.2} width={1920} height={1080} />
@@ -90,7 +105,7 @@ function DesktopHero() {
 
         <motion.div style={{ scale: textScale, opacity: textOpacity, y: textY }} className="relative z-30 flex flex-col items-center text-center px-4 max-w-5xl mx-auto w-full origin-center">
           <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }} className="mb-8 flex items-center gap-3">
-            <div className="w-8 h-px bg-gradient-to-r from-transparent to-cyan-400/50" />
+<div className="w-8 h-px bg-gradient-to-r from-transparent to-cyan-400/50" />
             <span className="text-[11px] sm:text-xs text-white/30 tracking-[0.3em] uppercase font-light">Digital Ecosystem</span>
             <div className="w-8 h-px bg-gradient-to-l from-transparent to-cyan-400/50" />
           </motion.div>
@@ -102,7 +117,7 @@ function DesktopHero() {
             Mulai, Tumbuh, dan Berkembang &mdash; Tanpa Batas.
           </motion.p>
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 1.1, ease: [0.16, 1, 0.3, 1] }} className="mt-12 flex items-center gap-4">
-<a href="#layanan" className="group relative rounded-full bg-white/[0.06] hover:bg-white/[0.12] border border-white/[0.1] hover:border-white/20 px-7 py-3 text-[13px] text-white/70 hover:text-white tracking-[0.2em] uppercase font-light transition-all duration-500 overflow-hidden">
+            <a href="#layanan" className="group relative rounded-full bg-white/[0.06] hover:bg-white/[0.12] border border-white/[0.1] hover:border-white/20 px-7 py-3 text-[13px] text-white/70 hover:text-white tracking-[0.2em] uppercase font-light transition-all duration-500 overflow-hidden">
               <span className="relative z-10">Eksplor</span>
             </a>
             <a href="#tentang" className="text-[13px] text-white/25 hover:text-white/50 tracking-[0.2em] uppercase font-light transition-colors duration-300">Tentang →</a>
