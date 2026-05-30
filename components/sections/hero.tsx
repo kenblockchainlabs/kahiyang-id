@@ -1,38 +1,12 @@
 ﻿"use client"
 
 import { motion, useScroll, useTransform } from "framer-motion"
-import { useRef, useState, useEffect } from "react"
+import { useRef } from "react"
 import { Wave } from "@/components/ui/wave"
-
-function WaveBackground({ isMobile }: { isMobile: boolean }) {
-  if (isMobile) {
-    return (
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute inset-0 animate-pulse" style={{
-          background: "radial-gradient(ellipse at 50% 50%, rgba(0,200,255,0.15) 0%, rgba(0,100,200,0.08) 30%, rgba(0,50,100,0.04) 60%, transparent 80%)"
-        }} />
-        <div className="absolute inset-0" style={{
-          background: "radial-gradient(circle at 30% 70%, rgba(0,255,200,0.08) 0%, transparent 50%), radial-gradient(circle at 70% 30%, rgba(0,150,255,0.08) 0%, transparent 50%)"
-        }} />
-      </div>
-    )
-  }
-
-  return (
-    <div className="absolute inset-0 flex items-center justify-center">
-      <Wave speed={0.5} tiles={1.2} width={1920} height={1080} />
-    </div>
-  )
-}
 
 export default function Hero() {
   const ref = useRef<HTMLElement>(null)
-  const [isMobile, setIsMobile] = useState(false)
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] })
-
-  useEffect(() => {
-    setIsMobile(window.innerWidth < 768)
-  }, [])
 
   const bgScale = useTransform(scrollYProgress, [0, 1], [1, 6])
   const textScale = useTransform(scrollYProgress, [0, 0.4], [1, 8])
@@ -47,7 +21,7 @@ export default function Hero() {
     <section ref={ref} className="relative w-full">
       <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center bg-[#0a0a0a]">
         <motion.div style={{ scale: bgScale }} className="absolute inset-0 origin-center">
-          <WaveBackground isMobile={isMobile} />
+          <Wave speed={0.5} tiles={1.2} width={1920} height={1080} />
         </motion.div>
 
         <motion.div style={{ opacity: gradientOpacity }} className="absolute inset-0 z-10 pointer-events-none">
@@ -63,7 +37,7 @@ export default function Hero() {
             {corners.map((pos, i) => (
               <motion.div key={pos} initial={{ scale: 0, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ duration: 0.5, delay: 1.3 + i * 0.1 }} className={"absolute " + pos + " w-2 h-2 rounded-full bg-cyan-400/50"} />
             ))}
-</motion.div>
+          </motion.div>
         </div>
 
         <motion.div style={{ scale: textScale, opacity: textOpacity }} className="relative z-30 flex flex-col items-center text-center px-4 max-w-5xl mx-auto w-full origin-center">
@@ -73,7 +47,7 @@ export default function Hero() {
             <div className="w-8 h-px bg-gradient-to-l from-transparent to-cyan-400/50" />
           </motion.div>
           <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.5, ease: [0.16, 1, 0.3, 1] }} className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-light tracking-tight">
-            <span className="bg-gradient-to-b from-white via-white/90 to-white/40 bg-clip-text text-transparent">Negeri</span><br />
+<span className="bg-gradient-to-b from-white via-white/90 to-white/40 bg-clip-text text-transparent">Negeri</span><br />
             <span className="bg-gradient-to-r from-cyan-200 via-white to-cyan-200 bg-clip-text text-transparent">Kahiyang</span>
           </motion.h1>
           <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.8, ease: [0.16, 1, 0.3, 1] }} className="mt-8 text-sm sm:text-base md:text-lg text-white/30 max-w-xl font-light tracking-[0.15em] leading-relaxed">
