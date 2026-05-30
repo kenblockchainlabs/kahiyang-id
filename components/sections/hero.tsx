@@ -1,37 +1,48 @@
 ﻿"use client"
 
 import { motion, useScroll, useTransform } from "framer-motion"
-import { useRef } from "react"
-import { Wave } from "@/components/ui/wave"
+import { useRef, Component, type ReactNode } from "react"
+import dynamic from "next/dynamic"
+
+const Wave = dynamic(() => import("@/components/ui/wave").then(m => ({ default: m.Wave })), {
+  ssr: false,
+  loading: () => null,
+})
+
+class WaveErrorBoundary extends Component<{ children: ReactNode }, { hasError: boolean }> {
+  state = { hasError: false }
+  static getDerivedStateFromError() { return { hasError: true } }
+  render() {
+    if (this.state.hasError) return null
+    return this.props.children
+  }
+}
 
 export default function Hero() {
   const ref = useRef<HTMLElement>(null)
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] })
 
-  const waveScale = useTransform(scrollYProgress, [0, 0.5, 1], [1, 3, 6])
-  const waveOpacity = useTransform(scrollYProgress, [0, 0.7, 1], [1, 0.8, 0])
-  const textScale = useTransform(scrollYProgress, [0, 0.3, 0.5], [1, 1.5, 3])
-  const textOpacity = useTransform(scrollYProgress, [0, 0.2, 0.4], [1, 0.6, 0])
-  const textY = useTransform(scrollYProgress, [0, 1], ["0%", "-30%"])
-  const frameScale = useTransform(scrollYProgress, [0, 1], [1, 2])
-  const frameOpacity = useTransform(scrollYProgress, [0, 0.3, 0.6], [1, 0.4, 0])
+  const waveScale = useTransform(scrollYProgress, [0, 1], [1, 3])
+  const waveOpacity = useTransform(scrollYProgress, [0, 0.6, 1], [1, 0.5, 0])
+  const textScale = useTransform(scrollYProgress, [0, 0.5, 1], [1, 1.5, 4])
+  const textOpacity = useTransform(scrollYProgress, [0, 0.4, 0.8], [1, 0.8, 0])
+  const textY = useTransform(scrollYProgress, [0, 1], ["0%", "-50%"])
+  const frameScale = useTransform(scrollYProgress, [0, 1], [1, 3])
+  const frameOpacity = useTransform(scrollYProgress, [0, 0.3, 0.7], [1, 0.5, 0])
   const overlayOpacity = useTransform(scrollYProgress, [0, 0.5, 1], [0.4, 0.2, 0])
-  const gradientOpacity = useTransform(scrollYProgress, [0, 0.6, 0.85, 1], [0, 0, 0.6, 1])
 
   const corners = ["top-0 left-0", "top-0 right-0", "bottom-0 left-0", "bottom-0 right-0"]
 
   return (
     <section ref={ref} className="relative h-[300vh] w-full bg-[#0a0a0a]">
-      <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center">
+      <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center" style={{ perspective: '1000px' }}>
         <motion.div style={{ scale: waveScale, opacity: waveOpacity }} className="absolute inset-0 z-0 flex items-center justify-center">
-          <Wave speed={0.5} tiles={1.2} width={1920} height={1080} />
+          <WaveErrorBoundary>
+            <Wave speed={0.5} tiles={1.2} width={1920} height={1080} />
+          </WaveErrorBoundary>
         </motion.div>
 
         <motion.div style={{ opacity: overlayOpacity }} className="absolute inset-0 z-10 bg-[#0a0a0a] pointer-events-none" />
-
-        <motion.div style={{ opacity: gradientOpacity }} className="absolute inset-0 z-15 pointer-events-none">
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#2a2520] to-[#f5f0e8]" />
-        </motion.div>
 
         <motion.div style={{ scale: frameScale, opacity: frameOpacity }} className="absolute inset-6 sm:inset-10 md:inset-16 z-20 pointer-events-none">
           <motion.div initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: 1.2, delay: 0.8, ease: [0.16, 1, 0.3, 1] }} className="absolute top-0 left-8 right-8 h-px bg-gradient-to-r from-transparent via-white/[0.15] to-transparent origin-center" />
