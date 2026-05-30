@@ -12,10 +12,10 @@ const links = [
 
 function Logo() {
   return (
-    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" className="flex-shrink-0">
-      <circle cx="16" cy="16" r="16" fill="black" />
-      <rect x="7" y="9" width="18" height="3" rx="1" fill="white" />
-      <path d="M10 15L16 24L22 15" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+    <svg width="32" height="32" viewBox="0 0 32 32" className="flex-shrink-0">
+      <circle cx="16" cy="16" r="15" fill="white" stroke="white" strokeWidth="1" />
+      <rect x="8" y="10" width="16" height="2.5" fill="black" />
+      <path d="M10 13.5 L16 23 L22 13.5 L19.5 13.5 L16 18.5 L12.5 13.5 Z" fill="black" />
     </svg>
   )
 }
@@ -37,7 +37,6 @@ export default function Navbar() {
 
   return (
     <>
-      {/* NAVBAR */}
       <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? "bg-[#0a0a0a]/90 backdrop-blur-md" : "bg-transparent"}`}>
         <div className="flex items-center justify-between px-5 sm:px-8 h-16">
           <a href="/" className="flex items-center gap-2">
@@ -67,7 +66,6 @@ export default function Navbar() {
         </div>
       </nav>
 
-      {/* FULLSCREEN MENU */}
       <AnimatePresence>
         {open && (
           <motion.div
@@ -91,12 +89,12 @@ export default function Navbar() {
 
             <div className="flex-1 flex flex-col items-center justify-center gap-8">
               {links.map((l, i) => (
-<motion.a
+                <motion.a
                   key={l.label}
                   href={l.href}
                   onClick={() => setOpen(false)}
                   initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
+animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.4, delay: 0.1 + i * 0.08 }}
                   className="text-white/80 hover:text-white text-2xl font-light tracking-[0.15em] uppercase transition-colors"
                 >
