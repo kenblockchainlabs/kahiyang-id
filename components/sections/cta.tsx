@@ -5,16 +5,16 @@ import { useRef } from "react"
 
 export default function CTA() {
   const ref = useRef<HTMLElement>(null)
-const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] })
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] })
 
-  const scale = useTransform(scrollYProgress, [0, 0.15, 0.5, 0.85, 1], [0.85, 1, 1, 1, 1])
-  const opacity = useTransform(scrollYProgress, [0, 0.15, 0.5, 1], [0, 1, 1, 1])
-  const borderRadius = useTransform(scrollYProgress, [0, 0.15, 0.5, 1], [40, 0, 0, 0])
-  const y = useTransform(scrollYProgress, [0, 0.15, 0.5, 1], [80, 0, 0, 0])
+  const scale = useTransform(scrollYProgress, [0, 0.15, 0.5, 1], [0.88, 1, 1, 1])
+  const opacity = useTransform(scrollYProgress, [0, 0.12, 0.5, 1], [0, 1, 1, 1])
+  const y = useTransform(scrollYProgress, [0, 0.15, 0.5, 1], [60, 0, 0, 0])
+  const borderRadius = useTransform(scrollYProgress, [0, 0.15, 1], [32, 0, 0])
 
   return (
-    <section ref={ref} className="relative w-full bg-[#0a0a0a] overflow-hidden">
-      <motion.div style={{ scale, opacity, borderRadius, y }} className="relative min-h-[80vh] py-32 px-6 flex items-center justify-center bg-[#f5f0e8] origin-center">
+    <section ref={ref} className="relative w-full bg-[#f5f0e8]">
+      <motion.div style={{ scale, opacity, y, borderRadius }} className="relative min-h-[80vh] py-32 px-6 flex items-center justify-center bg-[#f5f0e8] origin-top">
         <div className="absolute inset-4 sm:inset-8 md:inset-12 z-10 pointer-events-none">
           <div className="absolute top-0 left-6 right-6 h-px bg-gradient-to-r from-transparent via-black/[0.06] to-transparent"/>
           <div className="absolute bottom-0 left-6 right-6 h-px bg-gradient-to-r from-transparent via-black/[0.06] to-transparent"/>
@@ -28,7 +28,7 @@ const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end 
           <motion.div initial={{opacity:0,y:30}} whileInView={{opacity:1,y:0}} transition={{duration:1,ease:[0.16,1,0.3,1]}} viewport={{once:true,margin:"-100px"}} className="mb-8 flex items-center justify-center gap-3">
             <div className="w-8 h-px bg-cyan-500/60"/><span className="text-[11px] text-black/30 tracking-[0.3em] uppercase font-light">Mulai Sekarang</span><div className="w-8 h-px bg-cyan-500/60"/>
           </motion.div>
-          <motion.h2 initial={{opacity:0,y:50,scale:0.95}} whileInView={{opacity:1,y:0,scale:1}} transition={{duration:1.2,delay:0.2,ease:[0.16,1,0.3,1]}} viewport={{once:true,margin:"-100px"}} className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-light text-black/90 tracking-tight leading-tight mb-8">
+<motion.h2 initial={{opacity:0,y:50,scale:0.95}} whileInView={{opacity:1,y:0,scale:1}} transition={{duration:1.2,delay:0.2,ease:[0.16,1,0.3,1]}} viewport={{once:true,margin:"-100px"}} className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-light text-black/90 tracking-tight leading-tight mb-8">
             Siap Upgrade<br/><span className="bg-gradient-to-r from-cyan-700 to-cyan-500 bg-clip-text text-transparent">Akun TikTok Lo?</span>
           </motion.h2>
           <motion.p initial={{opacity:0,y:30}} whileInView={{opacity:1,y:0}} transition={{duration:0.8,delay:0.4,ease:[0.16,1,0.3,1]}} viewport={{once:true,margin:"-100px"}} className="text-sm sm:text-base text-black/40 font-light leading-relaxed max-w-xl mx-auto mb-12">

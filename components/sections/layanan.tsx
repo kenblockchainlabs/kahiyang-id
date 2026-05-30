@@ -14,20 +14,14 @@ export default function Layanan() {
   const ref = useRef<HTMLElement>(null)
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] })
 
-  const scale = useTransform(scrollYProgress, [0, 0.15, 0.5, 0.85, 1], [0.85, 1, 1, 1, 0.85])
-  const opacity = useTransform(scrollYProgress, [0, 0.15, 0.5, 0.85, 1], [0, 1, 1, 1, 0])
-  const borderRadius = useTransform(scrollYProgress, [0, 0.15, 0.5, 0.85, 1], [40, 0, 0, 0, 40])
-  const y = useTransform(scrollYProgress, [0, 0.15, 0.5, 0.85, 1], [80, 0, 0, 0, -60])
+  const scale = useTransform(scrollYProgress, [0, 0.15, 0.5, 0.85, 1], [0.88, 1, 1, 1, 0.92])
+  const opacity = useTransform(scrollYProgress, [0, 0.12, 0.5, 0.88, 1], [0, 1, 1, 1, 0.5])
+  const y = useTransform(scrollYProgress, [0, 0.15, 0.5, 0.85, 1], [60, 0, 0, 0, -40])
+  const borderRadius = useTransform(scrollYProgress, [0, 0.15, 0.85, 1], [32, 0, 0, 24])
 
   return (
-    <section id="layanan" ref={ref} className="relative w-full bg-[#0a0a0a] overflow-hidden">
-      {/* Bridge line from hero */}
-      <div className="relative h-[20vh] flex items-center justify-center bg-[#0a0a0a]">
-        <motion.div initial={{ scaleY: 0 }} whileInView={{ scaleY: 1 }} transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }} viewport={{ once: true }} className="w-px h-full bg-gradient-to-b from-transparent via-cyan-400/30 to-transparent origin-top" />
-      </div>
-
-      {/* Section with compress animation */}
-      <motion.div style={{ scale, opacity, borderRadius, y }} className="relative py-24 px-6 bg-[#f5f0e8] origin-center">
+    <section id="layanan" ref={ref} className="relative w-full bg-[#f5f0e8]">
+      <motion.div style={{ scale, opacity, y, borderRadius }} className="relative py-28 px-6 bg-[#f5f0e8] origin-top">
         <div className="absolute inset-4 sm:inset-8 md:inset-12 z-10 pointer-events-none">
           <div className="absolute top-0 left-6 right-6 h-px bg-gradient-to-r from-transparent via-black/[0.06] to-transparent" />
           <div className="absolute bottom-0 left-6 right-6 h-px bg-gradient-to-r from-transparent via-black/[0.06] to-transparent" />
@@ -44,10 +38,10 @@ export default function Layanan() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {services.map((s,i)=>(
-<motion.div key={s.num} initial={{opacity:0,y:60,scale:0.9}} whileInView={{opacity:1,y:0,scale:1}} transition={{duration:0.8,delay:i*0.15,ease:[0.16,1,0.3,1]}} viewport={{once:true,margin:"-50px"}} className="group relative p-8 rounded-2xl bg-white/60 border border-black/[0.06] hover:border-black/[0.12] transition-all duration-500 overflow-hidden backdrop-blur-sm">
+              <motion.div key={s.num} initial={{opacity:0,y:60,scale:0.9}} whileInView={{opacity:1,y:0,scale:1}} transition={{duration:0.8,delay:i*0.15,ease:[0.16,1,0.3,1]}} viewport={{once:true,margin:"-50px"}} className="group relative p-8 rounded-2xl bg-white/60 border border-black/[0.06] hover:border-black/[0.12] transition-all duration-500 overflow-hidden backdrop-blur-sm">
                 <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/[0.04] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"/>
                 <div className="relative z-10">
-                  <div className="flex items-center justify-between mb-6">
+<div className="flex items-center justify-between mb-6">
                     <span className="text-[11px] text-black/20 tracking-[0.3em] uppercase font-light">{s.num}</span>
                     <span className="text-[10px] text-cyan-700/60 tracking-[0.2em] uppercase font-light px-3 py-1 rounded-full border border-cyan-500/20">{s.tag}</span>
                   </div>
@@ -60,15 +54,6 @@ export default function Layanan() {
           </div>
         </div>
       </motion.div>
-
-      {/* Bridge compress ke Tentang */}
-      <div className="relative h-[25vh] bg-[#0a0a0a] flex items-center justify-center overflow-hidden">
-        <motion.div initial={{ opacity: 0, scale: 0.5 }} whileInView={{ opacity: 1, scale: 1 }} transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }} viewport={{ once: true }} className="flex items-center gap-4">
-          <div className="w-12 h-px bg-gradient-to-r from-transparent to-white/10" />
-          <motion.div animate={{ scale: [1, 1.3, 1], opacity: [0.3, 0.6, 0.3] }} transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }} className="w-1.5 h-1.5 rounded-full bg-cyan-400/40" />
-          <div className="w-12 h-px bg-gradient-to-l from-transparent to-white/10" />
-        </motion.div>
-      </div>
     </section>
   )
 }
