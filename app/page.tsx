@@ -6,12 +6,15 @@ import CTA from "@/components/sections/cta"
 
 export default function Page() {
   return (
-    <main className="bg-[#0a0a0a]">
+    <main className="bg-[#f5f0e8]">
       <Navbar />
       <Hero />
-      <Layanan />
-      <Tentang />
-      <CTA />
+      {/* Section di atas hero (z-10) — scroll over the zoom */}
+      <div className="relative z-10">
+        <Layanan />
+        <Tentang />
+        <CTA />
+      </div>
     </main>
   )
 }
