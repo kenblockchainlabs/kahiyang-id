@@ -12,9 +12,11 @@ const links = [
 
 function Logo() {
   return (
-    <div className="w-8 h-8 rounded-full overflow-hidden flex items-center justify-center bg-black">
-      <img src="/logo.png" alt="Kahiyang" className="w-full h-full object-cover" style={{ filter: "invert(1)" }} />
-    </div>
+    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" className="flex-shrink-0">
+      <circle cx="16" cy="16" r="16" fill="black" />
+      <rect x="7" y="9" width="18" height="3" rx="1" fill="white" />
+      <path d="M10 15L16 24L22 15" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+    </svg>
   )
 }
 
@@ -38,13 +40,11 @@ export default function Navbar() {
       {/* NAVBAR */}
       <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? "bg-[#0a0a0a]/90 backdrop-blur-md" : "bg-transparent"}`}>
         <div className="flex items-center justify-between px-5 sm:px-8 h-16">
-          {/* Logo */}
           <a href="/" className="flex items-center gap-2">
             <Logo />
             <span className="text-white/90 text-sm font-light tracking-[0.2em] uppercase">Kahiyang</span>
           </a>
 
-          {/* Desktop links */}
           <div className="hidden md:flex items-center gap-8">
             {links.map(l => (
               <a key={l.label} href={l.href} className="text-white/40 hover:text-white/70 text-[11px] tracking-[0.2em] uppercase font-light transition-colors duration-200">
@@ -53,14 +53,12 @@ export default function Navbar() {
             ))}
           </div>
 
-          {/* Desktop CTA */}
           <div className="hidden md:block">
             <a href="https://wa.me/6285135787489?text=Halo,%20saya%20mau%20tanya%20info%20Kahiyang" className="rounded-full bg-white/[0.06] hover:bg-white/[0.12] border border-white/[0.1] hover:border-white/20 px-5 py-2 text-[11px] text-white/70 hover:text-white tracking-[0.2em] uppercase font-light transition-all duration-300">
               Gabung
             </a>
           </div>
 
-          {/* Mobile hamburger */}
           <button onClick={() => setOpen(true)} className="md:hidden flex flex-col gap-1.5 p-2" aria-label="Menu">
             <div className="w-5 h-px bg-white/60" />
             <div className="w-5 h-px bg-white/60" />
@@ -79,7 +77,6 @@ export default function Navbar() {
             transition={{ duration: 0.3 }}
             className="fixed inset-0 z-[100] bg-[#0a0a0a] flex flex-col"
           >
-            {/* Top bar */}
             <div className="flex items-center justify-between px-5 h-16">
               <a href="/" className="flex items-center gap-2" onClick={() => setOpen(false)}>
                 <Logo />
@@ -92,12 +89,11 @@ export default function Navbar() {
               </button>
             </div>
 
-            {/* Links */}
             <div className="flex-1 flex flex-col items-center justify-center gap-8">
               {links.map((l, i) => (
-                <motion.a
+<motion.a
                   key={l.label}
-href={l.href}
+                  href={l.href}
                   onClick={() => setOpen(false)}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -109,7 +105,6 @@ href={l.href}
               ))}
             </div>
 
-            {/* CTA */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
