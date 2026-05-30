@@ -8,24 +8,24 @@ export default function Hero() {
   const ref = useRef<HTMLElement>(null)
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] })
 
-  // Neon wave — zoom 6x, TIDAK DIUBAH
+  // Neon wave — zoom 6x
   const waveScale = useTransform(scrollYProgress, [0, 0.5, 1], [1, 3, 6])
   const waveOpacity = useTransform(scrollYProgress, [0, 0.8, 1], [1, 0.9, 0.5])
 
-  // Text — zoom + fade
+  // Text
   const textScale = useTransform(scrollYProgress, [0, 0.3, 0.5], [1, 1.5, 3])
   const textOpacity = useTransform(scrollYProgress, [0, 0.2, 0.4], [1, 0.6, 0])
   const textY = useTransform(scrollYProgress, [0, 1], ["0%", "-40%"])
 
-  // Frame — zoom
+  // Frame
   const frameScale = useTransform(scrollYProgress, [0, 1], [1, 2])
   const frameOpacity = useTransform(scrollYProgress, [0, 0.4, 0.7], [1, 0.4, 0])
 
-  // BACKGROUND BURN — dari tengah ke luar, mulai di zoom 3x (scroll 50%)
-  const burnScale = useTransform(scrollYProgress, [0, 0.4, 0.55, 0.7, 0.85, 1], [0, 0, 0.3, 0.6, 0.85, 1.2])
+  // BURN — cream circle expand dari tengah
+  const burnScale = useTransform(scrollYProgress, [0, 0.4, 0.55, 0.7, 0.85, 1], [0, 0, 0.3, 0.6, 0.9, 1.5])
 
-  // Vignette lorong — makin gelap di pinggir saat burn mulai
-  const vignetteOpacity = useTransform(scrollYProgress, [0, 0.3, 0.5, 0.8], [0, 0.2, 0.6, 1])
+  // Vignette
+  const vignetteOpacity = useTransform(scrollYProgress, [0, 0.3, 0.6, 0.85], [0, 0.2, 0.6, 0.9])
 
   const corners = ["top-0 left-0", "top-0 right-0", "bottom-0 left-0", "bottom-0 right-0"]
 
@@ -33,33 +33,17 @@ export default function Hero() {
     <section ref={ref} className="relative h-[500vh] w-full">
       <div className="sticky top-0 h-screen w-full overflow-hidden">
 
-        {/* === CREAM (terlihat pas hitam kebakar) === */}
+        {/* === LAYER 0: Cream (terlihat pas hitam hilang) === */}
         <div className="absolute inset-0 z-0 bg-[#f5f0e8]" />
 
-        {/* === BURN CIRCLE — expand dari tengah, "makan" hitam === */}
-        <motion.div
-          className="absolute z-5 pointer-events-none"
-          style={{
-            left: "50%",
-            top: "50%",
-            x: "-50%",
-            y: "-50%",
-            scale: burnScale,
-            width: "200vmax",
-            height: "200vmax",
-            borderRadius: "50%",
-            background: "radial-gradient(circle, #f5f0e8 0%, #f5f0e8 60%, #d4c8b4 75%, #a89880 85%, #6a5e4e 92%, #3a3228 97%, transparent 100%)"
-          }}
-        />
-
-        {/* === HITAM + NEON (ini yang "terbakar") === */}
+        {/* === LAYER 1: Hitam + Neon === */}
         <div className="absolute inset-0 z-10 bg-[#0a0a0a]">
-          {/* Neon wave — JALAN TERUS, TIDAK DIUBAH */}
+          {/* Neon wave — TIDAK DIUBAH */}
           <motion.div style={{ scale: waveScale, opacity: waveOpacity }} className="absolute inset-0 flex items-center justify-center origin-center">
             <Wave speed={0.5} tiles={1.2} width={1920} height={1080} />
           </motion.div>
 
-          {/* Vignette lorong — gelap di pinggir */}
+          {/* Vignette lorong */}
           <motion.div style={{ opacity: vignetteOpacity }} className="absolute inset-0 pointer-events-none">
             <div className="absolute inset-0" style={{
               background: "radial-gradient(ellipse at center, transparent 10%, rgba(0,0,0,0.3) 40%, rgba(0,0,0,0.7) 70%, rgba(0,0,0,1) 100%)"
@@ -67,8 +51,22 @@ export default function Hero() {
           </motion.div>
         </div>
 
-        {/* === Frame === */}
-        <motion.div style={{ scale: frameScale, opacity: frameOpacity }} className="absolute inset-6 sm:inset-10 md:inset-16 z-20 pointer-events-none">
+        {/* === LAYER 2: BURN — cream expand dari tengah, blend mode potong hitam === */}
+        <motion.div
+          style={{ scale: burnScale }}
+          className="absolute inset-0 z-20 flex items-center justify-center origin-center pointer-events-none"
+        >
+          <div
+            className="w-[200vmax] h-[200vmax] rounded-full"
+            style={{
+              background: "radial-gradient(circle, #f5f0e8 0%, #f5f0e8 50%, #d4c8b4 70%, #a89880 85%, transparent 100%)",
+              mixBlendMode: "screen"
+            }}
+          />
+        </motion.div>
+
+        {/* === LAYER 3: Frame === */}
+        <motion.div style={{ scale: frameScale, opacity: frameOpacity }} className="absolute inset-6 sm:inset-10 md:inset-16 z-30 pointer-events-none">
           <motion.div initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: 1.2, delay: 0.8, ease: [0.16, 1, 0.3, 1] }} className="absolute top-0 left-8 right-8 h-px bg-gradient-to-r from-transparent via-white/[0.15] to-transparent origin-center" />
           <motion.div initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: 1.2, delay: 1.0, ease: [0.16, 1, 0.3, 1] }} className="absolute bottom-0 left-8 right-8 h-px bg-gradient-to-r from-transparent via-white/[0.15] to-transparent origin-center" />
 <motion.div initial={{ scaleY: 0 }} animate={{ scaleY: 1 }} transition={{ duration: 1.2, delay: 0.9, ease: [0.16, 1, 0.3, 1] }} className="absolute left-0 top-8 bottom-8 w-px bg-gradient-to-b from-transparent via-white/[0.15] to-transparent origin-center" />
@@ -78,8 +76,8 @@ export default function Hero() {
           ))}
         </motion.div>
 
-        {/* === Text === */}
-        <motion.div style={{ scale: textScale, opacity: textOpacity, y: textY }} className="absolute inset-0 z-30 flex flex-col items-center justify-center text-center px-4 max-w-5xl mx-auto w-full origin-center pointer-events-none">
+        {/* === LAYER 4: Text === */}
+        <motion.div style={{ scale: textScale, opacity: textOpacity, y: textY }} className="absolute inset-0 z-40 flex flex-col items-center justify-center text-center px-4 max-w-5xl mx-auto w-full origin-center pointer-events-none">
           <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }} className="mb-8 flex items-center gap-3">
             <div className="w-8 h-px bg-gradient-to-r from-transparent to-cyan-400/50" />
             <span className="text-[11px] sm:text-xs text-white/30 tracking-[0.3em] uppercase font-light">Digital Ecosystem</span>
@@ -101,7 +99,7 @@ export default function Hero() {
         </motion.div>
 
         {/* === Scroll indicator === */}
-        <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 1.5, ease: [0.16, 1, 0.3, 1] }} style={{ opacity: textOpacity }} className="absolute bottom-8 left-1/2 -translate-x-1/2 z-40 text-white/20 text-[10px] tracking-[0.5em] uppercase flex flex-col items-center gap-3 font-light">
+        <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 1.5, ease: [0.16, 1, 0.3, 1] }} style={{ opacity: textOpacity }} className="absolute bottom-8 left-1/2 -translate-x-1/2 z-50 text-white/20 text-[10px] tracking-[0.5em] uppercase flex flex-col items-center gap-3 font-light">
           <span>Scroll</span>
           <motion.div animate={{ y: [0, 10, 0] }} transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }} className="w-px h-10 bg-gradient-to-b from-white/20 to-transparent" />
         </motion.div>
