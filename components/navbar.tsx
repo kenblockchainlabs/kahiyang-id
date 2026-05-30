@@ -10,6 +10,14 @@ const links = [
   { label: "PARTNERSHIP", href: "#" },
 ]
 
+function Logo() {
+  return (
+    <div className="w-8 h-8 rounded-full overflow-hidden flex items-center justify-center bg-black">
+      <img src="/logo.png" alt="Kahiyang" className="w-full h-full object-cover" style={{ filter: "invert(1)" }} />
+    </div>
+  )
+}
+
 export default function Navbar() {
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
@@ -20,7 +28,6 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
-  // Lock body scroll when menu open
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : ""
     return () => { document.body.style.overflow = "" }
@@ -31,11 +38,9 @@ export default function Navbar() {
       {/* NAVBAR */}
       <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? "bg-[#0a0a0a]/90 backdrop-blur-md" : "bg-transparent"}`}>
         <div className="flex items-center justify-between px-5 sm:px-8 h-16">
-          {/* Logo — kiri */}
+          {/* Logo */}
           <a href="/" className="flex items-center gap-2">
-            <div className="w-6 h-6 rounded-full bg-cyan-400/20 flex items-center justify-center">
-              <div className="w-2 h-2 rounded-full bg-cyan-400" />
-            </div>
+            <Logo />
             <span className="text-white/90 text-sm font-light tracking-[0.2em] uppercase">Kahiyang</span>
           </a>
 
@@ -77,9 +82,7 @@ export default function Navbar() {
             {/* Top bar */}
             <div className="flex items-center justify-between px-5 h-16">
               <a href="/" className="flex items-center gap-2" onClick={() => setOpen(false)}>
-                <div className="w-6 h-6 rounded-full bg-cyan-400/20 flex items-center justify-center">
-                  <div className="w-2 h-2 rounded-full bg-cyan-400" />
-                </div>
+                <Logo />
                 <span className="text-white/90 text-sm font-light tracking-[0.2em] uppercase">Kahiyang</span>
               </a>
               <button onClick={() => setOpen(false)} className="p-2" aria-label="Close">
@@ -89,12 +92,12 @@ export default function Navbar() {
               </button>
             </div>
 
-{/* Links — centered */}
+            {/* Links */}
             <div className="flex-1 flex flex-col items-center justify-center gap-8">
               {links.map((l, i) => (
                 <motion.a
                   key={l.label}
-                  href={l.href}
+href={l.href}
                   onClick={() => setOpen(false)}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -106,7 +109,7 @@ export default function Navbar() {
               ))}
             </div>
 
-            {/* Bottom CTA */}
+            {/* CTA */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
