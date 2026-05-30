@@ -9,9 +9,11 @@ export default function Page() {
     <main className="bg-[#0a0a0a]">
       <Navbar />
       <Hero />
-      <Layanan />
-      <Tentang />
-      <CTA />
+      <div className="relative z-10">
+        <Layanan />
+        <Tentang />
+        <CTA />
+      </div>
     </main>
   )
 }
