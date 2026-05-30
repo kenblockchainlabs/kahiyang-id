@@ -1,66 +1,84 @@
 ﻿"use client"
 
 import { motion, useScroll, useTransform } from "framer-motion"
-import { useRef } from "react"
+import { useRef, useEffect } from "react"
 import { Wave } from "@/components/ui/wave"
 
 export default function Hero() {
   const ref = useRef<HTMLElement>(null)
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] })
 
-  // Zoom dalam — wave masuk ke portal
-  const waveScale = useTransform(scrollYProgress, [0, 0.3, 0.6, 1], [1, 1.3, 2, 4.5])
-  const waveOpacity = useTransform(scrollYProgress, [0, 0.5, 0.8, 1], [1, 0.9, 0.4, 0])
+  // ZOOM LORONG — pelan di awal, cepat di akhir, 12x lipat
+  const waveScale = useTransform(scrollYProgress, [0, 0.2, 0.5, 0.8, 1], [1, 1.1, 1.8, 4, 12])
+  const waveOpacity = useTransform(scrollYProgress, [0, 0.5, 0.8, 1], [1, 0.95, 0.6, 0])
 
-  // Text zoom + mundur
-  const textScale = useTransform(scrollYProgress, [0, 0.2, 0.45, 0.6], [1, 1.3, 2.5, 8])
-  const textOpacity = useTransform(scrollYProgress, [0, 0.15, 0.35, 0.5], [1, 0.8, 0.4, 0])
+  // Text zoom jauh ke belakang
+  const textScale = useTransform(scrollYProgress, [0, 0.15, 0.3, 0.45], [1, 1.2, 2.5, 15])
+  const textOpacity = useTransform(scrollYProgress, [0, 0.1, 0.25, 0.4], [1, 0.9, 0.5, 0])
 
-  // Frame zoom
-  const frameScale = useTransform(scrollYProgress, [0, 0.5, 1], [1, 1.5, 4])
-  const frameOpacity = useTransform(scrollYProgress, [0, 0.3, 0.6], [1, 0.4, 0])
+  // Frame zoom lorong
+  const frameScale = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [1, 1.2, 2.5, 8])
+  const frameOpacity = useTransform(scrollYProgress, [0, 0.2, 0.5, 0.8], [1, 0.7, 0.3, 0])
 
-  // Overlay gelap — makin terang seiring zoom (portal feel)
-  const overlayOpacity = useTransform(scrollYProgress, [0, 0.3, 0.6, 0.85, 1], [0.3, 0.15, 0.05, 0, 0])
+  // Overlay gelap saat masuk lorong
+  const overlayOpacity = useTransform(scrollYProgress, [0, 0.3, 0.6, 0.85, 1], [0.2, 0.1, 0.15, 0.4, 0.8])
 
-  // GRADIENT PORTAL — hitam → cream, super smooth
-  const gradientOpacity = useTransform(scrollYProgress, [0, 0.5, 0.7, 0.85, 1], [0, 0, 0.3, 0.7, 1])
+  // GRADIENT PORTAL — radial, hitam di tengah, cream di pinggir
+  const gradientOpacity = useTransform(scrollYProgress, [0, 0.6, 0.8, 0.95, 1], [0, 0, 0.2, 0.6, 1])
 
   const corners = ["top-0 left-0", "top-0 right-0", "bottom-0 left-0", "bottom-0 right-0"]
 
-  return (
-    <section ref={ref} className="relative h-[300vh] w-full bg-[#0a0a0a]">
-      <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center">
+  // Mobile overscroll lock
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+    let startY = 0
+    const onTouchStart = (e: TouchEvent) => { startY = e.touches[0].clientY }
+    const onTouchMove = (e: TouchEvent) => {
+      const diff = startY - e.touches[0].clientY
+      if (el.getBoundingClientRect().top >= 0 && diff < 0) e.preventDefault()
+    }
+    el.addEventListener("touchstart", onTouchStart, { passive: true })
+    el.addEventListener("touchmove", onTouchMove, { passive: false })
+    return () => {
+      el.removeEventListener("touchstart", onTouchStart)
+      el.removeEventListener("touchmove", onTouchMove)
+    }
+  }, [])
 
-        {/* Wave */}
-        <motion.div style={{ scale: waveScale, opacity: waveOpacity }} className="absolute inset-0 z-0 flex items-center justify-center">
+  return (
+    <section ref={ref} className="relative h-[500vh] w-full bg-[#0a0a0a]">
+      <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center" style={{ perspective: "1000px" }}>
+
+        {/* Wave — ZOOM LORONG 12x */}
+        <motion.div style={{ scale: waveScale, opacity: waveOpacity }} className="absolute inset-0 z-0 flex items-center justify-center origin-center">
           <Wave speed={0.5} tiles={1.2} width={1920} height={1080} />
         </motion.div>
 
-        {/* Dark overlay */}
+        {/* Dark overlay — gelap saat masuk lorong */}
         <motion.div style={{ opacity: overlayOpacity }} className="absolute inset-0 z-10 bg-[#0a0a0a] pointer-events-none" />
 
-        {/* GRADIENT PORTAL — hitam ke cream, super smooth */}
-        <motion.div style={{ opacity: gradientOpacity }} className="absolute inset-0 z-15 pointer-events-none">
+        {/* GRADIENT PORTAL — radial hitam→cream */}
+        <motion.div style={{ opacity: gradientOpacity }} className="absolute inset-0 z-20 pointer-events-none">
           <div className="absolute inset-0" style={{
-            background: "linear-gradient(to bottom, #0a0a0a 0%, #0a0a0a 20%, #1a1814 40%, #2a251e 55%, #4a4238 70%, #8a7e6e 82%, #c4b9a8 90%, #f5f0e8 100%)"
+            background: "radial-gradient(ellipse at center, transparent 0%, #0a0a0a 30%, #1a1814 50%, #3a3228 65%, #6a5e4e 78%, #a89880 88%, #d4c8b4 94%, #f5f0e8 100%)"
           }} />
         </motion.div>
 
-        {/* Frame */}
-        <div className="absolute z-20 pointer-events-none" style={{ top: "4vh", bottom: "4vh", left: "4vw", right: "4vw" }}>
-          <motion.div style={{ scale: frameScale, opacity: frameOpacity }} className="absolute inset-0">
+        {/* Frame — zoom lorong */}
+        <div className="absolute z-25 pointer-events-none" style={{ top: "4vh", bottom: "4vh", left: "4vw", right: "4vw" }}>
+          <motion.div style={{ scale: frameScale, opacity: frameOpacity }} className="absolute inset-0 origin-center">
             <motion.div initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: 1.2, delay: 0.8, ease: [0.16, 1, 0.3, 1] }} className="absolute top-0 left-[8%] right-[8%] h-px bg-gradient-to-r from-transparent via-white/[0.15] to-transparent origin-center" />
-            <motion.div initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: 1.2, delay: 1.0, ease: [0.16, 1, 0.3, 1] }} className="absolute bottom-0 left-[8%] right-[8%] h-px bg-gradient-to-r from-transparent via-white/[0.15] to-transparent origin-center" />
+<motion.div initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: 1.2, delay: 1.0, ease: [0.16, 1, 0.3, 1] }} className="absolute bottom-0 left-[8%] right-[8%] h-px bg-gradient-to-r from-transparent via-white/[0.15] to-transparent origin-center" />
             <motion.div initial={{ scaleY: 0 }} animate={{ scaleY: 1 }} transition={{ duration: 1.2, delay: 0.9, ease: [0.16, 1, 0.3, 1] }} className="absolute left-0 top-[8%] bottom-[8%] w-px bg-gradient-to-b from-transparent via-white/[0.15] to-transparent origin-center" />
             <motion.div initial={{ scaleY: 0 }} animate={{ scaleY: 1 }} transition={{ duration: 1.2, delay: 1.1, ease: [0.16, 1, 0.3, 1] }} className="absolute right-0 top-[8%] bottom-[8%] w-px bg-gradient-to-b from-transparent via-white/[0.15] to-transparent origin-center" />
             {corners.map((pos, i) => (
-<motion.div key={pos} initial={{ scale: 0, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ duration: 0.5, delay: 1.3 + i * 0.1 }} className={"absolute " + pos + " w-2 h-2 rounded-full bg-cyan-400/50"} />
+              <motion.div key={pos} initial={{ scale: 0, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ duration: 0.5, delay: 1.3 + i * 0.1 }} className={"absolute " + pos + " w-2 h-2 rounded-full bg-cyan-400/50"} />
             ))}
           </motion.div>
         </div>
 
-        {/* Text */}
+        {/* Text — zoom jauh ke belakang */}
         <motion.div style={{ scale: textScale, opacity: textOpacity }} className="relative z-30 flex flex-col items-center text-center px-4 max-w-5xl mx-auto w-full origin-center">
           <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }} className="mb-8 flex items-center gap-3">
             <div className="w-8 h-px bg-gradient-to-r from-transparent to-cyan-400/50" />
@@ -86,7 +104,7 @@ export default function Hero() {
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1, delay: 1.8 }} style={{ opacity: textOpacity }} className="absolute bottom-10 left-1/2 -translate-x-1/2 z-50 flex flex-col items-center gap-3">
           <span className="text-white/30 text-[10px] tracking-[0.4em] uppercase font-light">Geser ke bawah</span>
           <motion.div animate={{ y: [0, 8, 0] }} transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}>
-            <svg width="16" height="24" viewBox="0 0 16 24" fill="none" className="text-white/20">
+<svg width="16" height="24" viewBox="0 0 16 24" fill="none" className="text-white/20">
               <path d="M8 4L8 18M8 18L2 12M8 18L14 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
           </motion.div>
