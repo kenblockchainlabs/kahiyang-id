@@ -1,4 +1,14 @@
-﻿html, body {
+﻿html {
+  overscroll-behavior: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+body {
+  overscroll-behavior-y: none;
+  touch-action: pan-y;
+}
+
+html, body {
   overscroll-behavior: none;
 }
 
