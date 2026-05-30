@@ -19,7 +19,7 @@ export default function Hero() {
 
   // Neon zoom 10x lorong
   const waveScale = useTransform(scrollYProgress, [0, 0.5, 1], [1, 4, 10])
-  const waveOpacity = useTransform(scrollYProgress, [0, 0.7, 1], [1, 0.9, 0.6])
+  const waveOpacity = useTransform(scrollYProgress, [0, 0.7, 0.85], [1, 0.9, 0])
 
   // Text — hilang awal
   const textScale = useTransform(scrollYProgress, [0, 0.15, 0.25], [1, 1.3, 2])
@@ -31,28 +31,25 @@ export default function Hero() {
   const frameOpacity = useTransform(scrollYProgress, [0, 0.2, 0.4], [1, 0.3, 0])
 
   // Vignette lorong
-  const vignetteOpacity = useTransform(scrollYProgress, [0, 0.3, 0.6, 0.85], [0, 0.3, 0.7, 1])
-
-  // Hero fade
-  const heroOpacity = useTransform(scrollYProgress, [0, 0.95, 1], [1, 1, 0])
+  const vignetteOpacity = useTransform(scrollYProgress, [0, 0.3, 0.6, 0.8], [0, 0.3, 0.7, 0])
 
   // === SECTION ANIMATIONS — pop-in/compress-out bridge ===
-  // Layanan: muncul 65-70%, hilang 78-82%
-  const layananScale = useTransform(scrollYProgress, [0.65, 0.7, 0.78, 0.82], [0.88, 1, 1, 0.92])
-  const layananOpacity = useTransform(scrollYProgress, [0.65, 0.7, 0.78, 0.82], [0, 1, 1, 0])
-  const layananY = useTransform(scrollYProgress, [0.65, 0.7, 0.78, 0.82], [40, 0, 0, -30])
+  // Layanan: muncul 80%, hilang 88%
+  const layananScale = useTransform(scrollYProgress, [0.8, 0.83, 0.87, 0.9], [0.88, 1, 1, 0.92])
+  const layananOpacity = useTransform(scrollYProgress, [0.8, 0.83, 0.87, 0.9], [0, 1, 1, 0])
+  const layananY = useTransform(scrollYProgress, [0.8, 0.83, 0.87, 0.9], [40, 0, 0, -30])
 
-  // Tentang: muncul 78-82%, hilang 88-92%
-  const tentangScale = useTransform(scrollYProgress, [0.78, 0.82, 0.88, 0.92], [0.88, 1, 1, 0.92])
-  const tentangOpacity = useTransform(scrollYProgress, [0.78, 0.82, 0.88, 0.92], [0, 1, 1, 0])
-  const tentangY = useTransform(scrollYProgress, [0.78, 0.82, 0.88, 0.92], [40, 0, 0, -30])
+  // Tentang: muncul 88%, hilang 94%
+  const tentangScale = useTransform(scrollYProgress, [0.88, 0.91, 0.93, 0.95], [0.88, 1, 1, 0.92])
+  const tentangOpacity = useTransform(scrollYProgress, [0.88, 0.91, 0.93, 0.95], [0, 1, 1, 0])
+  const tentangY = useTransform(scrollYProgress, [0.88, 0.91, 0.93, 0.95], [40, 0, 0, -30])
 
-  // CTA: muncul 88-92%, stay
-  const ctaScale = useTransform(scrollYProgress, [0.88, 0.92, 1], [0.88, 1, 1])
-  const ctaOpacity = useTransform(scrollYProgress, [0.88, 0.92, 1], [0, 1, 1])
-  const ctaY = useTransform(scrollYProgress, [0.88, 0.92, 1], [40, 0, 0])
+  // CTA: muncul 95%, stay
+  const ctaScale = useTransform(scrollYProgress, [0.95, 0.97, 1], [0.88, 1, 1])
+  const ctaOpacity = useTransform(scrollYProgress, [0.95, 0.97, 1], [0, 1, 1])
+  const ctaY = useTransform(scrollYProgress, [0.95, 0.97, 1], [40, 0, 0])
 
-  // MASK — burn dari tengah, mulai 65%
+  // MASK — burn mulai 80% (setelah zoom selesai), radius sampai 75%
   useEffect(() => {
     let rafId: number
     const handleScroll = () => {
@@ -61,9 +58,9 @@ export default function Hero() {
         if (!ref.current || !maskRef.current) return
         const rect = ref.current.getBoundingClientRect()
         const progress = Math.max(0, Math.min(1, -rect.top / (rect.height - window.innerHeight)))
-        const burn = Math.max(0, Math.min(1, (progress - 0.65) / 0.25))
-        const r = burn * 60
-        const mask = `radial-gradient(circle at center, transparent 0%, transparent ${r}%, rgba(0,0,0,0.15) ${r + 0.8}%, black ${r + 2.5}%, rgba(0,0,0,0.3) ${r + 4}%, black ${r + 6}%, black 100%)`
+        const burn = Math.max(0, Math.min(1, (progress - 0.8) / 0.15))
+        const r = burn * 75
+        const mask = `radial-gradient(circle at center, transparent 0%, transparent ${r}%, rgba(0,0,0,0.2) ${r + 1}%, black ${r + 3}%, black 100%)`
         maskRef.current.style.maskImage = mask
         maskRef.current.style.webkitMaskImage = mask
       })
@@ -76,16 +73,16 @@ export default function Hero() {
   const corners = ["top-0 left-0", "top-0 right-0", "bottom-0 left-0", "bottom-0 right-0"]
 
   return (
-<section ref={ref} className="relative w-full" style={{ height: "600vh" }}>
-      <motion.div style={{ opacity: heroOpacity }} className="sticky top-0 h-screen w-full overflow-hidden">
+    <section ref={ref} className="relative w-full" style={{ height: "600vh" }}>
+      <div className="sticky top-0 h-screen w-full overflow-hidden">
 
         {/* === Cream bg === */}
-        <div className="absolute inset-0 z-0 bg-[#f5f0e8]" />
+<div className="absolute inset-0 z-0 bg-[#f5f0e8]" />
 
-        {/* === SECTIONS — muncul satu per satu di dalam lubang === */}
+        {/* === SECTIONS — muncul satu per satu, BERSIH tanpa hitam === */}
         <div className="absolute inset-0 z-[5] pointer-events-none">
 
-          {/* LAYANAN — pop-in/compress-out */}
+          {/* LAYANAN */}
           <motion.div style={{ scale: layananScale, opacity: layananOpacity, y: layananY }} className="absolute inset-0 flex items-center justify-center p-8">
             <div className="max-w-4xl w-full text-center">
               <p className="text-[11px] text-black/30 tracking-[0.3em] uppercase mb-4 font-light">Layanan</p>
@@ -110,7 +107,7 @@ export default function Hero() {
             </div>
           </motion.div>
 
-          {/* TENTANG — pop-in/compress-out */}
+          {/* TENTANG */}
           <motion.div style={{ scale: tentangScale, opacity: tentangOpacity, y: tentangY }} className="absolute inset-0 flex items-center justify-center p-8">
             <div className="max-w-3xl w-full text-center">
               <p className="text-[11px] text-black/30 tracking-[0.3em] uppercase mb-4 font-light">Tentang Kami</p>
@@ -134,11 +131,11 @@ export default function Hero() {
             </div>
           </motion.div>
 
-          {/* CTA — pop-in, stay */}
-<motion.div style={{ scale: ctaScale, opacity: ctaOpacity, y: ctaY }} className="absolute inset-0 flex items-center justify-center p-8">
+          {/* CTA */}
+          <motion.div style={{ scale: ctaScale, opacity: ctaOpacity, y: ctaY }} className="absolute inset-0 flex items-center justify-center p-8">
             <div className="max-w-2xl w-full text-center">
               <p className="text-[11px] text-black/30 tracking-[0.3em] uppercase mb-4 font-light">Mulai Sekarang</p>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-light text-black/80 tracking-tight leading-tight mb-4">
+<h2 className="text-3xl sm:text-4xl md:text-5xl font-light text-black/80 tracking-tight leading-tight mb-4">
                 Siap Upgrade <span className="text-cyan-700">Akun TikTok Lo?</span>
               </h2>
               <p className="text-sm text-black/40 font-light leading-relaxed max-w-md mx-auto mb-8">
@@ -153,7 +150,7 @@ export default function Hero() {
 
         </div>
 
-        {/* === Hitam + Neon + Mask (burn dari tengah) === */}
+        {/* === Hitam + Neon — MASK burn dari tengah === */}
         <div ref={maskRef} className="absolute inset-0 z-10 bg-[#0a0a0a]">
           <WaveSafe>
             <motion.div style={{ scale: waveScale, opacity: waveOpacity }} className="absolute inset-0 flex items-center justify-center origin-center">
@@ -182,10 +179,10 @@ export default function Hero() {
         <motion.div style={{ scale: textScale, opacity: textOpacity, y: textY }} className="absolute inset-0 z-30 flex flex-col items-center justify-center text-center px-4 max-w-5xl mx-auto w-full origin-center pointer-events-none">
           <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }} className="mb-8 flex items-center gap-3">
             <div className="w-8 h-px bg-gradient-to-r from-transparent to-cyan-400/50" />
-<span className="text-[11px] sm:text-xs text-white/30 tracking-[0.3em] uppercase font-light">Digital Ecosystem</span>
+            <span className="text-[11px] sm:text-xs text-white/30 tracking-[0.3em] uppercase font-light">Digital Ecosystem</span>
             <div className="w-8 h-px bg-gradient-to-l from-transparent to-cyan-400/50" />
           </motion.div>
-          <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.5, ease: [0.16, 1, 0.3, 1] }} className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-light tracking-tight">
+<motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.5, ease: [0.16, 1, 0.3, 1] }} className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-light tracking-tight">
             <span className="bg-gradient-to-b from-white via-white/90 to-white/40 bg-clip-text text-transparent">Negeri</span><br />
             <span className="bg-gradient-to-r from-cyan-200 via-white to-cyan-200 bg-clip-text text-transparent">Kahiyang</span>
           </motion.h1>
@@ -206,7 +203,7 @@ export default function Hero() {
           <motion.div animate={{ y: [0, 10, 0] }} transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }} className="w-px h-10 bg-gradient-to-b from-white/20 to-transparent" />
         </motion.div>
 
-      </motion.div>
+      </div>
     </section>
   )
 }
