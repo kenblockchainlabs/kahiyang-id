@@ -6,62 +6,57 @@ import { Wave } from "@/components/ui/wave"
 
 export default function Hero() {
   const ref = useRef<HTMLElement>(null)
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start start", "end start"],
-  })
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] })
 
-  const waveY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"])
-  const textY = useTransform(scrollYProgress, [0, 1], ["0%", "80%"])
-  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0])
-  const scale = useTransform(scrollYProgress, [0, 1], [1, 0.85])
+  const waveScale = useTransform(scrollYProgress, [0, 1], [1, 1.8])
+  const waveOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0])
+  const textY = useTransform(scrollYProgress, [0, 1], ["0%", "150%"])
+  const opacity = useTransform(scrollYProgress, [0, 0.6], [1, 0])
+  const textScale = useTransform(scrollYProgress, [0, 1], [1, 2])
+  const frameScale = useTransform(scrollYProgress, [0, 1], [1, 1.5])
+  const frameOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0])
+  const corners = ["top-0 left-0", "top-0 right-0", "bottom-0 left-0", "bottom-0 right-0"]
 
   return (
-    <section ref={ref} className="relative h-screen w-full overflow-hidden bg-black flex items-center justify-center">
-
-      <motion.div style={{ y: waveY, scale }} className="absolute inset-0 z-0 flex items-center justify-center">
-        <Wave speed={0.5} tiles={1.2} width={1920} height={1080} />
-      </motion.div>
-
-      <div className="absolute inset-0 z-10 bg-gradient-to-b from-black/30 via-transparent to-black/90 pointer-events-none" />
-
-      <motion.div style={{ y: textY, opacity }} className="relative z-20 flex flex-col items-center text-center px-4 max-w-5xl mx-auto w-full">
-
-        <motion.h1
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, ease: "easeOut" }}
-          className="text-5xl sm:text-6xl md:text-8xl font-bold bg-gradient-to-r from-white via-cyan-200 to-white bg-clip-text text-transparent leading-tight"
-        >
-          Negeri Kahiyang
-        </motion.h1>
-
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.3, ease: "easeOut" }}
-          className="mt-6 text-base sm:text-lg md:text-xl text-white/70 max-w-2xl font-light tracking-wide"
-        >
-          Mulai, Tumbuh, dan Berkembang &mdash; Tanpa Batas.
-        </motion.p>
-
-      </motion.div>
-
-      <motion.div
-        initial={{ opacity: 0, y: -10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1, delay: 1, ease: "easeOut" }}
-        style={{ opacity }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 text-white/40 text-xs tracking-widest uppercase flex flex-col items-center gap-2"
-      >
-        <span>Scroll</span>
-        <motion.div
-          animate={{ y: [0, 8, 0] }}
-          transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-          className="w-px h-8 bg-gradient-to-b from-white/40 to-transparent"
-        />
-      </motion.div>
-
+    <section ref={ref} className="relative h-[150vh] w-full bg-[#0a0a0a]">
+      <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center">
+        <motion.div style={{ scale: waveScale, opacity: waveOpacity }} className="absolute inset-0 z-0 flex items-center justify-center">
+          <Wave speed={0.5} tiles={1.2} width={1920} height={1080} />
+        </motion.div>
+        <div className="absolute inset-0 z-10 bg-gradient-to-b from-[#0a0a0a]/40 via-transparent to-[#0a0a0a]/95 pointer-events-none" />
+        <motion.div style={{ scale: frameScale, opacity: frameOpacity }} className="absolute inset-6 sm:inset-10 md:inset-16 z-20 pointer-events-none">
+          <motion.div initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: 1.2, delay: 0.8, ease: [0.16, 1, 0.3, 1] }} className="absolute top-0 left-8 right-8 h-px bg-gradient-to-r from-transparent via-white/[0.12] to-transparent origin-center" />
+          <motion.div initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: 1.2, delay: 1.0, ease: [0.16, 1, 0.3, 1] }} className="absolute bottom-0 left-8 right-8 h-px bg-gradient-to-r from-transparent via-white/[0.12] to-transparent origin-center" />
+          <motion.div initial={{ scaleY: 0 }} animate={{ scaleY: 1 }} transition={{ duration: 1.2, delay: 0.9, ease: [0.16, 1, 0.3, 1] }} className="absolute left-0 top-8 bottom-8 w-px bg-gradient-to-b from-transparent via-white/[0.12] to-transparent origin-center" />
+          <motion.div initial={{ scaleY: 0 }} animate={{ scaleY: 1 }} transition={{ duration: 1.2, delay: 1.1, ease: [0.16, 1, 0.3, 1] }} className="absolute right-0 top-8 bottom-8 w-px bg-gradient-to-b from-transparent via-white/[0.12] to-transparent origin-center" />
+          {corners.map((pos, i) => (<motion.div key={pos} initial={{ scale: 0, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ duration: 0.5, delay: 1.3 + i * 0.1 }} className={"absolute " + pos + " w-1.5 h-1.5 rounded-full bg-cyan-400/40"} />))}
+        </motion.div>
+        <motion.div style={{ y: textY, opacity, scale: textScale }} className="relative z-20 flex flex-col items-center text-center px-4 max-w-5xl mx-auto w-full origin-center">
+          <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }} className="mb-8 flex items-center gap-3">
+            <div className="w-8 h-px bg-gradient-to-r from-transparent to-cyan-400/50" />
+            <span className="text-[11px] sm:text-xs text-white/30 tracking-[0.3em] uppercase font-light">Digital Ecosystem</span>
+            <div className="w-8 h-px bg-gradient-to-l from-transparent to-cyan-400/50" />
+          </motion.div>
+<motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.5, ease: [0.16, 1, 0.3, 1] }} className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-light tracking-tight">
+            <span className="bg-gradient-to-b from-white via-white/90 to-white/40 bg-clip-text text-transparent">Negeri</span><br />
+            <span className="bg-gradient-to-r from-cyan-200 via-white to-cyan-200 bg-clip-text text-transparent">Kahiyang</span>
+          </motion.h1>
+          <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.8, ease: [0.16, 1, 0.3, 1] }} className="mt-8 text-sm sm:text-base md:text-lg text-white/30 max-w-xl font-light tracking-[0.15em] leading-relaxed">
+            Mulai, Tumbuh, dan Berkembang &mdash; Tanpa Batas.
+          </motion.p>
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 1.1, ease: [0.16, 1, 0.3, 1] }} className="mt-12 flex items-center gap-4">
+            <a href="#layanan" className="group relative rounded-full bg-white/[0.06] hover:bg-white/[0.12] border border-white/[0.1] hover:border-white/20 px-7 py-3 text-[13px] text-white/70 hover:text-white tracking-[0.2em] uppercase font-light transition-all duration-500 overflow-hidden">
+              <span className="relative z-10">Eksplor</span>
+              <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/5 to-blue-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+            </a>
+            <a href="#tentang" className="text-[13px] text-white/25 hover:text-white/50 tracking-[0.2em] uppercase font-light transition-colors duration-300">Tentang →</a>
+          </motion.div>
+        </motion.div>
+        <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 1.5, ease: [0.16, 1, 0.3, 1] }} style={{ opacity }} className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 text-white/20 text-[10px] tracking-[0.5em] uppercase flex flex-col items-center gap-3 font-light">
+          <span>Scroll</span>
+          <motion.div animate={{ y: [0, 10, 0] }} transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }} className="w-px h-10 bg-gradient-to-b from-white/20 to-transparent" />
+        </motion.div>
+      </div>
     </section>
   )
 }
