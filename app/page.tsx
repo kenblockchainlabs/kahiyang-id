@@ -9,10 +9,12 @@ export default function Page() {
     <main className="bg-[#f5f0e8]">
       <Navbar />
       <Hero />
-      {/* Sections DI DALAM lubang — tanpa z-index, muncul pas hero scroll habis */}
-      <Layanan />
-      <Tentang />
-      <CTA />
+      {/* -mt-[100vh] biar sections muncul pas hero selesai, gak ada gap */}
+      <div className="relative -mt-[100vh]">
+        <Layanan />
+        <Tentang />
+        <CTA />
+      </div>
     </main>
   )
 }
