@@ -15,8 +15,6 @@ export default function Hero() {
   const frameScale = useTransform(scrollYProgress, [0, 0.5, 1], [1, 1.6, 5])
   const frameOpacity = useTransform(scrollYProgress, [0, 0.3, 0.6], [1, 0.3, 0])
   const overlayOpacity = useTransform(scrollYProgress, [0, 0.5, 0.75, 0.9, 1], [0.4, 0.15, 0, 0, 0])
-
-  // Cream transition — muncul di akhir zoom
   const creamOpacity = useTransform(scrollYProgress, [0.7, 0.85, 1], [0, 0.5, 1])
   const creamScale = useTransform(scrollYProgress, [0.7, 1], [0.5, 1])
 
@@ -25,6 +23,7 @@ export default function Hero() {
   return (
     <section ref={ref} className="relative h-[400vh] w-full bg-[#0a0a0a]">
       <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center">
+
         {/* Wave */}
         <motion.div style={{ scale: waveScale, opacity: waveOpacity }} className="absolute inset-0 z-0 flex items-center justify-center">
           <Wave speed={0.5} tiles={1.2} width={1920} height={1080} />
@@ -33,24 +32,23 @@ export default function Hero() {
         {/* Dark overlay */}
         <motion.div style={{ opacity: overlayOpacity }} className="absolute inset-0 z-10 bg-[#0a0a0a] pointer-events-none" />
 
-        {/* Cream portal transition — muncul dari tengah saat zoom akhir */}
+        {/* Cream portal transition */}
         <motion.div style={{ opacity: creamOpacity, scale: creamScale }} className="absolute inset-0 z-40 pointer-events-none flex items-center justify-center">
           <div className="w-full h-full bg-[#f5f0e8] rounded-full" style={{ maxWidth: "200vmax", maxHeight: "200vmax" }} />
         </motion.div>
 
-        {/* Frame — mobile-safe */}
-        <motion.div style={{ scale: frameScale, opacity: frameOpacity }} className="absolute z-20 pointer-events-none" style={{
-          top: "4vh", bottom: "4vh", left: "4vw", right: "4vw",
-          scale: frameScale, opacity: frameOpacity
-        }}>
-          <motion.div initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: 1.2, delay: 0.8, ease: [0.16, 1, 0.3, 1] }} className="absolute top-0 left-[8%] right-[8%] h-px bg-gradient-to-r from-transparent via-white/[0.15] to-transparent origin-center" />
-          <motion.div initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: 1.2, delay: 1.0, ease: [0.16, 1, 0.3, 1] }} className="absolute bottom-0 left-[8%] right-[8%] h-px bg-gradient-to-r from-transparent via-white/[0.15] to-transparent origin-center" />
-          <motion.div initial={{ scaleY: 0 }} animate={{ scaleY: 1 }} transition={{ duration: 1.2, delay: 0.9, ease: [0.16, 1, 0.3, 1] }} className="absolute left-0 top-[8%] bottom-[8%] w-px bg-gradient-to-b from-transparent via-white/[0.15] to-transparent origin-center" />
-          <motion.div initial={{ scaleY: 0 }} animate={{ scaleY: 1 }} transition={{ duration: 1.2, delay: 1.1, ease: [0.16, 1, 0.3, 1] }} className="absolute right-0 top-[8%] bottom-[8%] w-px bg-gradient-to-b from-transparent via-white/[0.15] to-transparent origin-center" />
-          {corners.map((pos, i) => (
-            <motion.div key={pos} initial={{ scale: 0, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ duration: 0.5, delay: 1.3 + i * 0.1 }} className={"absolute " + pos + " w-2 h-2 rounded-full bg-cyan-400/50"} />
-          ))}
-        </motion.div>
+        {/* Frame */}
+        <div className="absolute z-20 pointer-events-none" style={{ top: "4vh", bottom: "4vh", left: "4vw", right: "4vw" }}>
+          <motion.div style={{ scale: frameScale, opacity: frameOpacity }} className="absolute inset-0">
+            <motion.div initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: 1.2, delay: 0.8, ease: [0.16, 1, 0.3, 1] }} className="absolute top-0 left-[8%] right-[8%] h-px bg-gradient-to-r from-transparent via-white/[0.15] to-transparent origin-center" />
+            <motion.div initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: 1.2, delay: 1.0, ease: [0.16, 1, 0.3, 1] }} className="absolute bottom-0 left-[8%] right-[8%] h-px bg-gradient-to-r from-transparent via-white/[0.15] to-transparent origin-center" />
+            <motion.div initial={{ scaleY: 0 }} animate={{ scaleY: 1 }} transition={{ duration: 1.2, delay: 0.9, ease: [0.16, 1, 0.3, 1] }} className="absolute left-0 top-[8%] bottom-[8%] w-px bg-gradient-to-b from-transparent via-white/[0.15] to-transparent origin-center" />
+            <motion.div initial={{ scaleY: 0 }} animate={{ scaleY: 1 }} transition={{ duration: 1.2, delay: 1.1, ease: [0.16, 1, 0.3, 1] }} className="absolute right-0 top-[8%] bottom-[8%] w-px bg-gradient-to-b from-transparent via-white/[0.15] to-transparent origin-center" />
+            {corners.map((pos, i) => (
+              <motion.div key={pos} initial={{ scale: 0, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ duration: 0.5, delay: 1.3 + i * 0.1 }} className={"absolute " + pos + " w-2 h-2 rounded-full bg-cyan-400/50"} />
+            ))}
+          </motion.div>
+        </div>
 
         {/* Text */}
 <motion.div style={{ scale: textScale, opacity: textOpacity }} className="relative z-30 flex flex-col items-center text-center px-4 max-w-5xl mx-auto w-full origin-center">
@@ -79,6 +77,7 @@ export default function Hero() {
           <span>Scroll</span>
           <motion.div animate={{ y: [0, 10, 0] }} transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }} className="w-px h-10 bg-gradient-to-b from-white/20 to-transparent" />
         </motion.div>
+
       </div>
     </section>
   )
