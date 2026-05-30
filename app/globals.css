@@ -1,8 +1,4 @@
-﻿html, body {
-  overscroll-behavior: none;
-}
-
-@tailwind base;
+﻿@tailwind base;
 @tailwind components;
 @tailwind utilities;
 
@@ -22,6 +18,25 @@ body {
   color: var(--foreground);
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
+  overscroll-behavior-y: contain;
+}
+
+/* Brush stroke drift — gerak acak diagonal */
+@keyframes brushDrift {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  25% { transform: translate(8px, -12px) rotate(1deg); }
+  50% { transform: translate(-5px, 6px) rotate(-0.5deg); }
+  75% { transform: translate(12px, -4px) rotate(0.8deg); }
+  100% { transform: translate(0, 0) rotate(0deg); }
+}
+
+/* Beep — blink teks Selengkapnya */
+@keyframes beep {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+.animate-beep {
+  animation: beep 1.5s ease-in-out infinite;
 }
 
 @layer utilities {
