@@ -9,7 +9,6 @@ export default function Page() {
     <main className="bg-[#f5f0e8]">
       <Navbar />
       <Hero />
-      {/* -mt-[100vh] biar sections muncul pas hero selesai, gak ada gap */}
       <div className="relative -mt-[100vh]">
         <Layanan />
         <Tentang />

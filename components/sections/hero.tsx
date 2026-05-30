@@ -8,35 +8,38 @@ export default function Hero() {
   const ref = useRef<HTMLElement>(null)
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] })
 
-  // Neon wave — 6x zoom, TIDAK DIUBAH
-  const waveScale = useTransform(scrollYProgress, [0, 0.5, 1], [1, 3, 6])
-  const waveOpacity = useTransform(scrollYProgress, [0, 0.8, 1], [1, 0.9, 0.5])
+  // Neon — zoom 10x DALAM, lorong
+  const waveScale = useTransform(scrollYProgress, [0, 0.5, 1], [1, 4, 10])
+  const waveOpacity = useTransform(scrollYProgress, [0, 0.7, 1], [1, 0.9, 0.6])
 
-  // Text
-  const textScale = useTransform(scrollYProgress, [0, 0.2, 0.35], [1, 1.5, 3])
-  const textOpacity = useTransform(scrollYProgress, [0, 0.15, 0.3], [1, 0.6, 0])
+  // Text — hilang awal
+  const textScale = useTransform(scrollYProgress, [0, 0.15, 0.25], [1, 1.3, 2])
+  const textOpacity = useTransform(scrollYProgress, [0, 0.1, 0.2], [1, 0.5, 0])
   const textY = useTransform(scrollYProgress, [0, 1], ["0%", "-40%"])
 
-  // Frame
+  // Frame — hilang awal
   const frameScale = useTransform(scrollYProgress, [0, 1], [1, 2])
-  const frameOpacity = useTransform(scrollYProgress, [0, 0.3, 0.6], [1, 0.4, 0])
+  const frameOpacity = useTransform(scrollYProgress, [0, 0.2, 0.4], [1, 0.3, 0])
 
-  // Vignette lorong
-  const vignetteOpacity = useTransform(scrollYProgress, [0, 0.2, 0.5, 0.85], [0, 0.2, 0.6, 0.9])
+  // Vignette lorong — makin gelap di pinggir
+  const vignetteOpacity = useTransform(scrollYProgress, [0, 0.3, 0.6, 0.85], [0, 0.3, 0.7, 1])
 
-  // BURN — cream circle expand dari tengah (GPU ringan, cuma scale transform)
-  const burnScale = useTransform(scrollYProgress, [0, 0.25, 0.4, 0.6, 0.8, 1], [0, 0, 0.05, 0.3, 1, 4])
-  const burnOpacity = useTransform(scrollYProgress, [0, 0.25, 0.35], [0, 0, 1])
+  // BURN — BARU MUNCUL DI AKHIR (75-100%), pelan
+  const burnScale = useTransform(scrollYProgress, [0, 0.75, 0.82, 0.9, 0.96, 1], [0, 0, 0.02, 0.12, 0.5, 4])
+  const burnOpacity = useTransform(scrollYProgress, [0, 0.75, 0.82], [0, 0, 1])
+
+  // Hero fade — hitam hilang pas burn buka
+  const heroOpacity = useTransform(scrollYProgress, [0, 0.85, 1], [1, 1, 0])
 
   const corners = ["top-0 left-0", "top-0 right-0", "bottom-0 left-0", "bottom-0 right-0"]
 
   return (
     <section ref={ref} className="relative w-full" style={{ height: "700vh" }}>
-      <div className="sticky top-0 h-screen w-full overflow-hidden">
+      <motion.div style={{ opacity: heroOpacity }} className="sticky top-0 h-screen w-full overflow-hidden">
 
-        {/* === Hitam + Neon === */}
+        {/* === CLEAN hitam + neon — bersih, gak ada efek lain === */}
         <div className="absolute inset-0 z-10 bg-[#0a0a0a]">
-          {/* Neon wave — TIDAK DIUBAH */}
+          {/* Neon — zoom 10x lorong */}
           <motion.div style={{ scale: waveScale, opacity: waveOpacity }} className="absolute inset-0 flex items-center justify-center origin-center">
             <Wave speed={0.5} tiles={1.2} width={1920} height={1080} />
           </motion.div>
@@ -49,7 +52,7 @@ export default function Hero() {
           </motion.div>
         </div>
 
-        {/* === BURN — cream circle expand, irregular shape, tepi terbakar === */}
+        {/* === BURN — BARU MUNCUL DI AKHIR, sections keliatan DI DALAM === */}
         <motion.div
           style={{ scale: burnScale, opacity: burnOpacity }}
           className="absolute inset-0 z-20 flex items-center justify-center origin-center pointer-events-none"
@@ -59,7 +62,7 @@ export default function Hero() {
             style={{
               borderRadius: "40% 60% 55% 45% / 55% 45% 60% 40%",
               background: "radial-gradient(circle, #f5f0e8 0%, #f5f0e8 55%, #e8ddd0 65%, #d4c8b4 75%, #b8a890 85%, transparent 100%)",
-              boxShadow: "0 0 80px 40px rgba(168,152,128,0.3), 0 0 160px 80px rgba(106,94,78,0.15)"
+              boxShadow: "0 0 100px 50px rgba(168,152,128,0.4), 0 0 200px 100px rgba(106,94,78,0.2)"
             }}
           />
         </motion.div>
@@ -67,8 +70,8 @@ export default function Hero() {
         {/* === Frame === */}
         <motion.div style={{ scale: frameScale, opacity: frameOpacity }} className="absolute inset-6 sm:inset-10 md:inset-16 z-30 pointer-events-none">
           <motion.div initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: 1.2, delay: 0.8, ease: [0.16, 1, 0.3, 1] }} className="absolute top-0 left-8 right-8 h-px bg-gradient-to-r from-transparent via-white/[0.15] to-transparent origin-center" />
-          <motion.div initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: 1.2, delay: 1.0, ease: [0.16, 1, 0.3, 1] }} className="absolute bottom-0 left-8 right-8 h-px bg-gradient-to-r from-transparent via-white/[0.15] to-transparent origin-center" />
-<motion.div initial={{ scaleY: 0 }} animate={{ scaleY: 1 }} transition={{ duration: 1.2, delay: 0.9, ease: [0.16, 1, 0.3, 1] }} className="absolute left-0 top-8 bottom-8 w-px bg-gradient-to-b from-transparent via-white/[0.15] to-transparent origin-center" />
+<motion.div initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: 1.2, delay: 1.0, ease: [0.16, 1, 0.3, 1] }} className="absolute bottom-0 left-8 right-8 h-px bg-gradient-to-r from-transparent via-white/[0.15] to-transparent origin-center" />
+          <motion.div initial={{ scaleY: 0 }} animate={{ scaleY: 1 }} transition={{ duration: 1.2, delay: 0.9, ease: [0.16, 1, 0.3, 1] }} className="absolute left-0 top-8 bottom-8 w-px bg-gradient-to-b from-transparent via-white/[0.15] to-transparent origin-center" />
           <motion.div initial={{ scaleY: 0 }} animate={{ scaleY: 1 }} transition={{ duration: 1.2, delay: 1.1, ease: [0.16, 1, 0.3, 1] }} className="absolute right-0 top-8 bottom-8 w-px bg-gradient-to-b from-transparent via-white/[0.15] to-transparent origin-center" />
           {corners.map((pos, i) => (
             <motion.div key={pos} initial={{ scale: 0, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ duration: 0.5, delay: 1.3 + i * 0.1 }} className={"absolute " + pos + " w-2 h-2 rounded-full bg-cyan-400/50"} />
@@ -100,10 +103,10 @@ export default function Hero() {
         {/* === Scroll indicator === */}
         <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 1.5, ease: [0.16, 1, 0.3, 1] }} style={{ opacity: textOpacity }} className="absolute bottom-8 left-1/2 -translate-x-1/2 z-50 text-white/20 text-[10px] tracking-[0.5em] uppercase flex flex-col items-center gap-3 font-light">
           <span>Scroll</span>
-          <motion.div animate={{ y: [0, 10, 0] }} transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }} className="w-px h-10 bg-gradient-to-b from-white/20 to-transparent" />
+<motion.div animate={{ y: [0, 10, 0] }} transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }} className="w-px h-10 bg-gradient-to-b from-white/20 to-transparent" />
         </motion.div>
 
-      </div>
+      </motion.div>
     </section>
   )
 }
