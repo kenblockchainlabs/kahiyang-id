@@ -9,11 +9,10 @@ export default function Page() {
     <main className="bg-[#f5f0e8]">
       <Navbar />
       <Hero />
-      <div className="relative z-20">
-        <Layanan />
-        <Tentang />
-        <CTA />
-      </div>
+      {/* Sections DI DALAM lubang — tanpa z-index, muncul pas hero scroll habis */}
+      <Layanan />
+      <Tentang />
+      <CTA />
     </main>
   )
 }
