@@ -15,21 +15,37 @@ class WaveSafe extends Component<{ children: ReactNode }, { ok: boolean }> {
 function MobileHero() {
   return (
     <section className="relative w-full h-screen bg-[#0a0a0a] overflow-hidden">
-      {/* Wave — auto zoom animation (sama kayak desktop tapi CSS) */}
-      <div className="absolute inset-0 flex items-center justify-center hero-wave-zoom">
-        <WaveSafe>
-          <Wave speed={0.5} tiles={1.2} width={1920} height={1080} />
-        </WaveSafe>
+      {/* CSS Neon Ring — konsisten di semua HP */}
+      <div className="absolute inset-0 flex items-center justify-center">
+        <div className="relative" style={{ width: "70vmin", height: "70vmin" }}>
+          {/* Outer glow */}
+          <div className="absolute inset-0 rounded-full animate-neon-pulse" style={{
+            background: "radial-gradient(ellipse at center, rgba(0,200,255,0.08) 0%, rgba(0,200,255,0.04) 40%, transparent 70%)"
+          }} />
+          {/* Ring */}
+          <div className="absolute inset-[15%] rounded-full animate-neon-ring" style={{
+            border: "2px solid rgba(0,200,255,0.3)",
+            boxShadow: "0 0 30px rgba(0,200,255,0.15), inset 0 0 30px rgba(0,200,255,0.08), 0 0 60px rgba(0,200,255,0.05)"
+          }} />
+          {/* Inner glow */}
+          <div className="absolute inset-[30%] rounded-full" style={{
+            background: "radial-gradient(circle, rgba(0,200,255,0.06) 0%, transparent 70%)"
+          }} />
+          {/* Center dot */}
+          <div className="absolute inset-[45%] rounded-full animate-neon-dot" style={{
+            background: "radial-gradient(circle, rgba(0,255,212,0.4) 0%, rgba(0,255,212,0.1) 50%, transparent 70%)"
+          }} />
+        </div>
       </div>
 
-      {/* Gradient — pakai warna solid, bukan transparent */}
+      {/* Gradient portal */}
       <div className="absolute inset-0 z-10 pointer-events-none hero-gradient-fade">
         <div className="absolute inset-0" style={{
           background: "linear-gradient(to bottom, rgba(10,10,10,0.3) 0%, rgba(42,37,32,0.6) 40%, #f5f0e8 100%)"
         }} />
       </div>
 
-      {/* Frame — sama persis kayak desktop */}
+      {/* Frame */}
       <div className="absolute inset-6 sm:inset-10 z-20 pointer-events-none">
         <div className="absolute top-0 left-8 right-8 h-px bg-gradient-to-r from-transparent via-white/[0.15] to-transparent origin-center hero-scale-x" style={{ animationDelay: "0.8s" }} />
         <div className="absolute bottom-0 left-8 right-8 h-px bg-gradient-to-r from-transparent via-white/[0.15] to-transparent origin-center hero-scale-x" style={{ animationDelay: "1.0s" }} />
@@ -41,18 +57,18 @@ function MobileHero() {
         <div className="absolute bottom-0 right-0 w-2 h-2 rounded-full bg-cyan-400/50 hero-fade" style={{ animationDelay: "1.6s" }} />
       </div>
 
-      {/* Text — sama persis kayak desktop */}
+      {/* Text */}
       <div className="relative z-30 flex flex-col items-center justify-center text-center px-4 h-full max-w-5xl mx-auto w-full">
         <div className="mb-8 flex items-center gap-3 hero-fade" style={{ animationDelay: "0.3s" }}>
           <div className="w-8 h-px bg-gradient-to-r from-transparent to-cyan-400/50" />
-          <span className="text-[11px] text-white/30 tracking-[0.3em] uppercase font-light">Digital Ecosystem</span>
+<span className="text-[11px] text-white/30 tracking-[0.3em] uppercase font-light">Digital Ecosystem</span>
           <div className="w-8 h-px bg-gradient-to-l from-transparent to-cyan-400/50" />
         </div>
         <h1 className="text-5xl font-light tracking-tight hero-fade" style={{ animationDelay: "0.5s" }}>
           <span className="bg-gradient-to-b from-white via-white/90 to-white/40 bg-clip-text text-transparent">Negeri</span><br />
           <span className="bg-gradient-to-r from-cyan-200 via-white to-cyan-200 bg-clip-text text-transparent">Kahiyang</span>
         </h1>
-<p className="mt-8 text-sm text-white/30 max-w-xl font-light tracking-[0.15em] leading-relaxed hero-fade" style={{ animationDelay: "0.8s" }}>
+        <p className="mt-8 text-sm text-white/30 max-w-xl font-light tracking-[0.15em] leading-relaxed hero-fade" style={{ animationDelay: "0.8s" }}>
           Mulai, Tumbuh, dan Berkembang &mdash; Tanpa Batas.
         </p>
         <div className="mt-12 flex items-center gap-4 hero-fade" style={{ animationDelay: "1.1s" }}>
@@ -105,10 +121,10 @@ function DesktopHero() {
         <motion.div style={{ scale: frameScale, opacity: frameOpacity }} className="absolute inset-6 sm:inset-10 md:inset-16 z-20 pointer-events-none">
           <motion.div initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: 1.2, delay: 0.8, ease: [0.16, 1, 0.3, 1] }} className="absolute top-0 left-8 right-8 h-px bg-gradient-to-r from-transparent via-white/[0.15] to-transparent origin-center" />
           <motion.div initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: 1.2, delay: 1.0, ease: [0.16, 1, 0.3, 1] }} className="absolute bottom-0 left-8 right-8 h-px bg-gradient-to-r from-transparent via-white/[0.15] to-transparent origin-center" />
-          <motion.div initial={{ scaleY: 0 }} animate={{ scaleY: 1 }} transition={{ duration: 1.2, delay: 0.9, ease: [0.16, 1, 0.3, 1] }} className="absolute left-0 top-8 bottom-8 w-px bg-gradient-to-b from-transparent via-white/[0.15] to-transparent origin-center" />
+<motion.div initial={{ scaleY: 0 }} animate={{ scaleY: 1 }} transition={{ duration: 1.2, delay: 0.9, ease: [0.16, 1, 0.3, 1] }} className="absolute left-0 top-8 bottom-8 w-px bg-gradient-to-b from-transparent via-white/[0.15] to-transparent origin-center" />
           <motion.div initial={{ scaleY: 0 }} animate={{ scaleY: 1 }} transition={{ duration: 1.2, delay: 1.1, ease: [0.16, 1, 0.3, 1] }} className="absolute right-0 top-8 bottom-8 w-px bg-gradient-to-b from-transparent via-white/[0.15] to-transparent origin-center" />
           {corners.map((pos, i) => (
-<motion.div key={pos} initial={{ scale: 0, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ duration: 0.5, delay: 1.3 + i * 0.1 }} className={"absolute " + pos + " w-2 h-2 rounded-full bg-cyan-400/50"} />
+            <motion.div key={pos} initial={{ scale: 0, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ duration: 0.5, delay: 1.3 + i * 0.1 }} className={"absolute " + pos + " w-2 h-2 rounded-full bg-cyan-400/50"} />
           ))}
         </motion.div>
 
@@ -150,6 +166,6 @@ export default function Hero() {
   }, [])
 
   if (isMobile === null) return <div className="h-screen bg-[#0a0a0a]" />
-  if (isMobile) return <MobileHero />
+if (isMobile) return <MobileHero />
   return <DesktopHero />
 }
