@@ -21,13 +21,25 @@ body {
   overscroll-behavior-y: contain;
 }
 
-/* Brush stroke drift — gerak acak diagonal */
-@keyframes brushDrift {
-  0% { transform: translate(0, 0) rotate(0deg); }
-  25% { transform: translate(8px, -12px) rotate(1deg); }
-  50% { transform: translate(-5px, 6px) rotate(-0.5deg); }
-  75% { transform: translate(12px, -4px) rotate(0.8deg); }
-  100% { transform: translate(0, 0) rotate(0deg); }
+/* Motion blur blob A — gerak irregular */
+@keyframes motionBlurA {
+  0%   { transform: translate(0, 0) scale(1); }
+  15%  { transform: translate(30px, -20px) scale(1.1) rotate(5deg); }
+  30%  { transform: translate(-20px, 15px) scale(0.95) rotate(-3deg); }
+  50%  { transform: translate(15px, 25px) scale(1.08) rotate(2deg); }
+  65%  { transform: translate(-25px, -10px) scale(1) rotate(-4deg); }
+  80%  { transform: translate(10px, -30px) scale(1.05) rotate(3deg); }
+  100% { transform: translate(0, 0) scale(1); }
+}
+
+/* Motion blur blob B — offset rhythm */
+@keyframes motionBlurB {
+  0%   { transform: translate(0, 0) scale(1); }
+  20%  { transform: translate(-25px, 20px) scale(1.05) rotate(-3deg); }
+  40%  { transform: translate(20px, -15px) scale(0.9) rotate(4deg); }
+  55%  { transform: translate(-10px, -25px) scale(1.1) rotate(-2deg); }
+  75%  { transform: translate(25px, 10px) scale(0.95) rotate(5deg); }
+  100% { transform: translate(0, 0) scale(1); }
 }
 
 /* Beep — blink teks Selengkapnya */
