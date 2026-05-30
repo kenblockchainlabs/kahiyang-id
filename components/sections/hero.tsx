@@ -17,16 +17,42 @@ export default function Hero() {
   const maskRef = useRef<HTMLDivElement>(null)
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] })
 
+  // Neon zoom 10x lorong
   const waveScale = useTransform(scrollYProgress, [0, 0.5, 1], [1, 4, 10])
   const waveOpacity = useTransform(scrollYProgress, [0, 0.7, 1], [1, 0.9, 0.6])
+
+  // Text — hilang awal
   const textScale = useTransform(scrollYProgress, [0, 0.15, 0.25], [1, 1.3, 2])
   const textOpacity = useTransform(scrollYProgress, [0, 0.1, 0.2], [1, 0.5, 0])
   const textY = useTransform(scrollYProgress, [0, 1], ["0%", "-40%"])
+
+  // Frame — hilang awal
   const frameScale = useTransform(scrollYProgress, [0, 1], [1, 2])
   const frameOpacity = useTransform(scrollYProgress, [0, 0.2, 0.4], [1, 0.3, 0])
-  const vignetteOpacity = useTransform(scrollYProgress, [0, 0.3, 0.6, 0.85], [0, 0.3, 0.7, 1])
-  const heroOpacity = useTransform(scrollYProgress, [0, 0.9, 1], [1, 1, 0])
 
+  // Vignette lorong
+  const vignetteOpacity = useTransform(scrollYProgress, [0, 0.3, 0.6, 0.85], [0, 0.3, 0.7, 1])
+
+  // Hero fade
+  const heroOpacity = useTransform(scrollYProgress, [0, 0.95, 1], [1, 1, 0])
+
+  // === SECTION ANIMATIONS — pop-in/compress-out bridge ===
+  // Layanan: muncul 65-70%, hilang 78-82%
+  const layananScale = useTransform(scrollYProgress, [0.65, 0.7, 0.78, 0.82], [0.88, 1, 1, 0.92])
+  const layananOpacity = useTransform(scrollYProgress, [0.65, 0.7, 0.78, 0.82], [0, 1, 1, 0])
+  const layananY = useTransform(scrollYProgress, [0.65, 0.7, 0.78, 0.82], [40, 0, 0, -30])
+
+  // Tentang: muncul 78-82%, hilang 88-92%
+  const tentangScale = useTransform(scrollYProgress, [0.78, 0.82, 0.88, 0.92], [0.88, 1, 1, 0.92])
+  const tentangOpacity = useTransform(scrollYProgress, [0.78, 0.82, 0.88, 0.92], [0, 1, 1, 0])
+  const tentangY = useTransform(scrollYProgress, [0.78, 0.82, 0.88, 0.92], [40, 0, 0, -30])
+
+  // CTA: muncul 88-92%, stay
+  const ctaScale = useTransform(scrollYProgress, [0.88, 0.92, 1], [0.88, 1, 1])
+  const ctaOpacity = useTransform(scrollYProgress, [0.88, 0.92, 1], [0, 1, 1])
+  const ctaY = useTransform(scrollYProgress, [0.88, 0.92, 1], [40, 0, 0])
+
+  // MASK — burn dari tengah, mulai 65%
   useEffect(() => {
     let rafId: number
     const handleScroll = () => {
@@ -35,7 +61,7 @@ export default function Hero() {
         if (!ref.current || !maskRef.current) return
         const rect = ref.current.getBoundingClientRect()
         const progress = Math.max(0, Math.min(1, -rect.top / (rect.height - window.innerHeight)))
-        const burn = Math.max(0, Math.min(1, (progress - 0.7) / 0.2))
+        const burn = Math.max(0, Math.min(1, (progress - 0.65) / 0.25))
         const r = burn * 60
         const mask = `radial-gradient(circle at center, transparent 0%, transparent ${r}%, rgba(0,0,0,0.15) ${r + 0.8}%, black ${r + 2.5}%, rgba(0,0,0,0.3) ${r + 4}%, black ${r + 6}%, black 100%)`
         maskRef.current.style.maskImage = mask
@@ -50,67 +76,67 @@ export default function Hero() {
   const corners = ["top-0 left-0", "top-0 right-0", "bottom-0 left-0", "bottom-0 right-0"]
 
   return (
-    <section ref={ref} className="relative w-full" style={{ height: "500vh" }}>
+<section ref={ref} className="relative w-full" style={{ height: "600vh" }}>
       <motion.div style={{ opacity: heroOpacity }} className="sticky top-0 h-screen w-full overflow-hidden">
 
         {/* === Cream bg === */}
         <div className="absolute inset-0 z-0 bg-[#f5f0e8]" />
 
-        {/* === SEMUA SECTIONS DI DALAM HERO === */}
-        <div className="absolute inset-0 z-[5] flex flex-col items-center justify-start pointer-events-none p-8 pt-24 overflow-y-auto">
-          <div className="max-w-5xl w-full">
+        {/* === SECTIONS — muncul satu per satu di dalam lubang === */}
+        <div className="absolute inset-0 z-[5] pointer-events-none">
 
-            {/* LAYANAN */}
-            <div className="text-center mb-12">
+          {/* LAYANAN — pop-in/compress-out */}
+          <motion.div style={{ scale: layananScale, opacity: layananOpacity, y: layananY }} className="absolute inset-0 flex items-center justify-center p-8">
+            <div className="max-w-4xl w-full text-center">
               <p className="text-[11px] text-black/30 tracking-[0.3em] uppercase mb-4 font-light">Layanan</p>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-light text-black/80 tracking-tight">Eksplor Layanan Kami</h2>
-            </div>
-            <div className="grid grid-cols-2 gap-3 max-w-3xl mx-auto mb-20">
-              {[
-                { n: "01", t: "Forensic Analysis", d: "Bedah akun TikTok lo pakai data real — hook pattern, engagement rate, ad spend ratio, winning content formula.", tag: "Core" },
-                { n: "02", t: "Kelas Affiliate", d: "Dari nol sampai pecah telur. Basic Rp 199K (Zoom + Ebook) atau Pro Rp 1Jt (Private Grup + Live Session).", tag: "Education" },
-                { n: "03", t: "Konsultasi", d: "Case-by-case deep dive untuk akun yang stuck, strategy pivot, atau market share analysis.", tag: "Premium" },
-{ n: "04", t: "AI Agent", d: "Instalasi Hermes AI Agent untuk kebutuhan instansi, lembaga, dan personal — automation tanpa batas.", tag: "Enterprise" },
-              ].map(s => (
-                <div key={s.n} className="p-5 rounded-xl bg-white/60 border border-black/[0.06] backdrop-blur-sm">
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="text-[10px] text-black/20 tracking-[0.3em] uppercase">{s.n}</span>
-                    <span className="text-[9px] text-cyan-700/60 tracking-[0.2em] uppercase px-2 py-0.5 rounded-full border border-cyan-500/20">{s.tag}</span>
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-light text-black/80 tracking-tight mb-10">Eksplor Layanan Kami</h2>
+              <div className="grid grid-cols-2 gap-3 max-w-3xl mx-auto">
+                {[
+                  { n: "01", t: "Forensic Analysis", d: "Bedah akun TikTok lo pakai data real", tag: "Core" },
+                  { n: "02", t: "Kelas Affiliate", d: "Dari nol sampai pecah telur", tag: "Education" },
+                  { n: "03", t: "Konsultasi", d: "Deep dive untuk akun yang stuck", tag: "Premium" },
+                  { n: "04", t: "AI Agent", d: "Instalasi Hermes AI Agent", tag: "Enterprise" },
+                ].map(s => (
+                  <div key={s.n} className="p-5 rounded-2xl bg-white/60 border border-black/[0.06] backdrop-blur-sm">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-[10px] text-black/20 tracking-[0.3em] uppercase">{s.n}</span>
+                      <span className="text-[9px] text-cyan-700/60 tracking-[0.2em] uppercase px-2 py-0.5 rounded-full border border-cyan-500/20">{s.tag}</span>
+                    </div>
+                    <h3 className="text-base sm:text-lg font-light text-black/80">{s.t}</h3>
+                    <p className="text-xs text-black/40 mt-1 font-light">{s.d}</p>
                   </div>
-                  <h3 className="text-base sm:text-lg font-light text-black/80">{s.t}</h3>
-                  <p className="text-xs text-black/40 mt-1 font-light leading-relaxed">{s.d}</p>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
+          </motion.div>
 
-            {/* TENTANG KAMI */}
-            <div className="text-center mb-20">
+          {/* TENTANG — pop-in/compress-out */}
+          <motion.div style={{ scale: tentangScale, opacity: tentangOpacity, y: tentangY }} className="absolute inset-0 flex items-center justify-center p-8">
+            <div className="max-w-3xl w-full text-center">
               <p className="text-[11px] text-black/30 tracking-[0.3em] uppercase mb-4 font-light">Tentang Kami</p>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-light text-black/80 tracking-tight leading-tight max-w-2xl mx-auto mb-6">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-light text-black/80 tracking-tight leading-tight mb-6">
                 Negeri Kahiyang adalah tempat untuk siapa saja yang siap <span className="text-cyan-700">berkembang</span>
               </h2>
-              <p className="text-sm text-black/40 font-light leading-relaxed max-w-xl mx-auto mb-8">
+              <p className="text-sm text-black/40 font-light leading-relaxed max-w-xl mx-auto mb-10">
                 Tumbuh bersama, eksplor versi terbaik dirimu, dan berkembang tanpa batas dalam ekosistem digital yang mendukung setiap langkahmu.
               </p>
               <div className="flex justify-center gap-10">
-                {[
-                  { v: "500+", l: "Akun Dianalisa" },
-                  { v: "50+", l: "Murid Aktif" },
-                  { v: "24/7", l: "AI Agent" },
-                ].map(s => (
+                {[{ v: "500+", l: "Akun Dianalisa" }, { v: "50+", l: "Murid Aktif" }, { v: "24/7", l: "AI Agent" }].map(s => (
                   <div key={s.l} className="text-center">
                     <div className="text-xl sm:text-2xl font-light text-black/80">{s.v}</div>
                     <div className="text-[9px] text-black/25 tracking-[0.2em] uppercase">{s.l}</div>
                   </div>
                 ))}
               </div>
-              <p className="mt-8 text-[10px] text-black/20 tracking-[0.2em] uppercase">
+              <p className="mt-10 text-[10px] text-black/20 tracking-[0.2em] uppercase">
                 Powered by <a href="https://binarpagi.co.id" target="_blank" rel="noopener noreferrer" className="text-black/40 underline underline-offset-4">binarpagi.co.id</a>
               </p>
             </div>
+          </motion.div>
 
-            {/* CTA */}
-            <div className="text-center pb-20">
+          {/* CTA — pop-in, stay */}
+<motion.div style={{ scale: ctaScale, opacity: ctaOpacity, y: ctaY }} className="absolute inset-0 flex items-center justify-center p-8">
+            <div className="max-w-2xl w-full text-center">
               <p className="text-[11px] text-black/30 tracking-[0.3em] uppercase mb-4 font-light">Mulai Sekarang</p>
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-light text-black/80 tracking-tight leading-tight mb-4">
                 Siap Upgrade <span className="text-cyan-700">Akun TikTok Lo?</span>
@@ -123,18 +149,18 @@ export default function Hero() {
                 <span className="text-[12px] text-black/25 tracking-[0.2em] uppercase py-3">Pelajari Lebih Lanjut →</span>
               </div>
             </div>
+          </motion.div>
 
-          </div>
         </div>
 
-        {/* === Hitam + Neon + Mask === */}
+        {/* === Hitam + Neon + Mask (burn dari tengah) === */}
         <div ref={maskRef} className="absolute inset-0 z-10 bg-[#0a0a0a]">
           <WaveSafe>
             <motion.div style={{ scale: waveScale, opacity: waveOpacity }} className="absolute inset-0 flex items-center justify-center origin-center">
               <Wave speed={0.5} tiles={1.2} width={1920} height={1080} />
             </motion.div>
           </WaveSafe>
-<motion.div style={{ opacity: vignetteOpacity }} className="absolute inset-0 pointer-events-none">
+          <motion.div style={{ opacity: vignetteOpacity }} className="absolute inset-0 pointer-events-none">
             <div className="absolute inset-0" style={{
               background: "radial-gradient(ellipse at center, transparent 10%, rgba(0,0,0,0.3) 40%, rgba(0,0,0,0.7) 70%, rgba(0,0,0,1) 100%)"
             }} />
@@ -156,7 +182,7 @@ export default function Hero() {
         <motion.div style={{ scale: textScale, opacity: textOpacity, y: textY }} className="absolute inset-0 z-30 flex flex-col items-center justify-center text-center px-4 max-w-5xl mx-auto w-full origin-center pointer-events-none">
           <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }} className="mb-8 flex items-center gap-3">
             <div className="w-8 h-px bg-gradient-to-r from-transparent to-cyan-400/50" />
-            <span className="text-[11px] sm:text-xs text-white/30 tracking-[0.3em] uppercase font-light">Digital Ecosystem</span>
+<span className="text-[11px] sm:text-xs text-white/30 tracking-[0.3em] uppercase font-light">Digital Ecosystem</span>
             <div className="w-8 h-px bg-gradient-to-l from-transparent to-cyan-400/50" />
           </motion.div>
           <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.5, ease: [0.16, 1, 0.3, 1] }} className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-light tracking-tight">
@@ -168,7 +194,7 @@ export default function Hero() {
           </motion.p>
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 1.1, ease: [0.16, 1, 0.3, 1] }} className="mt-12 flex items-center gap-4">
             <a href="#layanan" className="group relative rounded-full bg-white/[0.06] hover:bg-white/[0.12] border border-white/[0.1] hover:border-white/20 px-7 py-3 text-[13px] text-white/70 hover:text-white tracking-[0.2em] uppercase font-light transition-all duration-500 overflow-hidden">
-<span className="relative z-10">Eksplor</span>
+              <span className="relative z-10">Eksplor</span>
             </a>
             <a href="#tentang" className="text-[13px] text-white/25 hover:text-white/50 tracking-[0.2em] uppercase font-light transition-colors duration-300">Tentang →</a>
           </motion.div>
