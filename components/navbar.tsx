@@ -12,7 +12,7 @@ const links = [
 
 function Logo() {
   return (
-    <img src="/logo.png" alt="Kahiyang" className="w-8 h-8 rounded-full object-cover bg-white" />
+    <img src="/logo.jpg" alt="Kahiyang" className="w-8 h-8 rounded-full object-cover bg-white" />
   )
 }
 
@@ -92,8 +92,8 @@ export default function Navbar() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.4, delay: 0.1 + i * 0.08 }}
-                  className="text-white/80 hover:text-white text-2xl font-light tracking-[0.15em] uppercase transition-colors"
->
+className="text-white/80 hover:text-white text-2xl font-light tracking-[0.15em] uppercase transition-colors"
+                >
                   {l.label}
                 </motion.a>
               ))}
