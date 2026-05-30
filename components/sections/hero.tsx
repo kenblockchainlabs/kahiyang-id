@@ -1,7 +1,7 @@
 ﻿"use client"
 
 import { motion, useScroll, useTransform } from "framer-motion"
-import { useRef, useState, useEffect, Component, type ReactNode } from "react"
+import { useRef, Component, type ReactNode } from "react"
 import dynamic from "next/dynamic"
 
 const Wave = dynamic(() => import("@/components/ui/wave").then(m => m.Wave), { ssr: false })
@@ -12,67 +12,7 @@ class WaveSafe extends Component<{ children: ReactNode }, { ok: boolean }> {
   render() { return this.state.ok ? this.props.children : null }
 }
 
-function MobileHero() {
-  return (
-    <section className="relative w-full h-screen bg-[#0a0a0a] overflow-hidden">
-      {/* Wave — SAMA PERSIS kayak desktop */}
-      <div className="absolute inset-0 flex items-center justify-center hero-wave-zoom">
-        <WaveSafe>
-          <Wave speed={0.5} tiles={1.2} width={1920} height={1080} />
-        </WaveSafe>
-      </div>
-
-      {/* Gradient portal */}
-      <div className="absolute inset-0 z-10 pointer-events-none hero-gradient-fade">
-        <div className="absolute inset-0" style={{
-          background: "linear-gradient(to bottom, rgba(10,10,10,0.3) 0%, rgba(42,37,32,0.6) 40%, #f5f0e8 100%)"
-        }} />
-      </div>
-
-      {/* Frame */}
-      <div className="absolute inset-6 sm:inset-10 z-20 pointer-events-none">
-        <div className="absolute top-0 left-8 right-8 h-px bg-gradient-to-r from-transparent via-white/[0.15] to-transparent origin-center hero-scale-x" style={{ animationDelay: "0.8s" }} />
-        <div className="absolute bottom-0 left-8 right-8 h-px bg-gradient-to-r from-transparent via-white/[0.15] to-transparent origin-center hero-scale-x" style={{ animationDelay: "1.0s" }} />
-        <div className="absolute left-0 top-8 bottom-8 w-px bg-gradient-to-b from-transparent via-white/[0.15] to-transparent origin-center hero-scale-y" style={{ animationDelay: "0.9s" }} />
-        <div className="absolute right-0 top-8 bottom-8 w-px bg-gradient-to-b from-transparent via-white/[0.15] to-transparent origin-center hero-scale-y" style={{ animationDelay: "1.1s" }} />
-        <div className="absolute top-0 left-0 w-2 h-2 rounded-full bg-cyan-400/50 hero-fade" style={{ animationDelay: "1.3s" }} />
-        <div className="absolute top-0 right-0 w-2 h-2 rounded-full bg-cyan-400/50 hero-fade" style={{ animationDelay: "1.4s" }} />
-        <div className="absolute bottom-0 left-0 w-2 h-2 rounded-full bg-cyan-400/50 hero-fade" style={{ animationDelay: "1.5s" }} />
-        <div className="absolute bottom-0 right-0 w-2 h-2 rounded-full bg-cyan-400/50 hero-fade" style={{ animationDelay: "1.6s" }} />
-      </div>
-
-      {/* Text */}
-      <div className="relative z-30 flex flex-col items-center justify-center text-center px-4 h-full max-w-5xl mx-auto w-full">
-        <div className="mb-8 flex items-center gap-3 hero-fade" style={{ animationDelay: "0.3s" }}>
-          <div className="w-8 h-px bg-gradient-to-r from-transparent to-cyan-400/50" />
-          <span className="text-[11px] text-white/30 tracking-[0.3em] uppercase font-light">Digital Ecosystem</span>
-          <div className="w-8 h-px bg-gradient-to-l from-transparent to-cyan-400/50" />
-        </div>
-        <h1 className="text-5xl font-light tracking-tight hero-fade" style={{ animationDelay: "0.5s" }}>
-          <span className="bg-gradient-to-b from-white via-white/90 to-white/40 bg-clip-text text-transparent">Negeri</span><br />
-          <span className="bg-gradient-to-r from-cyan-200 via-white to-cyan-200 bg-clip-text text-transparent">Kahiyang</span>
-        </h1>
-        <p className="mt-8 text-sm text-white/30 max-w-xl font-light tracking-[0.15em] leading-relaxed hero-fade" style={{ animationDelay: "0.8s" }}>
-          Mulai, Tumbuh, dan Berkembang &mdash; Tanpa Batas.
-        </p>
-        <div className="mt-12 flex items-center gap-4 hero-fade" style={{ animationDelay: "1.1s" }}>
-<a href="#layanan" className="rounded-full bg-white/[0.06] border border-white/[0.1] px-7 py-3 text-[13px] text-white/70 tracking-[0.2em] uppercase font-light inline-block">
-            Eksplor
-          </a>
-          <a href="#tentang" className="text-[13px] text-white/25 tracking-[0.2em] uppercase font-light">Tentang →</a>
-        </div>
-      </div>
-
-      {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-40 text-white/20 text-[10px] tracking-[0.5em] uppercase flex flex-col items-center gap-3 font-light hero-fade" style={{ animationDelay: "1.5s" }}>
-        <span>Scroll</span>
-        <div className="w-px h-10 bg-gradient-to-b from-white/20 to-transparent animate-bounce-slow" />
-      </div>
-    </section>
-  )
-}
-
-function DesktopHero() {
+export default function Hero() {
   const ref = useRef<HTMLElement>(null)
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] })
 
@@ -88,7 +28,7 @@ function DesktopHero() {
   const corners = ["top-0 left-0", "top-0 right-0", "bottom-0 left-0", "bottom-0 right-0"]
 
   return (
-    <section ref={ref} className="relative w-full bg-[#0a0a0a]" style={{ height: "400vh" }}>
+    <section ref={ref} className="relative w-full bg-[#0a0a0a] hero-section">
       <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center bg-[#0a0a0a]">
         <motion.div style={{ scale: waveScale, opacity: waveOpacity }} className="absolute inset-0 z-0 flex items-center justify-center origin-center">
           <WaveSafe>
@@ -140,16 +80,4 @@ function DesktopHero() {
       </div>
     </section>
   )
-}
-
-export default function Hero() {
-  const [isMobile, setIsMobile] = useState<boolean | null>(null)
-
-  useEffect(() => {
-    setIsMobile(window.innerWidth < 768)
-  }, [])
-
-  if (isMobile === null) return <div className="h-screen bg-[#0a0a0a]" />
-  if (isMobile) return <MobileHero />
-  return <DesktopHero />
 }
