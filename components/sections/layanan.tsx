@@ -1,115 +1,108 @@
 ﻿"use client"
 
-import { motion } from "framer-motion"
-import { DynamicFrameLayout } from "@/components/ui/dynamic-frame-layout"
+import { motion, useScroll, useTransform } from "framer-motion"
+import { useRef } from "react"
 
-function WordReveal({
-  text,
-  delayChildren = 0,
-  stagger = 0.05,
-}: {
-  text: string
-  delayChildren?: number
-  stagger?: number
-}) {
-  return (
-    <motion.span
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, amount: 0.3 }}
-      variants={{
-        visible: {
-          transition: { staggerChildren: stagger, delayChildren },
-        },
-      }}
-    >
-      {text.split(" ").map((word, i) => (
-        <motion.span
-          key={i}
-          variants={{
-            hidden: { opacity: 0, y: 20, filter: "blur(6px)" },
-            visible: {
-              opacity: 1,
-              y: 0,
-              filter: "blur(0px)",
-              transition: { duration: 0.5, ease: [0.25, 0.1, 0.25, 1] as [number, number, number, number] },
-            },
-          }}
-          style={{ display: "inline-block", marginRight: "0.28em" }}
-        >
-          {word}
-        </motion.span>
-      ))}
-    </motion.span>
-  )
-}
-
-const frames = [
-  { id: 1, video: "https://static.cdn-luma.com/files/981e483f71aa764b/Company%20Thing%20Exported.mp4", defaultPos: { x: 0, y: 0, w: 4, h: 4 }, corner: "", edgeHorizontal: "", edgeVertical: "", mediaSize: 1, borderThickness: 0, borderSize: 80, isHovered: false },
-  { id: 2, video: "https://static.cdn-luma.com/files/58ab7363888153e3/WebGL%20Exported%20(1).mp4", defaultPos: { x: 4, y: 0, w: 4, h: 4 }, corner: "", edgeHorizontal: "", edgeVertical: "", mediaSize: 1, borderThickness: 0, borderSize: 80, isHovered: false },
-  { id: 3, video: "https://static.cdn-luma.com/files/58ab7363888153e3/Jitter%20Exported%20Poster.mp4", defaultPos: { x: 8, y: 0, w: 4, h: 4 }, corner: "", edgeHorizontal: "", edgeVertical: "", mediaSize: 1, borderThickness: 0, borderSize: 80, isHovered: false },
-  { id: 4, video: "https://static.cdn-luma.com/files/58ab7363888153e3/Exported%20Web%20Video.mp4", defaultPos: { x: 0, y: 4, w: 4, h: 4 }, corner: "", edgeHorizontal: "", edgeVertical: "", mediaSize: 1, borderThickness: 0, borderSize: 80, isHovered: false },
-  { id: 5, video: "https://static.cdn-luma.com/files/58ab7363888153e3/Logo%20Exported.mp4", defaultPos: { x: 4, y: 4, w: 4, h: 4 }, corner: "", edgeHorizontal: "", edgeVertical: "", mediaSize: 1, borderThickness: 0, borderSize: 80, isHovered: false },
-  { id: 6, video: "https://static.cdn-luma.com/files/58ab7363888153e3/Animation%20Exported%20(4).mp4", defaultPos: { x: 8, y: 4, w: 4, h: 4 }, corner: "", edgeHorizontal: "", edgeVertical: "", mediaSize: 1, borderThickness: 0, borderSize: 80, isHovered: false },
-  { id: 7, video: "https://static.cdn-luma.com/files/58ab7363888153e3/Illustration%20Exported%20(1).mp4", defaultPos: { x: 0, y: 8, w: 4, h: 4 }, corner: "", edgeHorizontal: "", edgeVertical: "", mediaSize: 1, borderThickness: 0, borderSize: 80, isHovered: false },
-  { id: 8, video: "https://static.cdn-luma.com/files/58ab7363888153e3/Art%20Direction%20Exported.mp4", defaultPos: { x: 4, y: 8, w: 4, h: 4 }, corner: "", edgeHorizontal: "", edgeVertical: "", mediaSize: 1, borderThickness: 0, borderSize: 80, isHovered: false },
-  { id: 9, video: "https://static.cdn-luma.com/files/58ab7363888153e3/Product%20Video.mp4", defaultPos: { x: 8, y: 8, w: 4, h: 4 }, corner: "", edgeHorizontal: "", edgeVertical: "", mediaSize: 1, borderThickness: 0, borderSize: 80, isHovered: false },
+const services = [
+  {
+    num: "01",
+    title: "Forensic Analysis",
+    desc: "Bedah akun TikTok lo pakai data real — hook pattern, engagement rate, ad spend ratio, winning content formula.",
+    tag: "Core",
+  },
+  {
+    num: "02",
+    title: "Kelas Affiliate",
+    desc: "Dari nol sampai pecah telur. Basic Rp 199K (Zoom + Ebook) atau Pro Rp 1Jt (Private Grup + Live Session).",
+    tag: "Education",
+  },
+  {
+    num: "03",
+    title: "Konsultasi",
+    desc: "Case-by-case deep dive untuk akun yang stuck, strategy pivot, atau market share analysis.",
+    tag: "Premium",
+  },
+  {
+    num: "04",
+    title: "AI Agent",
+    desc: "Instalasi Hermes AI Agent untuk kebutuhan instansi, lembaga, dan personal — automation tanpa batas.",
+    tag: "Enterprise",
+  },
 ]
 
 export default function Layanan() {
+  const sectionRef = useRef<HTMLElement>(null)
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "start 0.2"],
+  })
+
+  const scale = useTransform(scrollYProgress, [0, 1], [0.75, 1])
+  const opacity = useTransform(scrollYProgress, [0, 1], [0, 1])
+  const borderRadius = useTransform(scrollYProgress, [0, 1], ["2rem", "0rem"])
+
   return (
-    <section id="layanan" className="relative bg-transparent py-16 px-4 overflow-hidden">
-      <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-12">
-
-          {/* Label */}
-          <motion.span
-            initial={{ opacity: 0, y: -10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.5 }}
-            className="text-cyan-400 text-sm font-semibold tracking-widest uppercase"
-          >
-            LAYANAN KAMI
-          </motion.span>
-
-          {/* Heading â€” mask reveal dari bawah (preserves gradient) */}
-          <div className="mt-3 overflow-hidden">
-            <motion.h2
-              initial={{ y: "110%" }}
-              whileInView={{ y: "0%" }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] as [number, number, number, number], delay: 0.05 }}
-              className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-white via-cyan-200 to-white bg-clip-text text-transparent"
-            >
-              Eksplor Layanan Kami
-            </motion.h2>
-          </div>
-
-          {/* Paragraph â€” word stagger dengan blur */}
-          <p className="mt-4 text-base md:text-lg text-white/60 max-w-2xl mx-auto">
-            <WordReveal
-              text="Hover ke setiap frame, eksplor setiap sisi dari Negeri Kahiyang."
-              delayChildren={0.25}
-              stagger={0.04}
-            />
-          </p>
-
-        </div>
-
-        {/* Video grid */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.8, delay: 0.3 }}
-          className="w-full h-[600px] md:h-[700px] rounded-2xl overflow-hidden border border-white/10"
-        >
-          <DynamicFrameLayout frames={frames} className="w-full h-full" hoverSize={6} gapSize={4} />
-        </motion.div>
+    <motion.section
+      ref={sectionRef}
+      id="layanan"
+      style={{ scale, opacity, borderRadius }}
+      className="relative min-h-screen w-full overflow-hidden bg-[#0a0a0a] py-32 px-6"
+    >
+      <div className="absolute inset-4 sm:inset-8 md:inset-12 z-10 pointer-events-none">
+        <div className="absolute top-0 left-6 right-6 h-px bg-gradient-to-r from-transparent via-white/[0.08] to-transparent" />
+        <div className="absolute bottom-0 left-6 right-6 h-px bg-gradient-to-r from-transparent via-white/[0.08] to-transparent" />
+        <div className="absolute left-0 top-6 bottom-6 w-px bg-gradient-to-b from-transparent via-white/[0.08] to-transparent" />
+        <div className="absolute right-0 top-6 bottom-6 w-px bg-gradient-to-b from-transparent via-white/[0.08] to-transparent" />
+        {["top-0 left-0", "top-0 right-0", "bottom-0 left-0", "bottom-0 right-0"].map((pos) => (
+          <div key={pos} className={"absolute " + pos + " w-2 h-2 rounded-full bg-cyan-400/30"} />
+        ))}
       </div>
-    </section>
+
+      <div className="relative z-20 max-w-6xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          viewport={{ once: true }}
+          className="mb-20"
+        >
+          <div className="flex items-center gap-3 mb-6">
+            <div className="w-8 h-px bg-cyan-400/50" />
+            <span className="text-[11px] text-white/30 tracking-[0.3em] uppercase font-light">Layanan</span>
+          </div>
+          <h2 className="text-4xl sm:text-5xl md:text-6xl font-light text-white/90 tracking-tight">
+            Eksplor Layanan<br />
+            <span className="text-white/30">Kami</span>
+          </h2>
+        </motion.div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {services.map((service, i) => (
+            <motion.div
+              key={service.num}
+              initial={{ opacity: 0, y: 40, scale: 0.95 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ duration: 0.7, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
+              viewport={{ once: true }}
+className="group relative p-8 rounded-2xl bg-white/[0.02] border border-white/[0.06] hover:border-white/[0.12] transition-all duration-500 overflow-hidden"
+            >
+              <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/[0.03] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="relative z-10">
+                <div className="flex items-center justify-between mb-6">
+                  <span className="text-[11px] text-white/20 tracking-[0.3em] uppercase font-light">{service.num}</span>
+                  <span className="text-[10px] text-cyan-400/50 tracking-[0.2em] uppercase font-light px-3 py-1 rounded-full border border-cyan-400/10">{service.tag}</span>
+                </div>
+                <h3 className="text-xl sm:text-2xl font-light text-white/80 mb-4 tracking-tight">{service.title}</h3>
+                <p className="text-sm text-white/30 font-light leading-relaxed">{service.desc}</p>
+                <div className="mt-6 flex items-center gap-2 text-[12px] text-white/20 group-hover:text-white/50 transition-colors duration-300">
+                  <span className="tracking-[0.15em] uppercase">Pelajari</span>
+                  <span>→</span>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </motion.section>
   )
 }
-
-

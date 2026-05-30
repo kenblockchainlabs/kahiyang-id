@@ -1,25 +1,24 @@
-﻿"use client"
+"use client"
 
 import { motion, useScroll, useTransform } from "framer-motion"
 import { useRef } from "react"
 
-export default function Tentang() {
+export default function CTA() {
   const sectionRef = useRef<HTMLElement>(null)
   const { scrollYProgress } = useScroll({
     target: sectionRef,
-    offset: ["start end", "start 0.2"],
+    offset: ["start end", "start 0.3"],
   })
 
-  const scale = useTransform(scrollYProgress, [0, 1], [0.75, 1])
+  const scale = useTransform(scrollYProgress, [0, 1], [0.8, 1])
   const opacity = useTransform(scrollYProgress, [0, 1], [0, 1])
   const borderRadius = useTransform(scrollYProgress, [0, 1], ["2rem", "0rem"])
 
   return (
     <motion.section
       ref={sectionRef}
-      id="tentang"
       style={{ scale, opacity, borderRadius }}
-      className="relative min-h-screen w-full overflow-hidden bg-[#0a0a0a] py-32 px-6 flex items-center"
+      className="relative min-h-[70vh] w-full overflow-hidden bg-[#0a0a0a] py-32 px-6 flex items-center justify-center"
     >
       <div className="absolute inset-4 sm:inset-8 md:inset-12 z-10 pointer-events-none">
         <div className="absolute top-0 left-6 right-6 h-px bg-gradient-to-r from-transparent via-white/[0.08] to-transparent" />
@@ -31,16 +30,18 @@ export default function Tentang() {
         ))}
       </div>
 
-      <div className="relative z-20 max-w-4xl mx-auto text-center">
-        <motion.div
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-cyan-500/[0.04] rounded-full blur-[120px] pointer-events-none" />
+
+      <div className="relative z-20 text-center max-w-3xl mx-auto">
+<motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           viewport={{ once: true }}
-          className="mb-12 flex items-center justify-center gap-3"
+          className="mb-8 flex items-center justify-center gap-3"
         >
           <div className="w-8 h-px bg-cyan-400/50" />
-          <span className="text-[11px] text-white/30 tracking-[0.3em] uppercase font-light">Tentang Kami</span>
+          <span className="text-[11px] text-white/30 tracking-[0.3em] uppercase font-light">Mulai Sekarang</span>
           <div className="w-8 h-px bg-cyan-400/50" />
         </motion.div>
 
@@ -49,51 +50,35 @@ export default function Tentang() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
           viewport={{ once: true }}
-          className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light text-white/90 tracking-tight leading-tight mb-10"
+          className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-light text-white/90 tracking-tight leading-tight mb-8"
         >
-Negeri Kahiyang adalah tempat untuk siapa saja yang siap{" "}
-          <span className="bg-gradient-to-r from-cyan-200 to-white bg-clip-text text-transparent">berkembang</span>
+          Siap Upgrade
+          <br />
+          <span className="bg-gradient-to-r from-cyan-200 to-white bg-clip-text text-transparent">Akun TikTok Lo?</span>
         </motion.h2>
 
         <motion.p
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
           viewport={{ once: true }}
-          className="text-base sm:text-lg text-white/30 font-light leading-relaxed max-w-2xl mx-auto mb-16"
+          className="text-sm sm:text-base text-white/30 font-light leading-relaxed max-w-xl mx-auto mb-12"
         >
-          Tumbuh bersama, eksplor versi terbaik dirimu, dan berkembang tanpa batas dalam ekosistem digital yang mendukung setiap langkahmu.
+          Gratis analisa akun pertama. Gue bedah pake data, bukan asumsi.
         </motion.p>
 
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
           viewport={{ once: true }}
-          className="grid grid-cols-3 gap-8 max-w-lg mx-auto"
+          className="flex flex-col sm:flex-row items-center justify-center gap-4"
         >
-          {[
-            { val: "500+", label: "Akun Dianalisa" },
-            { val: "50+", label: "Murid Aktif" },
-            { val: "24/7", label: "AI Agent" },
-          ].map((stat) => (
-            <div key={stat.label} className="text-center">
-              <div className="text-2xl sm:text-3xl font-light text-white/80 mb-1">{stat.val}</div>
-              <div className="text-[10px] text-white/20 tracking-[0.2em] uppercase">{stat.label}</div>
-            </div>
-          ))}
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.8 }}
-          viewport={{ once: true }}
-          className="mt-20 flex items-center justify-center gap-2 text-[11px] text-white/15 tracking-[0.2em] uppercase"
-        >
-          <span>Powered by</span>
-          <a href="https://binarpagi.co.id" target="_blank" rel="noopener noreferrer" className="text-white/30 hover:text-white/50 transition-colors underline underline-offset-4">
-            binarpagi.co.id
+          <a href="#" className="group relative rounded-full bg-white text-black px-8 py-4 text-[13px] font-medium tracking-[0.2em] uppercase transition-all duration-500 hover:bg-white/90">
+            <span className="relative z-10">Gabung Sekarang</span>
+          </a>
+          <a href="#" className="text-[13px] text-white/25 hover:text-white/50 tracking-[0.2em] uppercase font-light transition-colors duration-300">
+            Pelajari Lebih Lanjut →
           </a>
         </motion.div>
       </div>
