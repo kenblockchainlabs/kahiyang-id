@@ -27,14 +27,9 @@ body {
   touch-action: pan-y;
 }
 
-/* Hero responsive height — mobile lebih pendek biar gak crash */
-.hero-section {
-  height: 400vh;
-}
-@media (max-width: 767px) {
-  .hero-section {
-    height: 200vh;
-  }
+@keyframes heroGradientFade {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
 }
 
 @layer utilities {
