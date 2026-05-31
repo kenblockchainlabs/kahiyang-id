@@ -29,14 +29,34 @@ export default function Layanan() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {services.map((s,i)=>(
             <motion.div key={s.num} initial={{opacity:0,y:60,scale:0.9}} whileInView={{opacity:1,y:0,scale:1}} transition={{duration:0.8,delay:i*0.15,ease:[0.16,1,0.3,1]}} viewport={{once:true,margin:"-50px"}} className="group relative p-8 rounded-2xl bg-white/60 border border-black/[0.06] hover:border-cyan-500/20 transition-all duration-500 overflow-hidden backdrop-blur-sm">
-              {/* Brush stroke — diagonal garis cyan, gerak acak pas hover */}
-              <div className="absolute inset-0 overflow-hidden pointer-events-none">
+              {/* Motion blur blob — gerak gak beraturan */}
+              <div className="absolute inset-0 pointer-events-none overflow-hidden">
                 <div
-                  className="absolute -top-2 -left-2 w-[140%] h-[140%] opacity-0 group-hover:opacity-100 transition-opacity duration-700"
+                  className="absolute opacity-0 group-hover:opacity-100 transition-opacity duration-500"
                   style={{
-                    background: "repeating-linear-gradient(135deg, transparent, transparent 40px, rgba(0,200,220,0.07) 40px, rgba(0,200,220,0.07) 42px)",
-                    animation: "brushDrift 8s ease-in-out infinite",
-                    animationDelay: `${i * 1.5}s`,
+                    width: "60%",
+                    height: "60%",
+                    top: "20%",
+                    left: "20%",
+                    borderRadius: "50%",
+                    background: "radial-gradient(circle, rgba(0,200,220,0.12) 0%, rgba(0,200,220,0.05) 40%, transparent 70%)",
+                    filter: "blur(40px)",
+                    animation: "motionBlurA 8s ease-in-out infinite",
+                    animationDelay: `${i * 0.8}s`,
+                  }}
+                />
+                <div
+                  className="absolute opacity-0 group-hover:opacity-100 transition-opacity duration-700"
+                  style={{
+                    width: "45%",
+                    height: "45%",
+top: "30%",
+                    left: "35%",
+                    borderRadius: "50%",
+                    background: "radial-gradient(circle, rgba(0,255,212,0.1) 0%, rgba(0,200,220,0.03) 50%, transparent 70%)",
+                    filter: "blur(30px)",
+                    animation: "motionBlurB 9s ease-in-out infinite",
+                    animationDelay: `${i * 1.2}s`,
                   }}
                 />
               </div>
@@ -44,7 +64,7 @@ export default function Layanan() {
               <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/[0.04] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"/>
               <div className="relative z-10">
                 <div className="flex items-center justify-between mb-6">
-<span className="text-[11px] text-black/20 tracking-[0.3em] uppercase font-light">{s.num}</span>
+                  <span className="text-[11px] text-black/20 tracking-[0.3em] uppercase font-light">{s.num}</span>
                   <span className="text-[10px] text-cyan-700/60 tracking-[0.2em] uppercase font-light px-3 py-1 rounded-full border border-cyan-500/20">{s.tag}</span>
                 </div>
                 <h3 className="text-xl sm:text-2xl font-light text-black/80 mb-4 tracking-tight">{s.title}</h3>
