@@ -14,14 +14,18 @@
   }
 }
 
+html {
+  overscroll-behavior: none;
+}
+
 body {
   color: var(--foreground);
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
-  overscroll-behavior-y: contain;
+  overscroll-behavior: none;
 }
 
-/* Motion blur blob A — gerak irregular */
+/* Motion blur blob A */
 @keyframes motionBlurA {
   0%   { transform: translate(0, 0) scale(1); }
   15%  { transform: translate(30px, -20px) scale(1.1) rotate(5deg); }
@@ -32,7 +36,7 @@ body {
   100% { transform: translate(0, 0) scale(1); }
 }
 
-/* Motion blur blob B — offset rhythm */
+/* Motion blur blob B */
 @keyframes motionBlurB {
   0%   { transform: translate(0, 0) scale(1); }
   20%  { transform: translate(-25px, 20px) scale(1.05) rotate(-3deg); }
@@ -42,7 +46,7 @@ body {
   100% { transform: translate(0, 0) scale(1); }
 }
 
-/* Beep — blink teks Selengkapnya */
+/* Beep */
 @keyframes beep {
   0%, 100% { opacity: 1; }
   50% { opacity: 0.3; }
