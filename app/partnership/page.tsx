@@ -95,12 +95,11 @@ export default function PartnershipPage() {
               >
                 <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/[0.04] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 <div className="relative z-10 flex flex-col items-center gap-5">
-                  <div className={p.highlight ? "w-32 h-20 flex items-center justify-center" : "w-24 h-16 flex items-center justify-center"}>
+                  <div className={p.highlight ? "w-40 h-24 flex items-center justify-center" : "w-28 h-20 flex items-center justify-center"}>
                     <img
                       src={p.logo}
                       alt={p.name}
-                      className="max-w-full max-h-full object-contain opacity-80 group-hover:opacity-100 transition-opacity duration-300"
-style={{ filter: "brightness(0) invert(1)" }}
+className="max-w-full max-h-full object-contain opacity-90 group-hover:opacity-100 transition-opacity duration-300"
                     />
                   </div>
                   <div>
