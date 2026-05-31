@@ -6,44 +6,44 @@ import Navbar from "@/components/navbar"
 const partners = [
   {
     name: "Binar Pagi",
-    logo: "https://binarpagi.id/wp-content/uploads/2023/09/cropped-cropped-Binarpagi-.png",
+    logo: "/images/partners/binarpagi.jpg",
     url: "https://binarpagi.co.id",
     category: "Empowering Society",
     highlight: true,
   },
   {
     name: "Kementerian Pemuda dan Olahraga RI",
-    logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Logo_Kemenpora_Indonesia.png/600px-Logo_Kemenpora_Indonesia.png",
+    logo: "/images/partners/kemenpora.jpg",
     url: "https://kemenpora.go.id",
     category: "Pemerintah",
   },
   {
     name: "Kementerian Ketenagakerjaan RI",
-    logo: "https://kemnaker.go.id/assets/images/logo-color.png",
+    logo: "/images/partners/kemnaker.jpg",
     url: "https://kemnaker.go.id",
     category: "Pemerintah",
   },
   {
     name: "P2B UIN Maliki Malang",
-    logo: "https://uin-malang.com/sites/default/files/logowebnew.png",
+    logo: "/images/partners/uin-malang.jpg",
     url: "https://uin-malang.com",
     category: "Pendidikan",
   },
   {
     name: "Serikat Pekerja RTMM PT Heinz ABC Indonesia",
-    logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Heinz_Logo.svg/600px-Heinz_Logo.svg.png",
+    logo: "/images/partners/heinz-abc.jpg",
     url: "https://www.instagram.com/media_pukrtmm",
     category: "Serikat Pekerja",
   },
   {
     name: "Media PUKRTMM",
-    logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Heinz_Logo.svg/600px-Heinz_Logo.svg.png",
+    logo: "/images/partners/media-pukrtmm.jpg",
     url: "https://www.instagram.com/media_pukrtmm",
     category: "Media",
   },
   {
     name: "REALIZM87",
-    logo: "https://realizm87.com/wp-content/uploads/2024/08/LOGO-REALIZM-NEW.png",
+    logo: "/images/partners/realizm87.jpg",
     url: "https://realizm87.com",
     category: "Streetwear",
   },
@@ -94,13 +94,13 @@ export default function PartnershipPage() {
                 }
               >
                 <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/[0.04] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-<div className="relative z-10 flex flex-col items-center gap-5">
+                <div className="relative z-10 flex flex-col items-center gap-5">
                   <div className={p.highlight ? "w-32 h-20 flex items-center justify-center" : "w-24 h-16 flex items-center justify-center"}>
                     <img
                       src={p.logo}
                       alt={p.name}
                       className="max-w-full max-h-full object-contain opacity-80 group-hover:opacity-100 transition-opacity duration-300"
-                      style={{ filter: "brightness(0) invert(1)" }}
+style={{ filter: "brightness(0) invert(1)" }}
                     />
                   </div>
                   <div>
