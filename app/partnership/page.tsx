@@ -6,33 +6,39 @@ import Navbar from "@/components/navbar"
 const partners = [
   {
     name: "Kementerian Pemuda dan Olahraga RI",
-    logo: "/images/partners/kemenpora.jpg",
+    logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Logo_Kemenpora_Indonesia.png/600px-Logo_Kemenpora_Indonesia.png",
     url: "https://kemenpora.go.id",
     category: "Pemerintah",
   },
   {
     name: "Kementerian Ketenagakerjaan RI",
-    logo: "/images/partners/kemnaker.png",
+    logo: "https://kemnaker.go.id/assets/images/logo-color.png",
     url: "https://kemnaker.go.id",
     category: "Pemerintah",
   },
   {
     name: "P2B UIN Maliki Malang",
-    logo: "/images/partners/uin-malang.png",
+    logo: "https://uin-malang.com/sites/default/files/logowebnew.png",
     url: "https://uin-malang.com",
     category: "Pendidikan",
   },
   {
-    name: "REALIZM87",
-    logo: "/images/partners/realizm87.png",
-    url: "https://realizm87.com",
-    category: "Streetwear",
+    name: "Serikat Pekerja RTMM PT Heinz ABC Indonesia",
+    logo: null,
+    url: "https://www.instagram.com/media_pukrtmm",
+    category: "Serikat Pekerja",
   },
   {
     name: "Media PUKRTMM",
     logo: null,
     url: "https://www.instagram.com/media_pukrtmm",
     category: "Media",
+  },
+  {
+    name: "REALIZM87",
+    logo: "https://realizm87.com/wp-content/uploads/2024/08/LOGO-REALIZM-NEW.png",
+    url: "https://realizm87.com",
+    category: "Streetwear",
   },
 ]
 
@@ -89,7 +95,7 @@ export default function PartnershipPage() {
                   ) : (
 <div className="w-24 h-16 flex items-center justify-center">
                       <div className="w-12 h-12 rounded-full bg-cyan-500/10 flex items-center justify-center">
-                        <span className="text-xl text-cyan-400/60">IG</span>
+                        <span className="text-xl text-cyan-400/60">SP</span>
                       </div>
                     </div>
                   )}
