@@ -7,7 +7,8 @@ const links = [
   { label: "LAYANAN", href: "#layanan" },
   { label: "KOMUNITAS", href: "#" },
   { label: "TENTANG", href: "#tentang" },
-  { label: "PARTNERSHIP", href: "#" },
+  { label: 'Partnership', href: '/partnership' },
+
 ]
 
 function Logo() {
