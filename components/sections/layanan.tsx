@@ -71,8 +71,14 @@ top: "30%",
                 </div>
                 <h3 className="text-xl sm:text-2xl font-light text-black/80 mb-4 tracking-tight">{s.title}</h3>
                 {s.preview && (
-                  <div className="mb-4 rounded-xl overflow-hidden border border-black/[0.06]">
-                    <img src={s.preview} alt={s.title} className="w-full h-40 object-cover" loading="lazy" />
+                  <div className="mb-4 rounded-xl overflow-hidden border border-black/[0.06] h-48 relative group/preview">
+                    <img
+                      src={s.preview}
+                      alt={s.title}
+                      className="w-full object-top transition-transform duration-[3s] ease-linear group-hover/preview:object-bottom"
+                      style={{ height: "300%", objectFit: "cover", objectPosition: "top" }}
+                      loading="lazy"
+                    />
                   </div>
                 )}
                 <p className="text-sm text-black/40 font-light leading-relaxed">{s.desc}</p>
