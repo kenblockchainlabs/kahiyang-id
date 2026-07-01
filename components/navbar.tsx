@@ -13,7 +13,7 @@ const links = [
 
 function Logo() {
   return (
-    <img src="/logo.jpg" alt="Kahiyang" className="w-8 h-8 rounded-full object-cover" />
+    <img src="/logo-sm.png" alt="Kahiyang" className="w-8 h-8 rounded-full" />
   )
 }
 
