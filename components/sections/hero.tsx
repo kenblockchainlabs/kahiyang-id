@@ -9,7 +9,7 @@ const Wave = dynamic(() => import("@/components/ui/wave").then(m => ({ default: 
   loading: () => null,
 })
 
-class WaveErrorBoundary extends Component<{ children: ReactNode, hasError?: boolean }, { hasError: boolean }> {
+class WaveErrorBoundary extends Component<{ children: ReactNode }, { hasError: boolean }> {
   state = { hasError: false }
   static getDerivedStateFromError() { return { hasError: true } }
   render() {
@@ -42,18 +42,11 @@ export default function Hero() {
   return (
     <section ref={ref} className="relative h-[300vh] w-full bg-[#0a0a0a]">
       <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center" style={{ perspective: '1000px' }}>
-        {/* Wave — desktop only (WebGL too heavy for mobile) */}
-        {!isMobile ? (
-          <motion.div style={{ scale: waveScale, opacity: waveOpacity }} className="absolute inset-0 z-0 flex items-center justify-center">
-            <WaveErrorBoundary>
-              <Wave speed={0.5} tiles={1.2} width={1920} height={1080} />
-            </WaveErrorBoundary>
-          </motion.div>
-        ) : (
-          <motion.div style={{ scale: waveScale, opacity: waveOpacity }} className="absolute inset-0 z-0">
-            <div className="absolute inset-0 bg-gradient-to-br from-cyan-900/20 via-[#0a0a0a] to-purple-900/20 animate-pulse" />
-          </motion.div>
-        )}
+        <motion.div style={{ scale: waveScale, opacity: waveOpacity }} className="absolute inset-0 z-0 flex items-center justify-center">
+          <WaveErrorBoundary>
+            {!isMobile && <Wave speed={0.5} tiles={1.2} width={1920} height={1080} />}
+          </WaveErrorBoundary>
+        </motion.div>
 
         <motion.div style={{ opacity: overlayOpacity }} className="absolute inset-0 z-10 bg-[#0a0a0a] pointer-events-none" />
 
