@@ -24,9 +24,15 @@ export const metadata: Metadata = {
     description: "Digital Ecosystem — Mulai, Tumbuh, dan Berkembang Tanpa Batas.",
     url: "https://kahiyang.id",
     siteName: "Kahiyang",
-    images: [{ url: "/logo.png", width: 512, height: 512 }],
+    images: [{ url: "https://kahiyang.id/og-image.png", width: 1200, height: 630, type: "image/png" }],
     locale: "id_ID",
     type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Negeri Kahiyang",
+    description: "Digital Ecosystem — Mulai, Tumbuh, dan Berkembang Tanpa Batas.",
+    images: ["https://kahiyang.id/og-image.png"],
   },
 }
 
