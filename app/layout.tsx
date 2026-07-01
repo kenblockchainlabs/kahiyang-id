@@ -5,6 +5,7 @@ import "./globals.css"
 const inter = Inter({ subsets: ["latin"] })
 
 import LenisProvider from "@/components/providers/lenis-provider"
+import SplashLoader from "@/components/splash-loader"
 
 export const metadata: Metadata = {
   title: "Negeri Kahiyang",
@@ -58,7 +59,10 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
       </head>
       <body className={`${inter.className} bg-[#0a0a0a] antialiased`}>
-        <LenisProvider>{children}</LenisProvider>
+        <LenisProvider>
+          <SplashLoader />
+          {children}
+        </LenisProvider>
         <script dangerouslySetInnerHTML={{ __html: `
           if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
