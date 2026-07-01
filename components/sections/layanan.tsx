@@ -71,13 +71,13 @@ top: "30%",
                 </div>
                 <h3 className="text-xl sm:text-2xl font-light text-black/80 mb-4 tracking-tight">{s.title}</h3>
                 {s.preview && (
-                  <div className="mb-4 rounded-xl overflow-hidden border border-black/[0.06] h-48 relative">
+                  <div className="mb-4 rounded-xl overflow-hidden border border-black/[0.06] h-40 sm:h-48 relative">
                     <img
                       src={s.preview}
                       alt={s.title}
                       className="w-full"
                       style={{
-                        height: "300%",
+                        height: "250%",
                         objectFit: "cover",
                         objectPosition: "top",
                         animation: "autoScroll 12s ease-in-out infinite alternate",
