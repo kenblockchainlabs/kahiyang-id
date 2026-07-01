@@ -56,7 +56,7 @@ export default function Hero() {
           <motion.div initial={{ scaleY: 0 }} animate={{ scaleY: 1 }} transition={{ duration: 1.2, delay: 0.9, ease: [0.16, 1, 0.3, 1] }} className="absolute left-0 top-8 bottom-8 w-px bg-gradient-to-b from-transparent via-white/[0.15] to-transparent origin-center" />
           <motion.div initial={{ scaleY: 0 }} animate={{ scaleY: 1 }} transition={{ duration: 1.2, delay: 1.1, ease: [0.16, 1, 0.3, 1] }} className="absolute right-0 top-8 bottom-8 w-px bg-gradient-to-b from-transparent via-white/[0.15] to-transparent origin-center" />
           {corners.map((pos) => (
-            <motion.div key={pos} initial={{ opacity: 0, scale: 0 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.6, delay: 1.4, ease: [0.16, 1, 0.3, 1] }} className={`absolute ${pos} w-2 h-2 rounded-full bg-cyan-500/40`} />
+            <motion.div key={pos} initial={{ opacity: 0, scale: 0 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.6, delay: 1.4, ease: [0.16, 1, 0.3, 1] }} className={`absolute ${pos} w-2 h-2 rounded-full bg-lime-400/40`} />
           ))}
         </motion.div>
 

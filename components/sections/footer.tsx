@@ -15,7 +15,7 @@ export default function Footer() {
         >
           {/* Logo / Brand */}
           <a href="#" className="text-white/90 text-lg font-medium tracking-wide">
-            Kahiyang<span className="text-cyan-400">.id</span>
+            Kahiyang<span className="text-lime-400">.id</span>
           </a>
 
           {/* Tagline */}
@@ -30,14 +30,14 @@ export default function Footer() {
           <div className="flex items-center gap-6 text-sm text-gray-400">
             <a
               href="/privacy-policy"
-              className="hover:text-cyan-400 transition-colors duration-300"
+              className="hover:text-lime-400 transition-colors duration-300"
             >
               Privacy Policy
             </a>
             <span className="text-gray-600">|</span>
             <a
               href="/terms"
-              className="hover:text-cyan-400 transition-colors duration-300"
+              className="hover:text-lime-400 transition-colors duration-300"
             >
               Terms of Service
             </a>

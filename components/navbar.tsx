@@ -109,7 +109,7 @@ className="text-white/80 hover:text-white text-2xl font-light tracking-[0.15em] 
               <a
                 href="https://wa.me/6285135787489?text=Halo,%20saya%20mau%20tanya%20info%20Kahiyang"
                 onClick={() => setOpen(false)}
-                className="block w-full text-center rounded-full bg-cyan-400 text-[#0a0a0a] py-4 text-[13px] font-semibold tracking-[0.2em] uppercase transition-opacity hover:opacity-90"
+                className="block w-full text-center rounded-full bg-lime-400 text-[#0a0a0a] py-4 text-[13px] font-semibold tracking-[0.2em] uppercase transition-opacity hover:opacity-90"
               >
                 Gabung Sekarang
               </a>
