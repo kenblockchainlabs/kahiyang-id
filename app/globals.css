@@ -63,3 +63,9 @@ body {
     text-wrap: balance;
   }
 }
+
+/* Auto-scroll animation for layanan preview */
+@keyframes autoScroll {
+  0% { object-position: top; }
+  100% { object-position: bottom; }
+}
