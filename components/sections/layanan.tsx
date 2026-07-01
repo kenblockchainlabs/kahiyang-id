@@ -3,12 +3,12 @@
 import { motion } from "framer-motion"
 
 const services = [
-  { num: "01", title: "Forensic Analysis", desc: "Bedah akun TikTok lo pakai data real — hook pattern, engagement rate, ad spend ratio, winning content formula.", tag: "Core" },
-  { num: "02", title: "Kelas Affiliate", desc: "Dari nol sampai pecah telur. Basic Rp 199K (Zoom + Ebook) atau Pro Rp 1Jt (Private Grup + Live Session).", tag: "Education", href: "https://edu.kahiyang.id" },
-  { num: "03", title: "Konsultasi", desc: "Case-by-case deep dive untuk akun yang stuck, strategy pivot, atau market share analysis.", tag: "Premium" },
-  { num: "04", title: "AI Agent", desc: "Instalasi Hermes AI Agent untuk kebutuhan instansi, lembaga, dan personal — automation tanpa batas.", tag: "Enterprise" },
-  { num: "05", title: "Kahiyang Visual", desc: "Upload foto produk, dapatkan visual profesional siap jual. Foto produk, poster promo, banner iklan — semua dari 1 foto.", tag: "Visual", href: "https://kahiyang-visual.vercel.app/wizard" },
-  { num: "06", title: "Viral Analyzer", desc: "Analisis konten viral TikTok pakai AI. Dapat hook, hashtag, jadwal posting, dan strategi konten dalam hitungan detik.", tag: "AI", href: "https://kahiyang-visual.vercel.app/analyzer" },
+  { num: "01", title: "Kahiyang Visual", desc: "Upload foto produk, dapatkan visual profesional siap jual. Foto produk, poster promo, banner iklan — semua dari 1 foto.", tag: "Visual", href: "https://kahiyang-visual.vercel.app/wizard", preview: "/preview/visual.jpg" },
+  { num: "02", title: "Viral Analyzer", desc: "Analisis konten viral TikTok pakai AI. Dapat hook, hashtag, jadwal posting, dan strategi konten dalam hitungan detik.", tag: "AI", href: "https://kahiyang-visual.vercel.app/analyzer", preview: "/preview/analyzer.jpg" },
+  { num: "03", title: "Forensic Analysis", desc: "Bedah akun TikTok lo pakai data real — hook pattern, engagement rate, ad spend ratio, winning content formula.", tag: "Core" },
+  { num: "04", title: "Kelas Affiliate", desc: "Dari nol sampai pecah telur. Basic Rp 199K (Zoom + Ebook) atau Pro Rp 1Jt (Private Grup + Live Session).", tag: "Education", href: "https://edu.kahiyang.id" },
+  { num: "05", title: "Konsultasi", desc: "Case-by-case deep dive untuk akun yang stuck, strategy pivot, atau market share analysis.", tag: "Premium" },
+  { num: "06", title: "AI Agent", desc: "Instalasi Hermes AI Agent untuk kebutuhan instansi, lembaga, dan personal — automation tanpa batas.", tag: "Enterprise" },
 ]
 
 export default function Layanan() {
@@ -70,6 +70,11 @@ top: "30%",
                   <span className="text-[10px] text-cyan-700/60 tracking-[0.2em] uppercase font-light px-3 py-1 rounded-full border border-cyan-500/20">{s.tag}</span>
                 </div>
                 <h3 className="text-xl sm:text-2xl font-light text-black/80 mb-4 tracking-tight">{s.title}</h3>
+                {s.preview && (
+                  <div className="mb-4 rounded-xl overflow-hidden border border-black/[0.06]">
+                    <img src={s.preview} alt={s.title} className="w-full h-40 object-cover" loading="lazy" />
+                  </div>
+                )}
                 <p className="text-sm text-black/40 font-light leading-relaxed">{s.desc}</p>
                 {s.href ? (
                   <a href={s.href} target="_blank" rel="noopener noreferrer" className="mt-6 inline-flex items-center gap-2 text-[12px] text-cyan-700 hover:text-cyan-500 transition-colors">
