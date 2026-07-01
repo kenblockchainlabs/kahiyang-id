@@ -16,6 +16,8 @@
 
 html {
   overscroll-behavior: none;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
 }
 
 body {
@@ -23,6 +25,7 @@ body {
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
   overscroll-behavior: none;
+  -webkit-overflow-scrolling: touch;
 }
 
 /* Motion blur blob A */
