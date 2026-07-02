@@ -5,10 +5,9 @@ import { motion } from "framer-motion"
 const services = [
   { num: "01", title: "Kahiyang Visual", desc: "Upload foto produk, dapatkan visual profesional siap jual. Foto produk, poster promo, banner iklan — semua dari 1 foto.", tag: "Visual", href: "https://kahiyang-visual.vercel.app", preview: "/preview/visual.jpg" },
   { num: "02", title: "Viral Analyzer", desc: "Analisis konten viral TikTok pakai AI. Dapat hook, hashtag, jadwal posting, dan strategi konten dalam hitungan detik.", tag: "AI", href: "https://kahiyang-visual.vercel.app/analyzer", preview: "/preview/analyzer.jpg" },
-  { num: "03", title: "Forensic Analysis", desc: "Bedah akun TikTok lo pakai data real — hook pattern, engagement rate, ad spend ratio, winning content formula.", tag: "Core" },
-  { num: "04", title: "Kelas Affiliate", desc: "Dari nol sampai pecah telur. Basic Rp 199K (Zoom + Ebook) atau Pro Rp 1Jt (Private Grup + Live Session).", tag: "Education", href: "https://edu.kahiyang.id" },
-  { num: "05", title: "Konsultasi", desc: "Case-by-case deep dive untuk akun yang stuck, strategy pivot, atau market share analysis.", tag: "Premium" },
-  { num: "06", title: "AI Agent", desc: "Instalasi Hermes AI Agent untuk kebutuhan instansi, lembaga, dan personal — automation tanpa batas.", tag: "Enterprise" },
+  { num: "03", title: "Kelas Affiliate", desc: "Dari nol sampai pecah telur. Basic Rp 199K (Zoom + Ebook) atau Pro Rp 1Jt (Private Grup + Live Session).", tag: "Education", href: "https://edu.kahiyang.id" },
+  { num: "04", title: "Konsultasi", desc: "Case-by-case deep dive untuk akun yang stuck, strategy pivot, atau market share analysis.", tag: "Premium" },
+  { num: "05", title: "AI Agent", desc: "Instalasi Hermes AI Agent untuk kebutuhan instansi, lembaga, dan personal — automation tanpa batas.", tag: "Enterprise" },
 ]
 
 export default function Layanan() {
