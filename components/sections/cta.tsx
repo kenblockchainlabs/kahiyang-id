@@ -25,7 +25,7 @@ export default function CTA() {
           Gratis analisa akun pertama. Gue bedah pake data, bukan asumsi.
         </motion.p>
         <motion.div initial={{opacity:0,y:30}} whileInView={{opacity:1,y:0}} transition={{duration:0.8,delay:0.6,ease:[0.16,1,0.3,1]}} viewport={{once:true,margin:"-100px"}} className="flex flex-col sm:flex-row items-center justify-center gap-4">
-          <a href="https://wa.me/6285135787489?text=Halo,%20saya%20mau%20tanya%20info%20Kahiyang" className="group relative rounded-full bg-black text-white px-8 py-4 text-[13px] font-medium tracking-[0.2em] uppercase transition-all duration-500 hover:bg-black/80"><span className="relative z-10">Gabung Sekarang</span></a>
+          <a href="https://t.me/+FarOaL4D-HFlMGM1" className="group relative rounded-full bg-black text-white px-8 py-4 text-[13px] font-medium tracking-[0.2em] uppercase transition-all duration-500 hover:bg-black/80"><span className="relative z-10">Join Komunitas</span></a>
           <a href="#" className="text-[13px] text-black/25 hover:text-black/50 tracking-[0.2em] uppercase font-light transition-colors duration-300">Pelajari Lebih Lanjut →</a>
         </motion.div>
       </div>

@@ -50,7 +50,7 @@ export default function Navbar() {
           </div>
 
           <div className="hidden md:block">
-            <a href="https://wa.me/6285135787489?text=Halo,%20saya%20mau%20tanya%20info%20Kahiyang" className="rounded-full bg-white/[0.06] hover:bg-white/[0.12] border border-white/[0.1] hover:border-white/20 px-5 py-2 text-[11px] text-white/70 hover:text-white tracking-[0.2em] uppercase font-light transition-all duration-300">
+            <a href="https://t.me/+FarOaL4D-HFlMGM1" className="rounded-full bg-white/[0.06] hover:bg-white/[0.12] border border-white/[0.1] hover:border-white/20 px-5 py-2 text-[11px] text-white/70 hover:text-white tracking-[0.2em] uppercase font-light transition-all duration-300">
               Gabung
             </a>
           </div>
@@ -107,7 +107,7 @@ className="text-white/80 hover:text-white text-2xl font-light tracking-[0.15em] 
               className="px-5 pb-10"
             >
               <a
-                href="https://wa.me/6285135787489?text=Halo,%20saya%20mau%20tanya%20info%20Kahiyang"
+                href="https://t.me/+FarOaL4D-HFlMGM1"
                 onClick={() => setOpen(false)}
                 className="block w-full text-center rounded-full bg-lime-400 text-[#0a0a0a] py-4 text-[13px] font-semibold tracking-[0.2em] uppercase transition-opacity hover:opacity-90"
               >

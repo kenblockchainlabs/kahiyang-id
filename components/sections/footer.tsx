@@ -29,6 +29,15 @@ export default function Footer() {
           {/* Legal Links */}
           <div className="flex items-center gap-6 text-sm text-gray-400">
             <a
+              href="https://t.me/+FarOaL4D-HFlMGM1"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-lime-400 transition-colors duration-300"
+            >
+              Telegram
+            </a>
+            <span className="text-gray-600">|</span>
+            <a
               href="/privacy-policy"
               className="hover:text-lime-400 transition-colors duration-300"
             >
