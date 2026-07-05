@@ -30,7 +30,7 @@ export default function ZoomSection({
   const opacity = useTransform(scrollYProgress, [0, 1], [fromOpacity, 1])
   const borderRadius = useTransform(scrollYProgress, [0, 1], ["0rem", "0rem"])
 
-  // On mobile, don't hide sections — just scale
+  // On mobile, don't hide sections — just scale, and don't force min-height
   const isMobile = typeof window !== "undefined" && window.innerWidth < 768
   const safeOpacity = isMobile ? 1 : opacity
 
@@ -39,9 +39,9 @@ export default function ZoomSection({
       ref={ref}
       id={id}
       style={{ scale, opacity: safeOpacity, borderRadius }}
-      className={"relative min-h-screen w-full overflow-hidden " + className}
+      className={"relative w-full overflow-hidden " + (isMobile ? "" : "min-h-screen ") + className}
     >
-      {showFrame && (
+      {showFrame && !isMobile && (
         <div className="absolute inset-4 sm:inset-8 md:inset-12 z-[5] pointer-events-none">
           <div className="absolute top-0 left-6 right-6 h-px bg-gradient-to-r from-transparent via-black/[0.06] to-transparent" />
           <div className="absolute bottom-0 left-6 right-6 h-px bg-gradient-to-r from-transparent via-black/[0.06] to-transparent" />
