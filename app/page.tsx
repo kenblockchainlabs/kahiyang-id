@@ -12,16 +12,16 @@ export default function Page() {
     <main className="bg-[#0a0a0a]">
       <Navbar />
       <Hero />
-      <ZoomSection id="layanan" fromScale={0.85} fromOpacity={0} className="bg-white">
+      <ZoomSection id="layanan" fromScale={0.95} fromOpacity={1} className="bg-white">
         <Layanan />
       </ZoomSection>
-      <ZoomSection fromScale={0.9} fromOpacity={0} className="bg-[#f5f0e8]">
+      <ZoomSection fromScale={0.95} fromOpacity={1} className="bg-[#f5f0e8]">
         <Testimonials />
       </ZoomSection>
-      <ZoomSection id="tentang" fromScale={0.9} fromOpacity={0} className="bg-[#fafafa]">
+      <ZoomSection id="tentang" fromScale={0.95} fromOpacity={1} className="bg-[#fafafa]">
         <Tentang />
       </ZoomSection>
-      <ZoomSection fromScale={0.85} fromOpacity={0} className="bg-white">
+      <ZoomSection fromScale={0.95} fromOpacity={1} className="bg-white">
         <CTA />
       </ZoomSection>
       <Footer />
