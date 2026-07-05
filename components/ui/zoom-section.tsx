@@ -30,11 +30,15 @@ export default function ZoomSection({
   const opacity = useTransform(scrollYProgress, [0, 1], [fromOpacity, 1])
   const borderRadius = useTransform(scrollYProgress, [0, 1], ["0rem", "0rem"])
 
+  // On mobile, don't hide sections — just scale
+  const isMobile = typeof window !== "undefined" && window.innerWidth < 768
+  const safeOpacity = isMobile ? 1 : opacity
+
   return (
     <motion.div
       ref={ref}
       id={id}
-      style={{ scale, opacity, borderRadius }}
+      style={{ scale, opacity: safeOpacity, borderRadius }}
       className={"relative min-h-screen w-full overflow-hidden " + className}
     >
       {showFrame && (
