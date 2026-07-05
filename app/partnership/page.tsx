@@ -79,16 +79,11 @@ export default function PartnershipPage() {
                 initial={{ opacity: 0, y: 40, scale: 0.95 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 transition={{ duration: 0.8, delay: 0.15 + i * 0.1, ease: [0.16, 1, 0.3, 1] }}
-                className={
-                  "group relative p-8 rounded-2xl border transition-all duration-500 overflow-hidden flex flex-col items-center justify-center text-center min-h-[220px] " +
-                  (p.highlight
-                    ? "bg-cyan-500/[0.06] border-cyan-500/20 hover:border-cyan-500/40 sm:col-span-2 lg:col-span-3"
-                    : "bg-white/[0.03] border-white/[0.06] hover:border-cyan-500/20")
-                }
+                className="group relative p-8 rounded-2xl border transition-all duration-500 overflow-hidden flex flex-col items-center justify-center text-center min-h-[220px] bg-white/[0.03] border-white/[0.06] hover:border-cyan-500/20"
               >
                 <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/[0.04] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 <div className="relative z-10 flex flex-col items-center gap-5">
-                  <div className={p.highlight ? "w-40 h-24 flex items-center justify-center" : "w-28 h-20 flex items-center justify-center"}>
+                  <div className="w-28 h-20 flex items-center justify-center">
                     <img
                       src={p.logo}
                       alt={p.name}
@@ -99,7 +94,7 @@ className="max-w-full max-h-full object-contain opacity-90 group-hover:opacity-1
                     <span className="text-[10px] text-cyan-500/50 tracking-[0.2em] uppercase font-light block mb-2">
                       {p.category}
                     </span>
-                    <h3 className={"font-light text-white/70 group-hover:text-white/90 transition-colors duration-300 tracking-tight " + (p.highlight ? "text-lg sm:text-xl" : "text-sm sm:text-base")}>
+                    <h3 className="font-light text-white/70 group-hover:text-white/90 transition-colors duration-300 tracking-tight text-sm sm:text-base">
                       {p.name}
                     </h3>
                   </div>
