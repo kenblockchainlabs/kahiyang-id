@@ -28,7 +28,7 @@ export default function ZoomSection({
 
   const scale = useTransform(scrollYProgress, [0, 1], [fromScale, 1])
   const opacity = useTransform(scrollYProgress, [0, 1], [fromOpacity, 1])
-  const borderRadius = useTransform(scrollYProgress, [0, 1], ["2rem", "0rem"])
+  const borderRadius = useTransform(scrollYProgress, [0, 1], ["0rem", "0rem"])
 
   return (
     <motion.div
