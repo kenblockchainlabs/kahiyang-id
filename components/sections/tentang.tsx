@@ -31,8 +31,11 @@ export default function Tentang() {
             </motion.div>
           ))}
         </motion.div>
-<motion.div initial={{opacity:0}} whileInView={{opacity:1}} transition={{duration:0.8,delay:0.8}} viewport={{once:true,margin:"-100px"}} className="mt-20 flex items-center justify-center gap-2 text-[11px] text-black/20 tracking-[0.2em] uppercase">
-          <span>Powered by</span><a href="https://binarpagi.co.id" target="_blank" rel="noopener noreferrer" className="text-black/40 hover:text-black/60 transition-colors underline underline-offset-4">binarpagi.co.id</a>
+<motion.div initial={{opacity:0}} whileInView={{opacity:1}} transition={{duration:0.8,delay:0.8}} viewport={{once:true,margin:"-100px"}} className="mt-20 flex flex-col items-center justify-center gap-3">
+          <div className="flex items-center gap-3">
+            <img src="/images/partners/binarpagi.jpg" alt="Binar Pagi" className="w-8 h-8 rounded-full object-cover opacity-60" />
+            <span className="text-[11px] text-black/30 tracking-[0.2em] uppercase">Didukung oleh <a href="https://binarpagi.co.id" target="_blank" rel="noopener noreferrer" className="text-black/50 hover:text-black/70 transition-colors underline underline-offset-4">Binar Pagi</a></span>
+          </div>
         </motion.div>
       </div>
     </section>

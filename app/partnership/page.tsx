@@ -5,13 +5,6 @@ import Navbar from "@/components/navbar"
 
 const partners = [
   {
-    name: "Binar Pagi",
-    logo: "/images/partners/binarpagi.jpg",
-    url: "https://binarpagi.co.id",
-    category: "Empowering Society",
-    highlight: true,
-  },
-  {
     name: "Kementerian Pemuda dan Olahraga RI",
     logo: "/images/partners/kemenpora.jpg",
     url: "https://kemenpora.go.id",
