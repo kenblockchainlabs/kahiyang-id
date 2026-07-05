@@ -3,7 +3,7 @@
 import { motion } from "framer-motion"
 
 const services = [
-  { num: "01", title: "Agency", desc: "Full-service TikTok agency — dari strategi sampai eksekusi. Kelola kreator, optimasi iklan, scale revenue.", tag: "Coming Soon", coming: true },
+  { num: "01", title: "Agency", desc: "Full-service TikTok agency — dari strategi sampai eksekusi. Kelola kreator, optimasi iklan, scale revenue.", tag: "Coming Soon", coming: true, href: "https://kahiyang-agency.vercel.app", preview: "/preview/agency.png" },
   { num: "02", title: "Kahiyang Visual", desc: "Upload foto produk, dapatkan visual profesional siap jual. Foto produk, poster promo, banner iklan — semua dari 1 foto.", tag: "Visual", href: "https://kahiyang-visual.vercel.app", preview: "/preview/visual.jpg" },
   { num: "03", title: "Viral Analyzer", desc: "Analisis konten viral TikTok pakai AI. Dapat hook, hashtag, jadwal posting, dan strategi konten dalam hitungan detik.", tag: "AI", href: "https://kahiyang-visual.vercel.app/analyzer", preview: "/preview/analyzer.jpg" },
   { num: "04", title: "Kelas Affiliate", desc: "Dari nol sampai pecah telur. Basic Rp 199K (Zoom + Ebook) atau Pro Rp 1Jt (Private Grup + Live Session).", tag: "Education", href: "https://edu.kahiyang.id" },
