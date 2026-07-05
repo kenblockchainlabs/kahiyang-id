@@ -1,7 +1,6 @@
 ﻿import Navbar from "@/components/navbar"
 import Hero from "@/components/sections/hero"
 import Layanan from "@/components/sections/layanan"
-import Testimonials from "@/components/sections/testimonials"
 import Tentang from "@/components/sections/tentang"
 import CTA from "@/components/sections/cta"
 import Footer from "@/components/sections/footer"
@@ -14,9 +13,6 @@ export default function Page() {
       <Hero />
       <ZoomSection id="layanan" fromScale={0.95} fromOpacity={1} className="bg-white">
         <Layanan />
-      </ZoomSection>
-      <ZoomSection fromScale={0.95} fromOpacity={1} className="bg-[#f5f0e8]">
-        <Testimonials />
       </ZoomSection>
       <ZoomSection id="tentang" fromScale={0.95} fromOpacity={1} className="bg-[#fafafa]">
         <Tentang />

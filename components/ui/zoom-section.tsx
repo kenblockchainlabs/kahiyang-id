@@ -35,7 +35,7 @@ export default function ZoomSection({
       ref={ref}
       id={id}
       style={{ scale, opacity, borderRadius }}
-      className={"relative w-full overflow-hidden " + className}
+      className={"relative w-full overflow-hidden min-h-[60vh] " + className}
     >
       {showFrame && (
         <div className="absolute inset-4 sm:inset-8 md:inset-12 z-[5] pointer-events-none">
