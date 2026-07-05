@@ -5,8 +5,8 @@ import { motion } from "framer-motion"
 const services = [
   { num: "01", title: "Agency", desc: "Full-service TikTok agency — dari strategi sampai eksekusi. Kelola kreator, optimasi iklan, scale revenue.", tag: "Coming Soon", coming: true, href: "https://kahiyang-agency.vercel.app", preview: "/preview/agency.png" },
   { num: "02", title: "Kahiyang Visual", desc: "Upload foto produk, dapatkan visual profesional siap jual. Foto produk, poster promo, banner iklan — semua dari 1 foto.", tag: "Visual", href: "https://kahiyang-visual.vercel.app", preview: "/preview/visual.jpg" },
-  { num: "03", title: "Viral Analyzer", desc: "Bedah akun lo kayak forensik — kenapa stuck, hook mana yang lemah, kapan waktu posting terbaik. Bukan tebak-tebakan, tapi data dari 500+ akun yang udah dipecahkan.", tag: "AI", href: "https://kahiyang-visual.vercel.app/analyzer", preview: "/preview/analyzer-v3.png" },
-  { num: "04", title: "Kelas Affiliate", desc: "Dari nol sampai pecah telur. Mentoring langsung, bedah akun detail, komunitas supportive. Klik untuk lihat paket & harga.", tag: "Education", href: "https://edu.kahiyang.id", preview: "/preview/kelas-v4.png" },
+  { num: "03", title: "Viral Analyzer", desc: "Bedah akun lo kayak forensik — kenapa stuck, hook mana yang lemah, kapan waktu posting terbaik. Bukan tebak-tebakan, tapi data dari 500+ akun yang udah dipecahkan.", tag: "AI", href: "https://kahiyang-visual.vercel.app/analyzer", preview: "/preview/analyzer-final.jpg" },
+  { num: "04", title: "Kelas Affiliate", desc: "Dari nol sampai pecah telur. Mentoring langsung, bedah akun detail, komunitas supportive. Klik untuk lihat paket & harga.", tag: "Education", href: "https://edu.kahiyang.id", preview: "/preview/kelas-final.jpg" },
 ]
 
 export default function Layanan() {
