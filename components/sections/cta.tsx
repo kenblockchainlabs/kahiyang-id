@@ -4,7 +4,7 @@ import { motion } from "framer-motion"
 
 export default function CTA() {
   return (
-    <section className="relative w-full bg-[#f5f0e8] py-32 px-6 flex items-center justify-center min-h-[80vh]">
+    <section className="relative w-full bg-[#f5f0e8] py-20 px-6 flex items-center justify-center">
       <div className="absolute z-10 pointer-events-none" style={{ top: "3vh", bottom: "3vh", left: "3vw", right: "3vw" }}>
         <div className="absolute top-0 left-[8%] right-[8%] h-px bg-gradient-to-r from-transparent via-black/[0.06] to-transparent"/>
         <div className="absolute bottom-0 left-[8%] right-[8%] h-px bg-gradient-to-r from-transparent via-black/[0.06] to-transparent"/>
