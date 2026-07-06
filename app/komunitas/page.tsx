@@ -182,39 +182,6 @@ export default function KomunitasPage() {
         </div>
       </section>
 
-      {/* Gabung */}
-      <section className="py-16 px-6">
-        <div className="max-w-4xl mx-auto">
-          <motion.h2
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            className="text-2xl md:text-3xl font-semibold mb-4 text-center"
-          >
-            Gabung <span className="text-[#0dffd4]">Komunitas</span>
-          </motion.h2>
-          <p className="text-gray-600 text-center mb-12 text-sm">Gratis, tanpa syarat.</p>
-
-          <motion.a
-            href="https://t.me/+FarOaL4D-HFlMGM1"
-            target="_blank"
-            rel="noopener noreferrer"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="group flex items-center justify-center gap-4 p-6 bg-white/[0.03] border border-white/[0.06] rounded-2xl hover:border-[#0dffd4]/30 transition-all duration-300 max-w-md mx-auto"
-          >
-            <div className="w-12 h-12 rounded-xl bg-[#2AABEE]/10 border border-[#2AABEE]/20 flex items-center justify-center">
-              <svg className="w-6 h-6" fill="#2AABEE" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.28-.02-.12.03-2.02 1.28-5.69 3.77-.54.37-1.03.55-1.47.54-.48-.01-1.4-.27-2.09-.49-.84-.28-1.51-.42-1.45-.89.03-.25.38-.51 1.04-.78 4.07-1.77 6.79-2.94 8.15-3.5 3.88-1.63 4.69-1.91 5.21-1.92.12 0 .37.03.54.17.14.12.18.28.2.47-.01.06.01.24 0 .36z" /></svg>
-            </div>
-            <div>
-              <div className="text-white font-medium text-lg">Grup Telegram</div>
-              <div className="text-gray-600 text-sm">Komunitas Kahiyang</div>
-            </div>
-          </motion.a>
-        </div>
-      </section>
-
       {/* CTA */}
       <section className="py-20 px-6">
         <motion.div
