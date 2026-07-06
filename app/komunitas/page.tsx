@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useState, useRef } from "react";
 
 const stats = [
   { value: "50+", label: "Kreator Aktif", note: "yang rutin upload & diskusi" },
@@ -104,8 +103,8 @@ export default function KomunitasPage() {
         </div>
       </section>
 
-      {/* Aktivitas — Horizontal Swipe */}
-      <section className="py-16 px-6">
+      {/* Aktivitas — Auto Carousel */}
+      <section className="py-16 px-6 overflow-hidden">
         <div className="max-w-6xl mx-auto">
           <motion.h2
             initial={{ opacity: 0 }}
@@ -115,35 +114,26 @@ export default function KomunitasPage() {
           >
             Yang <span className="text-[#0dffd4]">Kamu Dapat</span>
           </motion.h2>
-          <p className="text-gray-600 text-center mb-10 text-sm">← geser →</p>
 
-          {/* Horizontal scroll cards */}
-          <div
-            ref={scrollRef}
-            className="flex gap-4 overflow-x-auto pb-4 snap-x snap-mandatory cursor-grab active:cursor-grabbing"
-            style={{ scrollbarWidth: "none", msOverflowStyle: "none", WebkitOverflowScrolling: "touch" }}
-            onMouseDown={handleMouseDown}
-            onMouseMove={handleMouseMove}
-            onMouseUp={handleMouseUp}
-            onMouseLeave={handleMouseUp}
-            onTouchStart={handleTouchStart}
-            onTouchMove={handleTouchMove}
-          >
-            <style jsx>{`div::-webkit-scrollbar { display: none; }`}</style>
-            {activities.map((act, i) => (
-              <motion.div
-                key={act.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1, duration: 0.5 }}
-                className="flex-shrink-0 w-[280px] md:w-[340px] snap-center bg-white/[0.03] border border-white/[0.06] rounded-2xl p-6 hover:border-[#0dffd4]/30 transition-all duration-300"
-              >
-                <span className="inline-block px-3 py-1 rounded-full bg-[#0dffd4]/10 border border-[#0dffd4]/20 text-[#0dffd4] text-[10px] font-semibold tracking-[0.1em] uppercase mb-4">{act.tag}</span>
-                <h3 className="text-lg font-bold text-white mb-3">{act.title}</h3>
-                <p className="text-gray-500 text-sm leading-relaxed">{act.desc}</p>
-              </motion.div>
-            ))}
+          {/* Infinite scroll carousel */}
+          <div className="relative mt-10">
+            {/* Fade edges */}
+            <div className="absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-[#0a0a0a] to-transparent z-10 pointer-events-none" />
+            <div className="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-[#0a0a0a] to-transparent z-10 pointer-events-none" />
+
+            <div className="flex gap-4 animate-scroll" style={{ width: "max-content" }}>
+              {/* Double the items for infinite loop */}
+              {[...activities, ...activities].map((act, i) => (
+                <div
+                  key={i}
+                  className="flex-shrink-0 w-[280px] md:w-[340px] bg-white/[0.03] border border-white/[0.06] rounded-2xl p-6 hover:border-[#0dffd4]/30 transition-all duration-300"
+                >
+                  <span className="inline-block px-3 py-1 rounded-full bg-[#0dffd4]/10 border border-[#0dffd4]/20 text-[#0dffd4] text-[10px] font-semibold tracking-[0.1em] uppercase mb-4">{act.tag}</span>
+                  <h3 className="text-lg font-bold text-white mb-3">{act.title}</h3>
+                  <p className="text-gray-500 text-sm leading-relaxed">{act.desc}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
