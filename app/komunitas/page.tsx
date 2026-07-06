@@ -36,39 +36,6 @@ const activities = [
 ];
 
 export default function KomunitasPage() {
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const [isDragging, setIsDragging] = useState(false);
-  const [startX, setStartX] = useState(0);
-  const [scrollLeft, setScrollLeft] = useState(0);
-
-  const handleMouseDown = (e: React.MouseEvent) => {
-    setIsDragging(true);
-    setStartX(e.pageX - (scrollRef.current?.offsetLeft || 0));
-    setScrollLeft(scrollRef.current?.scrollLeft || 0);
-  };
-
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (!isDragging) return;
-    e.preventDefault();
-    const x = e.pageX - (scrollRef.current?.offsetLeft || 0);
-    const walk = (x - startX) * 2;
-    if (scrollRef.current) scrollRef.current.scrollLeft = scrollLeft - walk;
-  };
-
-  const handleMouseUp = () => setIsDragging(false);
-
-  // Touch events for mobile swipe
-  const handleTouchStart = (e: React.TouchEvent) => {
-    setStartX(e.touches[0].pageX - (scrollRef.current?.offsetLeft || 0));
-    setScrollLeft(scrollRef.current?.scrollLeft || 0);
-  };
-
-  const handleTouchMove = (e: React.TouchEvent) => {
-    const x = e.touches[0].pageX - (scrollRef.current?.offsetLeft || 0);
-    const walk = (x - startX) * 2;
-    if (scrollRef.current) scrollRef.current.scrollLeft = scrollLeft - walk;
-  };
-
   return (
     <main className="min-h-screen bg-[#0a0a0a] text-white">
       {/* Hero */}
