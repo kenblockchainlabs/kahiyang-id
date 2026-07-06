@@ -182,7 +182,7 @@ export default function KomunitasPage() {
         </div>
       </section>
 
-      {/* Sosmed */}
+      {/* Gabung */}
       <section className="py-16 px-6">
         <div className="max-w-4xl mx-auto">
           <motion.h2
@@ -191,35 +191,27 @@ export default function KomunitasPage() {
             viewport={{ once: true }}
             className="text-2xl md:text-3xl font-semibold mb-4 text-center"
           >
-            Gabung di <span className="text-[#0dffd4]">Sosmed</span> Kami
+            Gabung <span className="text-[#0dffd4]">Komunitas</span>
           </motion.h2>
-          <p className="text-gray-600 text-center mb-12 text-sm">Follow, subscribe, dan jadi bagian dari komunitas.</p>
+          <p className="text-gray-600 text-center mb-12 text-sm">Gratis, tanpa syarat.</p>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {[
-              { name: "TikTok", handle: "@alaherbalasli", url: "https://tiktok.com/@alaherbalasli", icon: <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 0 0-.79-.05A6.34 6.34 0 0 0 3.15 15a6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.34-6.34V8.73a8.27 8.27 0 0 0 4.76 1.52v-3.4a4.85 4.85 0 0 1-1-.16z" /></svg> },
-              { name: "Telegram", handle: "Grup Komunitas", url: "https://t.me/+FarOaL4D-HFlMGM1", icon: <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.28-.02-.12.03-2.02 1.28-5.69 3.77-.54.37-1.03.55-1.47.54-.48-.01-1.4-.27-2.09-.49-.84-.28-1.51-.42-1.45-.89.03-.25.38-.51 1.04-.78 4.07-1.77 6.79-2.94 8.15-3.5 3.88-1.63 4.69-1.91 5.21-1.92.12 0 .37.03.54.17.14.12.18.28.2.47-.01.06.01.24 0 .36z" /></svg> },
-              { name: "Instagram", handle: "@kahiyang.id", url: "https://instagram.com/kahiyang.id", icon: <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z" /></svg> },
-            ].map((social, i) => (
-              <motion.a
-                key={social.name}
-                href={social.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1, duration: 0.5 }}
-                className="group flex items-center gap-4 p-5 bg-white/[0.03] border border-white/[0.06] rounded-2xl hover:border-[#0dffd4]/30 transition-all duration-300"
-              >
-                <div className="w-10 h-10 rounded-xl bg-white/[0.06] border border-white/[0.08] flex items-center justify-center text-gray-400 group-hover:text-[#0dffd4] transition-colors">{social.icon}</div>
-                <div>
-                  <div className="text-white font-medium">{social.name}</div>
-                  <div className="text-gray-600 text-sm">{social.handle}</div>
-                </div>
-              </motion.a>
-            ))}
-          </div>
+          <motion.a
+            href="https://t.me/+FarOaL4D-HFlMGM1"
+            target="_blank"
+            rel="noopener noreferrer"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="group flex items-center justify-center gap-4 p-6 bg-white/[0.03] border border-white/[0.06] rounded-2xl hover:border-[#0dffd4]/30 transition-all duration-300 max-w-md mx-auto"
+          >
+            <div className="w-12 h-12 rounded-xl bg-[#2AABEE]/10 border border-[#2AABEE]/20 flex items-center justify-center">
+              <svg className="w-6 h-6" fill="#2AABEE" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.28-.02-.12.03-2.02 1.28-5.69 3.77-.54.37-1.03.55-1.47.54-.48-.01-1.4-.27-2.09-.49-.84-.28-1.51-.42-1.45-.89.03-.25.38-.51 1.04-.78 4.07-1.77 6.79-2.94 8.15-3.5 3.88-1.63 4.69-1.91 5.21-1.92.12 0 .37.03.54.17.14.12.18.28.2.47-.01.06.01.24 0 .36z" /></svg>
+            </div>
+            <div>
+              <div className="text-white font-medium text-lg">Grup Telegram</div>
+              <div className="text-gray-600 text-sm">Komunitas Kahiyang</div>
+            </div>
+          </motion.a>
         </div>
       </section>
 
@@ -232,16 +224,16 @@ export default function KomunitasPage() {
           className="max-w-2xl mx-auto text-center bg-gradient-to-b from-white/[0.03] to-transparent border border-white/[0.06] rounded-3xl p-10 md:p-16"
         >
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-            Gratis <span className="text-[#0dffd4]">Analisa Akun</span>
+            Masuk <span className="text-[#0dffd4]">Gratis</span>
           </h2>
           <p className="text-gray-500 mb-8 max-w-md mx-auto">
-            Kirim username TikTok lo. Gue bedah — kasih tau kenapa stuck dan gimana fix-nya.
+            Gabung grup Telegram komunitas. Gratis, tanpa syarat.
           </p>
           <a
-            href="https://wa.me/6285135787489?text=Halo,%20saya%20mau%20analisa%20akun%20TikTok%20gratis"
+            href="https://t.me/+FarOaL4D-HFlMGM1"
             className="inline-block px-8 py-4 rounded-full bg-[#0dffd4] text-black font-bold text-sm tracking-[0.1em] uppercase hover:opacity-90 transition-opacity"
           >
-            Bedah Akun Gue →
+            Gabung Grup Telegram →
           </a>
         </motion.div>
       </section>
