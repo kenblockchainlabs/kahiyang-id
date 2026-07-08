@@ -16,8 +16,8 @@ const features = [
 ];
 
 const results = [
-  { num: "500rb-5jt", desc: "Range komisi harian aktif komunitas", color: "#FF6B35" },
-  { num: "7-14", desc: "Rata-rata hari ke komisi pertama", color: "#0dffd4" },
+  { num: "Pecah Telur", desc: "Komisi pertama dalam 7-14 hari — dari akun baru sampai menghasilkan", color: "#FF6B35" },
+  { num: "Konsisten", desc: "Strategi yang diupdate tiap minggu — bukan materi basi", color: "#0dffd4" },
 ];
 
 export default function KomunitasPage() {
