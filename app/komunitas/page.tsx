@@ -16,8 +16,8 @@ const activities = [
 ];
 
 const results = [
-  { num: "Rp 24jt", desc: "Komisi 1 hari — affiliator herbal, 3 bulan di komunitas", color: "#0dffd4" },
-  { num: "Rp 2,4jt", desc: "ATH komisi harian — fashion pria, tanpa iklan", color: "#ff6b35" },
+  { num: "500rb-5jt", desc: "Range komisi harian aktif komunitas — tergantung niche & konsistensi", color: "#0dffd4" },
+  { num: "7-14", desc: "Rata-rata hari ke komisi pertama — dari akun baru sampai pecah telur", color: "#ff6b35" },
 ];
 
 export default function KomunitasPage() {
