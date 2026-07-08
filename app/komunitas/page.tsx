@@ -9,10 +9,10 @@ const stats = [
 ];
 
 const features = [
-  { icon: "🎯", title: "Bedah Akun Live", desc: "Setiap minggu, akun murid dibedah langsung — hook, timing, konten." },
-  { icon: "📊", title: "Sharing Strategi", desc: "Affiliator yang udah pecah telur share cara mereka." },
-  { icon: "⚡", title: "Update Algoritma", desc: "TikTok ganti algoritma? Komunitas langsung tau." },
-  { icon: "🎬", title: "Template & Tools", desc: "Template hook, script konten, tools analisa — gratis." },
+  { icon: "01", title: "Bedah Akun Live", desc: "Setiap minggu, akun murid dibedah langsung — hook, timing, konten." },
+  { icon: "02", title: "Sharing Strategi", desc: "Affiliator yang udah pecah telur share cara mereka." },
+  { icon: "03", title: "Update Algoritma", desc: "TikTok ganti algoritma? Komunitas langsung tau." },
+  { icon: "04", title: "Template & Tools", desc: "Template hook, script konten, tools analisa — gratis." },
 ];
 
 const results = [
@@ -77,7 +77,7 @@ export default function KomunitasPage() {
                 onMouseEnter={e => { (e.currentTarget as HTMLElement).style.transform = "translateY(-4px)"; (e.currentTarget as HTMLElement).style.boxShadow = "0 12px 32px rgba(0,0,0,0.08)"; }}
                 onMouseLeave={e => { (e.currentTarget as HTMLElement).style.transform = "translateY(0)"; (e.currentTarget as HTMLElement).style.boxShadow = "none"; }}
               >
-                <div style={{ fontSize: 32, marginBottom: 16 }}>{f.icon}</div>
+                <div style={{ fontSize: 11, color: "#FF6B35", fontWeight: 700, letterSpacing: "0.1em", marginBottom: 16, fontFamily: "'DM Mono', monospace" }}>{f.icon}</div>
                 <h3 style={{ fontSize: 16, fontWeight: 700, color: "#1a1a1a", marginBottom: 8 }}>{f.title}</h3>
                 <p style={{ fontSize: 13, color: "rgba(0,0,0,0.4)", lineHeight: 1.6 }}>{f.desc}</p>
               </motion.div>
