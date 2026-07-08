@@ -16,8 +16,8 @@ const features = [
 ];
 
 const results = [
-  { num: "Pecah Telur", desc: "Komisi pertama dalam 7-14 hari — dari akun baru sampai menghasilkan", color: "#FF6B35" },
-  { num: "Konsisten", desc: "Strategi yang diupdate tiap minggu — bukan materi basi", color: "#0dffd4" },
+  { num: "Pecah Telur", desc: "Komisi pertama dalam 7-14 hari. Dari akun baru, nol pengalaman, sampai closing pertama.", color: "#FF6B35" },
+  { num: "Scale Multi-Akun", desc: "Dari 1 akun ke 5 akun. Niche selection, konten batching, komisi repeat.", color: "#0dffd4" },
 ];
 
 export default function KomunitasPage() {
