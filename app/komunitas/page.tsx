@@ -9,158 +9,124 @@ const stats = [
 ];
 
 const activities = [
-  {
-    id: 1,
-    title: "Bedah Akun Live",
-    desc: "Setiap minggu, akun murid dibedah langsung — hook, timing, konten. Semua transparan, semua data.",
-    tag: "Mingguan",
-  },
-  {
-    id: 2,
-    title: "Sharing Strategi",
-    desc: "Affiliator yang udah pecah telur share cara mereka — produk apa, konten gimana, timing kapan.",
-    tag: "Real Case",
-  },
-  {
-    id: 3,
-    title: "Update Algoritma",
-    desc: "TikTok ganti algoritma? Komunitas langsung tau. Strategi diupdate bareng-bareng.",
-    tag: "Real-Time",
-  },
-  {
-    id: 4,
-    title: "Template & Tools",
-    desc: "Template hook, script konten, dan tools analisa — semua dibagi gratis di komunitas.",
-    tag: "Resource",
-  },
+  { id: 1, title: "Bedah Akun Live", desc: "Setiap minggu, akun murid dibedah langsung — hook, timing, konten. Semua transparan.", tag: "Mingguan" },
+  { id: 2, title: "Sharing Strategi", desc: "Affiliator yang udah pecah telur share cara mereka — produk apa, konten gimana.", tag: "Real Case" },
+  { id: 3, title: "Update Algoritma", desc: "TikTok ganti algoritma? Komunitas langsung tau. Strategi diupdate bareng.", tag: "Real-Time" },
+  { id: 4, title: "Template & Tools", desc: "Template hook, script konten, tools analisa — semua dibagi gratis.", tag: "Resource" },
+];
+
+const results = [
+  { num: "Rp 24jt", desc: "Komisi 1 hari — affiliator herbal, 3 bulan di komunitas", color: "#0dffd4" },
+  { num: "Rp 2,4jt", desc: "ATH komisi harian — fashion pria, tanpa iklan", color: "#ff6b35" },
 ];
 
 export default function KomunitasPage() {
   return (
-    <main className="min-h-screen bg-[#0a0a0a] text-white">
-      {/* Hero */}
-      <section className="relative pt-32 pb-16 px-6">
-        <div className="max-w-6xl mx-auto text-center">
-          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}>
-            <a href="/" className="text-white/30 text-sm hover:text-white/60 mb-8 inline-block tracking-[0.1em] uppercase">← Kembali</a>
-            <h1 className="text-5xl md:text-7xl font-bold mb-6">
-              <span className="text-white">Komunitas</span>{" "}
-              <span className="text-[#0dffd4]">Kahiyang</span>
-            </h1>
-            <p className="text-gray-500 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
-              Bukan grup chat biasa. Ini ruang belajar bareng — bedah akun, sharing strategi, dan saling support sampai pecah telur.
-            </p>
+    <main style={{ minHeight: "100vh", background: "#0a0a0a", color: "#e8edf2", fontFamily: "'Inter', -apple-system, sans-serif", overflowX: "hidden" }}>
+
+      {/* ═══ HERO ═══ */}
+      <section style={{ position: "relative", minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", padding: "120px 24px 80px", overflow: "hidden" }}>
+        {/* Grid pattern */}
+        <div style={{ position: "absolute", inset: 0, backgroundImage: "linear-gradient(rgba(13,255,212,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(13,255,212,0.03) 1px, transparent 1px)", backgroundSize: "50px 50px", pointerEvents: "none" }} />
+        {/* Glow */}
+        <div style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", width: 500, height: 500, background: "radial-gradient(circle, rgba(13,255,212,0.1) 0%, transparent 70%)", borderRadius: "50%", pointerEvents: "none" }} />
+
+        <div style={{ position: "relative", zIndex: 10, textAlign: "center", maxWidth: 600 }}>
+
+          {/* Badge */}
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }} style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "8px 20px", borderRadius: 100, background: "rgba(13,255,212,0.08)", border: "1px solid rgba(13,255,212,0.2)", marginBottom: 32 }}>
+            <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#0dffd4", animation: "blink 1.5s ease infinite" }} />
+            <span style={{ fontSize: 11, color: "#0dffd4", fontWeight: 600, letterSpacing: "0.15em", textTransform: "uppercase" }}>Komunitas TikTok Affiliate</span>
           </motion.div>
 
-          {/* Stats — real data */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3, duration: 0.8 }}
-            className="grid grid-cols-3 gap-4 md:gap-8 mt-12 max-w-2xl mx-auto"
-          >
-            {stats.map((stat, i) => (
-              <div key={i} className="text-center bg-white/[0.03] border border-white/[0.06] rounded-2xl p-4 md:p-6">
-                <div className="text-2xl md:text-4xl font-bold text-[#0dffd4]">{stat.value}</div>
-                <div className="text-gray-400 text-xs md:text-sm mt-1 font-medium">{stat.label}</div>
-                <div className="text-gray-600 text-[10px] md:text-xs mt-1">{stat.note}</div>
-              </div>
+          {/* Main text */}
+          <motion.h1 initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }} style={{ fontSize: "clamp(48px, 10vw, 80px)", fontWeight: 900, lineHeight: 0.95, letterSpacing: "-0.04em", marginBottom: 24 }}>
+            <span style={{ display: "block", color: "#fff" }}>Komunitas</span>
+            <span style={{ display: "block", color: "#0dffd4" }}>Kahiyang</span>
+          </motion.h1>
+
+          {/* Sub */}
+          <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.5 }} style={{ fontSize: 16, color: "rgba(255,255,255,0.4)", lineHeight: 1.7, maxWidth: 420, margin: "0 auto 48px" }}>
+            Bukan grup chat biasa. Ini ruang belajar bareng — bedah akun, sharing strategi, sampai pecah telur.
+          </motion.p>
+
+          {/* Stats */}
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.8 }} style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 16, maxWidth: 400, margin: "0 auto" }}>
+            {stats.map((s, i) => (
+              <motion.div key={i} initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.6, delay: 1 + i * 0.15 }} style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: 16, padding: "20px 12px", textAlign: "center" }}>
+                <div style={{ fontSize: 28, fontWeight: 900, color: "#0dffd4", letterSpacing: "-0.02em" }}>{s.value}</div>
+                <div style={{ fontSize: 9, color: "rgba(255,255,255,0.4)", textTransform: "uppercase", letterSpacing: "0.15em", marginTop: 4 }}>{s.label}</div>
+              </motion.div>
             ))}
           </motion.div>
         </div>
       </section>
 
-      {/* Aktivitas — Auto Carousel */}
-      <section className="py-16 px-6 overflow-hidden">
-        <div className="max-w-6xl mx-auto">
-          <motion.h2
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            className="text-2xl md:text-3xl font-semibold mb-3 text-center"
-          >
-            Yang <span className="text-[#0dffd4]">Kamu Dapat</span>
-          </motion.h2>
+      {/* ═══ YANG KAMU DAPAT — Animated cards ═══ */}
+      <section style={{ padding: "100px 24px", position: "relative" }}>
+        <div style={{ maxWidth: 600, margin: "0 auto" }}>
+          <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }} style={{ textAlign: "center", marginBottom: 64 }}>
+            <span style={{ fontSize: 11, color: "rgba(255,255,255,0.3)", textTransform: "uppercase", letterSpacing: "0.3em", fontWeight: 600 }}>Yang Kamu Dapat</span>
+            <h2 style={{ fontSize: "clamp(32px, 5vw, 48px)", fontWeight: 900, letterSpacing: "-0.03em", marginTop: 12 }}>
+              <span style={{ color: "#fff" }}>Bukan </span>
+              <span style={{ color: "#0dffd4" }}>Kelas Teori</span>
+            </h2>
+          </motion.div>
 
-          {/* Infinite scroll carousel */}
-          <div className="relative mt-10">
-            {/* Fade edges */}
-            <div className="absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-[#0a0a0a] to-transparent z-10 pointer-events-none" />
-            <div className="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-[#0a0a0a] to-transparent z-10 pointer-events-none" />
-
-            <div className="flex gap-4 animate-scroll" style={{ width: "max-content" }}>
-              {/* Double the items for infinite loop */}
-              {[...activities, ...activities].map((act, i) => (
-                <div
-                  key={i}
-                  className="flex-shrink-0 w-[280px] md:w-[340px] bg-white/[0.03] border border-white/[0.06] rounded-2xl p-6 hover:border-[#0dffd4]/30 transition-all duration-300"
-                >
-                  <span className="inline-block px-3 py-1 rounded-full bg-[#0dffd4]/10 border border-[#0dffd4]/20 text-[#0dffd4] text-[10px] font-semibold tracking-[0.1em] uppercase mb-4">{act.tag}</span>
-                  <h3 className="text-lg font-bold text-white mb-3">{act.title}</h3>
-                  <p className="text-gray-500 text-sm leading-relaxed">{act.desc}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Bukti — Screenshot placeholder */}
-      <section className="py-16 px-6 bg-white/[0.02]">
-        <div className="max-w-4xl mx-auto text-center">
-          <motion.h2
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            className="text-2xl md:text-3xl font-semibold mb-3"
-          >
-            Hasil <span className="text-[#0dffd4]">Nyata</span>
-          </motion.h2>
-          <p className="text-gray-600 mb-10 text-sm">Bukan janji — bukti dari komunitas</p>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {[
-              { num: "Rp 24jt", desc: "Komisi 1 hari — affiliator herbal, 3 bulan di komunitas", color: "text-[#0dffd4]" },
-              { num: "Rp 2,4jt", desc: "ATH komisi harian — fashion pria, tanpa iklan", color: "text-[#ff6b35]" },
-            ].map((item, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.15 }}
-                className="bg-[#0a0a0a] border border-white/[0.06] rounded-2xl p-8 text-left"
+          <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+            {activities.map((act, i) => (
+              <motion.div key={act.id} initial={{ opacity: 0, y: 30, scale: 0.97 }} whileInView={{ opacity: 1, y: 0, scale: 1 }} viewport={{ once: true, margin: "-50px" }} transition={{ duration: 0.7, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }} style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: 20, padding: 28, display: "flex", gap: 20, alignItems: "flex-start", cursor: "default", transition: "border-color 0.3s, transform 0.3s" }}
+                onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = "rgba(13,255,212,0.3)"; (e.currentTarget as HTMLElement).style.transform = "translateY(-2px)"; }}
+                onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.06)"; (e.currentTarget as HTMLElement).style.transform = "translateY(0)"; }}
               >
-                <div className={`text-3xl md:text-4xl font-bold ${item.color} mb-3`}>{item.num}</div>
-                <p className="text-gray-500 text-sm leading-relaxed">{item.desc}</p>
+                <div style={{ flexShrink: 0, width: 40, height: 40, borderRadius: 12, background: "rgba(13,255,212,0.08)", border: "1px solid rgba(13,255,212,0.15)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 11, color: "#0dffd4", fontWeight: 700 }}>{String(act.id).padStart(2, "0")}</div>
+                <div style={{ flex: 1 }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 8 }}>
+                    <span style={{ fontSize: 15, fontWeight: 700, color: "#fff" }}>{act.title}</span>
+                    <span style={{ fontSize: 9, color: "#0dffd4", padding: "3px 10px", borderRadius: 100, background: "rgba(13,255,212,0.08)", border: "1px solid rgba(13,255,212,0.15)", fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase" }}>{act.tag}</span>
+                  </div>
+                  <p style={{ fontSize: 13, color: "rgba(255,255,255,0.4)", lineHeight: 1.7 }}>{act.desc}</p>
+                </div>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="py-20 px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="max-w-2xl mx-auto text-center bg-gradient-to-b from-white/[0.03] to-transparent border border-white/[0.06] rounded-3xl p-10 md:p-16"
-        >
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-            Masuk <span className="text-[#0dffd4]">Gratis</span>
-          </h2>
-          <p className="text-gray-500 mb-8 max-w-md mx-auto">
-            Gabung grup Telegram komunitas. Gratis, tanpa syarat.
-          </p>
-          <a
-            href="https://t.me/+FarOaL4D-HFlMGM1"
-            className="inline-block px-8 py-4 rounded-full bg-[#0dffd4] text-black font-bold text-sm tracking-[0.1em] uppercase hover:opacity-90 transition-opacity"
-          >
-            Gabung Grup Telegram →
-          </a>
+      {/* ═══ HASIL NYATA ═══ */}
+      <section style={{ padding: "100px 24px", background: "rgba(255,255,255,0.015)" }}>
+        <div style={{ maxWidth: 600, margin: "0 auto" }}>
+          <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 0.8 }} style={{ textAlign: "center", marginBottom: 48 }}>
+            <span style={{ fontSize: 11, color: "rgba(255,255,255,0.3)", textTransform: "uppercase", letterSpacing: "0.3em", fontWeight: 600 }}>Hasil Nyata</span>
+            <h2 style={{ fontSize: "clamp(32px, 5vw, 48px)", fontWeight: 900, letterSpacing: "-0.03em", marginTop: 12 }}>
+              <span style={{ color: "#fff" }}>Bukan </span>
+              <span style={{ color: "#0dffd4" }}>Janji</span>
+            </h2>
+          </motion.div>
+
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+            {results.map((r, i) => (
+              <motion.div key={i} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7, delay: i * 0.15 }} style={{ background: "#0a0a0a", border: "1px solid rgba(255,255,255,0.06)", borderRadius: 20, padding: 28, textAlign: "left" }}>
+                <div style={{ fontSize: 32, fontWeight: 900, color: r.color, letterSpacing: "-0.03em", marginBottom: 8 }}>{r.num}</div>
+                <p style={{ fontSize: 12, color: "rgba(255,255,255,0.4)", lineHeight: 1.6 }}>{r.desc}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ═══ CTA ═══ */}
+      <section style={{ padding: "100px 24px" }}>
+        <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }} style={{ maxWidth: 480, margin: "0 auto", textAlign: "center", background: "linear-gradient(180deg, rgba(13,255,212,0.04) 0%, transparent 100%)", border: "1px solid rgba(13,255,212,0.15)", borderRadius: 24, padding: "48px 32px" }}>
+          <h2 style={{ fontSize: 28, fontWeight: 900, color: "#fff", marginBottom: 8 }}>Masuk <span style={{ color: "#0dffd4" }}>Gratis</span></h2>
+          <p style={{ fontSize: 14, color: "rgba(255,255,255,0.4)", marginBottom: 32, lineHeight: 1.6 }}>Gabung grup Telegram komunitas. Tanpa syarat.</p>
+          <a href="https://t.me/+FarOaL4D-HFlMGM1" style={{ display: "inline-block", padding: "14px 36px", borderRadius: 100, background: "#0dffd4", color: "#0a0a0a", fontSize: 12, fontWeight: 700, letterSpacing: "0.15em", textTransform: "uppercase", textDecoration: "none", transition: "opacity 0.2s" }}>Gabung Grup Telegram →</a>
         </motion.div>
       </section>
+
+      <style>{`
+        @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+      `}</style>
     </main>
   );
 }
