@@ -1,283 +1,313 @@
 "use client"
 
 import { useState, useRef } from "react"
+import Link from "next/link"
+import { ArrowUpRight, X } from "lucide-react"
 
-interface Specimen {
+interface ProjectItem {
   id: string
-  code: string
   title: string
+  client: string
   category: string
-  author: string
+  aspectRatio: string
+  widthClass: string
+  image: string
   year: string
+  metrics: { label: string; val: string }[]
   desc: string
-  metric: string
-  throughput: string
-  stack: string
+  href: string
 }
 
-const SPECIMENS: Specimen[] = [
+const PROJECTS: ProjectItem[] = [
   {
     id: "01",
-    code: "AFF-01",
     title: "TikTok Shop Stream Pipeline",
-    category: "AFFILIATE ENGINE",
-    author: "Kahiyang Core Team",
+    client: "Kahiyang Automation",
+    category: "Affiliate Recon & Dispatch",
+    aspectRatio: "aspect-[1/1]",
+    widthClass: "w-[260px] sm:w-[320px]",
+    image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=85",
     year: "2026",
-    desc: "Autonomous pipeline yang memonitor pergeseran tren GMV produk TikTok Shop, scoring velocity konten FYP, dan dispatch sampel otomatis langsung ke creator network.",
-    metric: "99.8% System Uptime",
-    throughput: "2,400 Event/Sec",
-    stack: "TikTok Graph API, Redis, Go"
+    metrics: [
+      { label: "Throughput", val: "2,400 ev/s" },
+      { label: "Uptime", val: "99.9%" },
+      { label: "Dispatch Latency", val: "18ms" }
+    ],
+    desc: "Autonomous stream engine yang menganalisis pergeseran GMV ribuan produk TikTok Shop secara real-time, mendeteksi spike penjualan, dan mengirim sampel produk otomatis ke affiliator.",
+    href: "https://agency.kahiyang.id"
   },
   {
     id: "02",
-    code: "SYN-02",
     title: "Autonomous Content Synthesizer",
-    category: "N8N ORCHESTRATION",
-    author: "Automation Labs",
+    client: "AI Production Labs",
+    category: "Generative Video & Carousel",
+    aspectRatio: "aspect-[3/4]",
+    widthClass: "w-[240px] sm:w-[290px]",
+    image: "https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?auto=format&fit=crop&w=1200&q=85",
     year: "2026",
-    desc: "Sistem generative pipeline yang meramu hook 3-detik pertama, script copywriting berkonversi tinggi, komposisi visual produk 9:16, dan audio trending dalam sekali jalan.",
-    metric: "14.2s Pipeline Latency",
-    throughput: "120 Tasks/hr",
-    stack: "n8n, Python, FFmpeg"
+    metrics: [
+      { label: "Render Cycle", val: "14.2 sec" },
+      { label: "Format", val: "9:16 Vertical" },
+      { label: "Batch Scale", val: "120 clip/hr" }
+    ],
+    desc: "Pipeline end-to-end n8n yang menyatukan AI vision, hook copywriting berdaya konversi tinggi, komposisi visual, dan sound trending menjadi video siap posting dalam hitungan detik.",
+    href: "https://studio.kahiyang.id"
   },
   {
     id: "03",
-    code: "VRL-03",
-    title: "Algorithmic Retention Auditor",
-    category: "NEURAL VISION",
-    author: "Research Unit",
+    title: "Viral Retention Analyzer",
+    client: "SaaS Algorithmic Audit",
+    category: "Neural Retention Forensics",
+    aspectRatio: "aspect-[16/10]",
+    widthClass: "w-[340px] sm:w-[420px]",
+    image: "https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?auto=format&fit=crop&w=1200&q=85",
     year: "2026",
-    desc: "Engine forensik video yang mendeteksi drop-rate penonton, density tipografi cover, dan kecocokan algoritma FYP agar kreator tidak membakar ad-spend sia-sia.",
-    metric: "94.6% FYP Accuracy",
-    throughput: "Real-time Poll",
-    stack: "Gemini Vision, PyTorch"
+    metrics: [
+      { label: "Confidence", val: "98.4%" },
+      { label: "Retention Scan", val: "0-3s Hook" },
+      { label: "Competitor Map", val: "Real-time" }
+    ],
+    desc: "Sistem forensik video TikTok yang membedah kurva retensi audiens, mendeteksi second-drop rate, dan memberi skor kesehatan akun berdasarkan parameter FYP aktual.",
+    href: "https://analyzer.kahiyang.id"
   },
   {
     id: "04",
-    code: "RTR-04",
-    title: "Multi-Agent Gateway Nexus",
-    category: "INFRASTRUCTURE",
-    author: "Systems Architecture",
+    title: "Talent & Creator Network",
+    client: "Kahiyang Agency",
+    category: "Creator Management",
+    aspectRatio: "aspect-[3/4]",
+    widthClass: "w-[250px] sm:w-[300px]",
+    image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=1200&q=85",
     year: "2026",
-    desc: "Reverse proxy cerdas yang mengatur load balancing token provider, rate limit protection, session persistence, dan failover antar node VPS tanpa jeda.",
-    metric: "12ms Mean Latency",
-    throughput: "High Concurrency",
-    stack: "9Router, Nginx, Caddy"
+    metrics: [
+      { label: "Roster", val: "500+ Creators" },
+      { label: "GMV Generated", val: "Rp 10M+" },
+      { label: "Split", val: "70 / 30 Net" }
+    ],
+    desc: "Akselerasi kreator dan talent affiliate TikTok Shop nasional. Menghubungkan akun bertalenta langsung dengan brand principal tanpa potongan predatory.",
+    href: "https://agency.kahiyang.id"
   },
   {
     id: "05",
-    code: "MEM-05",
-    title: "Mnemosyne Agentic Memory",
-    category: "ZERO-DEP VAULT",
-    author: "Database Guild",
+    title: "Multi-Agent Gateway Nexus",
+    client: "Infrastructure Core",
+    category: "High-Concurrency Router",
+    aspectRatio: "aspect-[1/1]",
+    widthClass: "w-[260px] sm:w-[310px]",
+    image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=1200&q=85",
     year: "2026",
-    desc: "Arsip context memory terdistribusi berlatensi ultra-rendah berbasis SQLite WAL FTS5 untuk menyimpan knowledge base dan riwayat keputusan agen otonom.",
-    metric: "0kb Extra Dep",
-    throughput: "Instant SQLite Query",
-    stack: "SQLite FTS5, WAL Mode"
+    metrics: [
+      { label: "Proxy Latency", val: "12ms" },
+      { label: "Token Shield", val: "Active" },
+      { label: "Failover Node", val: "Zero Downtime" }
+    ],
+    desc: "Distributed reverse proxy yang mendistribusikan beban token LLM dan beban otomasi lintas node VPS dengan session persistence penuh.",
+    href: "https://t.me/kahiyang_partnership"
   }
 ]
 
 export default function ObysHero() {
-  const [selected, setSelected] = useState<Specimen>(SPECIMENS[0])
+  const [selected, setSelected] = useState<ProjectItem | null>(null)
+  const [isDragging, setIsDragging] = useState(false)
   const trackRef = useRef<HTMLDivElement>(null)
   const isDown = useRef(false)
   const startX = useRef(0)
   const scrollLeft = useRef(0)
+  const moved = useRef(false)
 
   const handleMouseDown = (e: React.MouseEvent) => {
     if (!trackRef.current) return
     isDown.current = true
+    moved.current = false
     startX.current = e.pageX - trackRef.current.offsetLeft
     scrollLeft.current = trackRef.current.scrollLeft
+    setIsDragging(true)
   }
 
-  const handleMouseLeave = () => { isDown.current = false }
-  const handleMouseUp = () => { isDown.current = false }
+  const handleMouseLeave = () => {
+    isDown.current = false
+    setIsDragging(false)
+  }
+
+  const handleMouseUp = () => {
+    isDown.current = false
+    setIsDragging(false)
+  }
 
   const handleMouseMove = (e: React.MouseEvent) => {
     if (!isDown.current || !trackRef.current) return
-    e.preventDefault()
     const x = e.pageX - trackRef.current.offsetLeft
-    const walk = (x - startX.current) * 1.6
+    const dist = Math.abs(x - startX.current)
+    if (dist > 5) moved.current = true
+    const walk = (x - startX.current) * 1.8
     trackRef.current.scrollLeft = scrollLeft.current - walk
   }
 
+  const handleCardClick = (item: ProjectItem) => {
+    if (!moved.current) {
+      setSelected(item)
+    }
+  }
+
   return (
-    <section className="relative w-full bg-[#0e0e0e] text-[#262626] pt-24 pb-20 px-4 sm:px-8 md:px-12 font-sans select-none overflow-hidden">
+    <section className="relative w-full min-h-screen bg-[#000000] text-white pt-24 pb-16 px-6 sm:px-12 flex flex-col justify-between overflow-hidden select-none">
       
-      {/* Container Open Book Canvas */}
-      <div className="max-w-[1520px] mx-auto relative">
-        
-        {/* The Open Book Two-Page Spread */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.8)] border border-black/40 relative">
-          
-          {/* LEFT PAGE: Raw Charcoal Gray Textured Paper (#7c7c7c paper-gray) */}
-          <div 
-            className="lg:col-span-5 p-8 sm:p-12 text-[#f4f4f4] relative flex flex-col justify-between min-h-[620px] border-b lg:border-b-0 lg:border-r border-black/30"
-            style={{
-              backgroundColor: "#7c7c7c",
-              backgroundImage: 'url("/textures/paper-gray.webp")',
-              backgroundRepeat: "repeat",
-              backgroundSize: "400px"
-            }}
-          >
-            {/* Top Binder Holes Decoration on Left Margin */}
-            <div className="flex justify-between items-start font-mono text-xs text-white/80 pb-6 border-b border-white/20 uppercase tracking-[0.2em]">
-              <div className="flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-[#d25933]" />
-                <span className="font-bold text-white">KAHIYANG LIBRARY</span>
-              </div>
-              <span>VOL. 2026 // N° 01</span>
-            </div>
-
-            {/* Editorial Title Block */}
-            <div className="my-auto py-8">
-              <span className="text-xs font-mono tracking-widest text-white/70 uppercase block mb-3">
-                [ ESSENTIAL TITLES & ARTIFACTS ]
-              </span>
-              <h1 className="text-3xl sm:text-5xl font-black tracking-tight leading-[1.05] text-white uppercase mb-6 drop-shadow-sm">
-                Kahiyang Design Books — Arsitektur Otomasi & Kedaulatan Kreator.
-              </h1>
-              <p className="text-sm sm:text-base text-white/90 leading-relaxed font-normal max-w-md">
-                Koleksi taktis sistem otonomus, neural pipeline, dan jurnalisme sains yang membuktikan bahwa performa digital sejati melampaui ilusi layar semata.
-              </p>
-            </div>
-
-            {/* Left Page Bottom Specimen Index */}
-            <div className="pt-6 border-t border-white/20 flex justify-between items-end text-xs font-mono text-white/70">
-              <div>
-                <span className="block text-white/50 text-[10px]">ORGANIZATION</span>
-                <span className="text-white font-semibold">Kahiyang Ecosystem</span>
-              </div>
-              <div className="text-right">
-                <span className="block text-white/50 text-[10px]">CURATED IN</span>
-                <span className="text-white font-semibold">Malang &bull; Indonesia</span>
-              </div>
-            </div>
-          </div>
-
-          {/* RIGHT PAGE: Warm Textured Newsprint / Sand Paper (#f5f5f5 paper-white) */}
-          <div 
-            className="lg:col-span-7 p-8 sm:p-12 text-[#222222] relative flex flex-col justify-between min-h-[620px]"
-            style={{
-              backgroundColor: "#f5f5f5",
-              backgroundImage: 'url("/textures/paper-white.webp")',
-              backgroundRepeat: "repeat",
-              backgroundSize: "400px"
-            }}
-          >
-            {/* Top Bar on Right Page */}
-            <div className="flex justify-between items-center text-xs font-mono text-[#666666] pb-6 border-b border-[#222222]/15 uppercase tracking-widest">
-              <span>FEATURED SPECIMENS ({SPECIMENS.length})</span>
-              <span className="hidden sm:inline">SWIPE / DRAG CARDS ↔</span>
-            </div>
-
-            {/* Draggable Specimen Cards with Terracotta Accent (#d25933) */}
-            <div className="my-auto py-6">
-              <div
-                ref={trackRef}
-                onMouseDown={handleMouseDown}
-                onMouseLeave={handleMouseLeave}
-                onMouseUp={handleMouseUp}
-                onMouseMove={handleMouseMove}
-                className="w-full overflow-x-auto no-scrollbar cursor-grab active:cursor-grabbing pb-2 select-none"
-                style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
-              >
-                <div className="flex gap-5 w-max py-2">
-                  {SPECIMENS.map((item) => {
-                    const isSelected = selected.id === item.id
-                    return (
-                      <div
-                        key={item.id}
-                        onClick={() => setSelected(item)}
-                        className="w-[240px] sm:w-[270px] group transition-all duration-200"
-                      >
-                        <div 
-                          className={`p-5 flex flex-col justify-between aspect-[3/4] transition-all duration-200 shadow-md ${
-                            isSelected 
-                              ? "ring-2 ring-[#d25933] shadow-xl scale-[1.02]" 
-                              : "hover:ring-1 hover:ring-black/30"
-                          }`}
-                          style={{
-                            backgroundColor: isSelected ? "#d25933" : "#e6e6e6",
-                            backgroundImage: isSelected ? 'url("/textures/binder-orange.avif")' : 'url("/textures/paper-white.webp")',
-                            backgroundSize: "cover",
-                            color: isSelected ? "#ffffff" : "#1a1a1a"
-                          }}
-                        >
-                          <div className="flex justify-between items-start font-mono text-xs">
-                            <span className="font-bold opacity-80">{item.id}</span>
-                            <span className="text-[10px] tracking-widest uppercase opacity-80">{item.category}</span>
-                          </div>
-
-                          <div className="my-auto text-center py-4">
-                            <span className="text-4xl sm:text-5xl font-mono font-black tracking-tighter block">
-                              {item.code}
-                            </span>
-                          </div>
-
-                          <div className="border-t border-current/20 pt-3">
-                            <span className="text-[10px] font-mono uppercase block opacity-70 mb-0.5">
-                              {item.author} ({item.year})
-                            </span>
-                            <h3 className="text-xs font-bold uppercase tracking-tight line-clamp-2">
-                              {item.title}
-                            </h3>
-                          </div>
-                        </div>
-                      </div>
-                    )
-                  })}
-                </div>
-              </div>
-            </div>
-
-            {/* Context Detail Drawer (Active Specimen Inspection) */}
-            <div 
-              className="mt-4 p-6 border border-[#222222]/20 shadow-sm transition-all duration-300"
-              style={{
-                backgroundColor: "#d25933",
-                backgroundImage: 'url("/textures/binder-orange.avif")',
-                backgroundSize: "cover",
-                color: "#ffffff"
-              }}
-            >
-              <div className="flex justify-between items-start font-mono text-xs pb-3 border-b border-white/20 mb-4">
-                <span className="tracking-widest uppercase font-bold text-white">
-                  SPECIMEN AUDIT // {selected.id} &bull; {selected.code}
-                </span>
-                <span className="text-white/80">{selected.category}</span>
-              </div>
-
-              <h2 className="text-xl sm:text-2xl font-black uppercase tracking-tight text-white mb-2">
-                {selected.title}
-              </h2>
-              <p className="text-xs sm:text-sm text-white/90 font-normal leading-relaxed mb-6">
-                {selected.desc}
-              </p>
-
-              <div className="grid grid-cols-3 gap-4 pt-4 border-t border-white/20 font-mono text-xs">
-                <div>
-                  <span className="text-white/60 block text-[10px] uppercase">PERFORMANCE</span>
-                  <span className="text-white font-bold">{selected.metric}</span>
-                </div>
-                <div>
-                  <span className="text-white/60 block text-[10px] uppercase">RATE</span>
-                  <span className="text-white font-bold">{selected.throughput}</span>
-                </div>
-                <div>
-                  <span className="text-white/60 block text-[10px] uppercase">FOUNDATION</span>
-                  <span className="text-white font-bold">{selected.stack}</span>
-                </div>
-              </div>
-            </div>
-
-          </div>
-
+      {/* Top Header Floating Status (Khas Obys Agency) */}
+      <div className="flex justify-between items-center text-xs font-mono tracking-widest text-[#777777] uppercase border-b border-[#181818] pb-6 mb-8">
+        <div className="flex items-center gap-4">
+          <span className="text-white font-bold tracking-tight">KAHIYANG ECOSYSTEM</span>
+          <span className="text-[#333333]">/</span>
+          <span>AUTONOMOUS WORKS</span>
         </div>
-
+        <div className="flex items-center gap-3">
+          <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+          <span className="text-white font-mono text-[11px]">DRAG TO PAN &bull; CLICK IMAGE FOR DATA</span>
+        </div>
       </div>
+
+      {/* Main Cinematic Multi-Aspect Horizontal Gallery Track */}
+      <div className="my-auto py-6">
+        <div
+          ref={trackRef}
+          onMouseDown={handleMouseDown}
+          onMouseLeave={handleMouseLeave}
+          onMouseUp={handleMouseUp}
+          onMouseMove={handleMouseMove}
+          className={`w-full overflow-x-auto no-scrollbar pb-6 ${
+            isDragging ? "cursor-grabbing" : "cursor-grab"
+          }`}
+          style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+        >
+          <div className="flex items-center gap-10 sm:gap-14 w-max px-4">
+            {PROJECTS.map((item) => (
+              <div
+                key={item.id}
+                onClick={() => handleCardClick(item)}
+                className={`group flex-shrink-0 ${item.widthClass} transition-transform duration-300 hover:scale-[1.02]`}
+              >
+                {/* Cinematic Image Frame */}
+                <div className={`relative ${item.aspectRatio} w-full overflow-hidden bg-[#111111] border border-[#222222] group-hover:border-white transition-colors duration-500 shadow-2xl`}>
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    draggable={false}
+                    className="w-full h-full object-cover grayscale brightness-90 contrast-110 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 pointer-events-none"
+                  />
+                  {/* Subtle vignette */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20 pointer-events-none" />
+                  
+                  {/* Serial badge */}
+                  <span className="absolute top-4 left-4 font-mono text-xs text-white/70 bg-black/60 backdrop-blur-md px-2 py-0.5 border border-white/10">
+                    {item.id}
+                  </span>
+                </div>
+
+                {/* Minimalist Sub-Label (Obys Typography) */}
+                <div className="mt-4 flex justify-between items-baseline font-sans text-xs">
+                  <div>
+                    <h3 className="font-semibold text-white tracking-tight text-sm uppercase group-hover:text-emerald-400 transition-colors">
+                      {item.title}
+                    </h3>
+                    <span className="font-mono text-[#666666] text-[11px] block mt-0.5">
+                      {item.category}
+                    </span>
+                  </div>
+                  <span className="font-mono text-[#555555] text-xs">
+                    {item.year}
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Bottom Editorial Meta Bar */}
+      <div className="flex flex-wrap justify-between items-end border-t border-[#181818] pt-6 text-xs font-mono text-[#666666]">
+        <div>
+          <span className="text-white font-medium block mb-0.5">MALANG &bull; INDONESIA</span>
+          <span>TIKTOK AFFILIATE &bull; AI PIPELINE &bull; PRESS AUDIT</span>
+        </div>
+        <div className="text-right">
+          <span className="text-white font-bold block">{PROJECTS.length} FEATURED ARCHITECTURES</span>
+          <span>ALL RIGHTS RESERVED &copy; 2026</span>
+        </div>
+      </div>
+
+      {/* Full-Screen Context Inspection Modal (Muncul saat gambar diklik) */}
+      {selected && (
+        <div className="fixed inset-0 z-50 bg-black/85 backdrop-blur-xl flex items-center justify-center p-6 sm:p-12 animate-in fade-in duration-300">
+          <div className="relative w-full max-w-4xl bg-[#0d0d0d] border border-[#262626] p-8 sm:p-12 text-white shadow-2xl">
+            
+            {/* Close Button */}
+            <button
+              onClick={() => setSelected(null)}
+              className="absolute top-6 right-6 font-mono text-xs uppercase tracking-widest text-[#777777] hover:text-white border border-[#333333] px-3 py-1.5 flex items-center gap-2 transition-colors"
+            >
+              <span>CLOSE</span>
+              <X className="w-3.5 h-3.5" />
+            </button>
+
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
+              {/* Thumbnail preview inside modal */}
+              <div className="md:col-span-5">
+                <div className="aspect-[4/5] w-full overflow-hidden border border-[#222222]">
+                  <img
+                    src={selected.image}
+                    alt={selected.title}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              </div>
+
+              {/* Data & metrics */}
+              <div className="md:col-span-7 flex flex-col justify-between h-full">
+                <div>
+                  <div className="flex items-center gap-3 font-mono text-xs text-[#777777] pb-3 border-b border-[#222222] mb-4">
+                    <span>SPECIMEN {selected.id}</span>
+                    <span>&bull;</span>
+                    <span className="text-emerald-400">{selected.category}</span>
+                  </div>
+
+                  <h2 className="text-2xl sm:text-3xl font-bold uppercase tracking-tight text-white mb-4">
+                    {selected.title}
+                  </h2>
+
+                  <p className="text-sm text-[#aaaaaa] font-light leading-relaxed mb-6">
+                    {selected.desc}
+                  </p>
+                </div>
+
+                <div>
+                  {/* Real Metrics Grid */}
+                  <div className="grid grid-cols-3 gap-4 border-t border-[#222222] pt-6 font-mono text-xs">
+                    {selected.metrics.map((m, idx) => (
+                      <div key={idx}>
+                        <span className="text-[#666666] block text-[10px] uppercase mb-1">{m.label}</span>
+                        <span className="text-white font-semibold text-sm">{m.val}</span>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="mt-8 pt-6 border-t border-[#222222] flex justify-between items-center">
+                    <span className="text-xs font-mono text-[#555555]">
+                      CLIENT: {selected.client}
+                    </span>
+                    <Link
+                      href={selected.href}
+                      target={selected.href.startsWith("http") ? "_blank" : undefined}
+                      className="inline-flex items-center gap-2 bg-white text-black font-mono font-bold text-xs uppercase px-5 py-2.5 hover:bg-neutral-200 transition-colors"
+                    >
+                      EXPLORE REPO <ArrowUpRight className="w-3.5 h-3.5" />
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      )}
 
     </section>
   )
