@@ -1,26 +1,42 @@
 ﻿import Navbar from "@/components/navbar"
-import Hero from "@/components/sections/hero"
+import ObysHero from "@/components/sections/obys-hero"
+import MarqueeTicker from "@/components/ui/marquee-ticker"
 import Layanan from "@/components/sections/layanan"
 import Tentang from "@/components/sections/tentang"
 import CTA from "@/components/sections/cta"
 import Footer from "@/components/sections/footer"
-import ZoomSection from "@/components/ui/zoom-section"
 
 export default function Page() {
   return (
-    <main className="bg-[#0a0a0a]">
+    <main className="bg-[#0e0e0e] text-[#f4f4f4] min-h-screen relative overflow-x-clip selection:bg-white selection:text-black font-sans">
+      
+      {/* Floating Tactical Navbar */}
       <Navbar />
-      <Hero />
-      <ZoomSection id="layanan" fromScale={0.95} fromOpacity={1} className="bg-white">
+
+      {/* SECTION 01: HERO SECTION (OBYS LIBRARY EDITORIAL BRUTALISM) */}
+      <ObysHero />
+
+      {/* Ticker Tape Separator */}
+      <MarqueeTicker />
+
+      {/* SECTION 02: ECOSYSTEM MATRIX & SERVICES */}
+      <div className="max-w-[1580px] mx-auto px-6 sm:px-10">
         <Layanan />
-      </ZoomSection>
-      <ZoomSection id="tentang" fromScale={0.95} fromOpacity={1} className="bg-[#fafafa]">
+      </div>
+
+      {/* SECTION 03: PERS MANIFESTO (BINAR PAGI NUSANTARA) */}
+      <div className="max-w-[1580px] mx-auto px-6 sm:px-10">
         <Tentang />
-      </ZoomSection>
-      <ZoomSection fromScale={0.95} fromOpacity={1} className="bg-white">
+      </div>
+
+      {/* SECTION 04: ONBOARDING & CTA GATEWAY */}
+      <div className="max-w-[1580px] mx-auto px-6 sm:px-10">
         <CTA />
-      </ZoomSection>
+      </div>
+
+      {/* SECTION 05: EDITORIAL FOOTER */}
       <Footer />
+
     </main>
   )
 }

@@ -1,34 +1,86 @@
 "use client"
 
-import { motion } from "framer-motion"
+import Link from "next/link"
+import { ArrowUpRight, MessageSquare, ShieldCheck, Terminal } from "lucide-react"
 
 export default function CTA() {
   return (
-    <section className="relative w-full bg-[#f5f0e8] py-20 px-6 flex items-center justify-center">
-      <div className="absolute z-10 pointer-events-none" style={{ top: "3vh", bottom: "3vh", left: "3vw", right: "3vw" }}>
-        <div className="absolute top-0 left-[8%] right-[8%] h-px bg-gradient-to-r from-transparent via-black/[0.06] to-transparent"/>
-        <div className="absolute bottom-0 left-[8%] right-[8%] h-px bg-gradient-to-r from-transparent via-black/[0.06] to-transparent"/>
-        <div className="absolute left-0 top-[8%] bottom-[8%] w-px bg-gradient-to-b from-transparent via-black/[0.06] to-transparent"/>
-        <div className="absolute right-0 top-[8%] bottom-[8%] w-px bg-gradient-to-b from-transparent via-black/[0.06] to-transparent"/>
-        {["top-0 left-0","top-0 right-0","bottom-0 left-0","bottom-0 right-0"].map((pos)=><div key={pos} className={"absolute "+pos+" w-2 h-2 rounded-full bg-lime-400/40"}/>)}
+    <section className="w-full bg-[#0e0e0e] text-[#f4f4f4] py-24 border-b border-[#222222] font-sans select-none">
+      
+      {/* Top Protocol Header */}
+      <div className="flex justify-between items-center text-xs font-mono uppercase tracking-[0.2em] text-[#777777] pb-6 border-b border-[#222222] mb-12">
+        <div className="flex items-center gap-3">
+          <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+          <span>[ INITIATE CONNECTION PROTOCOL ]</span>
+        </div>
+        <div>
+          <span>GATEWAY // DIRECT ACCESS</span>
+        </div>
       </div>
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-lime-400/[0.06] rounded-full blur-[120px] pointer-events-none"/>
 
-      <div className="relative z-20 text-center max-w-3xl mx-auto">
-        <motion.div initial={{opacity:0,y:30}} whileInView={{opacity:1,y:0}} transition={{duration:1,ease:[0.16,1,0.3,1]}} viewport={{once:true,margin:"-100px"}} className="mb-8 flex items-center justify-center gap-3">
-          <div className="w-8 h-px bg-lime-400/60"/><span className="text-[11px] text-black/30 tracking-[0.3em] uppercase font-light">Mulai Sekarang</span><div className="w-8 h-px bg-lime-400/60"/>
-        </motion.div>
-        <motion.h2 initial={{opacity:0,y:50,scale:0.95}} whileInView={{opacity:1,y:0,scale:1}} transition={{duration:1.2,delay:0.2,ease:[0.16,1,0.3,1]}} viewport={{once:true,margin:"-100px"}} className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-light text-black/90 tracking-tight leading-tight mb-8">
-          Siap Upgrade<br/><span className="bg-gradient-to-r from-lime-600 to-lime-400 bg-clip-text text-transparent">Akun TikTok Lo?</span>
-        </motion.h2>
-        <motion.p initial={{opacity:0,y:30}} whileInView={{opacity:1,y:0}} transition={{duration:0.8,delay:0.4,ease:[0.16,1,0.3,1]}} viewport={{once:true,margin:"-100px"}} className="text-sm sm:text-base text-black/40 font-light leading-relaxed max-w-xl mx-auto mb-12">
-          Gratis analisa akun pertama. Gue bedah pake data, bukan asumsi.
-        </motion.p>
-        <motion.div initial={{opacity:0,y:30}} whileInView={{opacity:1,y:0}} transition={{duration:0.8,delay:0.6,ease:[0.16,1,0.3,1]}} viewport={{once:true,margin:"-100px"}} className="flex flex-col sm:flex-row items-center justify-center gap-4">
-          <a href="https://t.me/+FarOaL4D-HFlMGM1" className="group relative rounded-full bg-black text-white px-8 py-4 text-[13px] font-medium tracking-[0.2em] uppercase transition-all duration-500 hover:bg-black/80"><span className="relative z-10">Join Komunitas</span></a>
-          <a href="#" className="text-[13px] text-black/25 hover:text-black/50 tracking-[0.2em] uppercase font-light transition-colors duration-300">Pelajari Lebih Lanjut →</a>
-        </motion.div>
+      {/* Massive Callout Box */}
+      <div className="border border-[#262626] bg-[#121212] p-8 sm:p-14 lg:p-16 relative overflow-hidden">
+        
+        {/* Editorial Frame Indicators */}
+        <div className="flex justify-between items-center text-xs font-mono text-[#555555] mb-8 pb-4 border-b border-[#222222]">
+          <span>SYNDICATE ONBOARDING</span>
+          <span>SLOT Q3/Q4 OPEN</span>
+          <span>LOC: ID-SUB / GLOBAL</span>
+        </div>
+
+        <div className="max-w-4xl">
+          <span className="text-xs font-mono text-[#888888] uppercase tracking-widest block mb-4">
+            MEMBERSHIP & ENTERPRISE PARTNERSHIP
+          </span>
+          <h2 className="text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight uppercase leading-[1.04] text-white mb-8">
+            Siap Dominasi Ekosistem TikTok Shop?
+          </h2>
+          <p className="text-base sm:text-lg text-[#aaaaaa] font-light leading-relaxed mb-10 max-w-2xl">
+            Bergabunglah dengan ratusan kreator, brand partner, dan pengembang otomasi di Kahiyang Syndicate. Akses private vault materi, tools eksklusif, dan bimbingan terarah.
+          </p>
+
+          <div className="flex flex-wrap gap-4 items-center">
+            <Link
+              href="https://t.me/kahiyang_partnership"
+              target="_blank"
+              className="inline-flex items-center gap-3 bg-white text-black font-mono font-bold text-xs uppercase px-6 py-4 hover:bg-[#e0e0e0] transition-colors"
+            >
+              <MessageSquare className="w-4 h-4" />
+              <span>GABUNG PRIVATE TELEGRAM</span>
+              <ArrowUpRight className="w-4 h-4" />
+            </Link>
+
+            <Link
+              href="mailto:partnership@kahiyang.id"
+              className="inline-flex items-center gap-3 border border-[#333333] text-white font-mono text-xs uppercase px-6 py-4 hover:border-white transition-colors"
+            >
+              <span>PARTNERSHIP INQUIRY</span>
+            </Link>
+          </div>
+        </div>
+
+        {/* Footer Specimen Row */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 pt-10 border-t border-[#222222] mt-12 font-mono text-xs">
+          <div>
+            <span className="text-[#666666] block mb-1">ENCRYPTION</span>
+            <span className="text-white">End-to-End Vault</span>
+          </div>
+          <div>
+            <span className="text-[#666666] block mb-1">MEMBERSHIP</span>
+            <span className="text-white">Verified Only</span>
+          </div>
+          <div>
+            <span className="text-[#666666] block mb-1">INTEGRATION</span>
+            <span className="text-white">Direct Agency API</span>
+          </div>
+          <div>
+            <span className="text-[#666666] block mb-1">COMMISSION</span>
+            <span className="text-emerald-400">70% Net Creator</span>
+          </div>
+        </div>
+
       </div>
+
     </section>
   )
 }

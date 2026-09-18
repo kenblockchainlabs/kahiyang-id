@@ -11,15 +11,20 @@ export default function LenisProvider({ children }: { children: ReactNode }) {
   }, [])
 
   useEffect(() => {
-    // Disable Lenis on mobile — let native scroll work with Framer Motion
     if (isMobile) return
 
+    // Instance Lenis dengan easing kurva inersia halus ala Obys Agency
     const lenis = new Lenis({
-      duration: 1.5,
+      duration: 1.4,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
-      wheelMultiplier: 1,
+      wheelMultiplier: 1.05,
     })
+
+    // Expose ke window agar seluruh komponen kinetik bisa membaca e.velocity
+    if (typeof window !== "undefined") {
+      ;(window as unknown as { lenis: Lenis }).lenis = lenis
+    }
 
     function raf(time: number) {
       lenis.raf(time)
@@ -29,6 +34,9 @@ export default function LenisProvider({ children }: { children: ReactNode }) {
 
     return () => {
       lenis.destroy()
+      if (typeof window !== "undefined") {
+        delete (window as unknown as { lenis?: Lenis }).lenis
+      }
     }
   }, [isMobile])
 
