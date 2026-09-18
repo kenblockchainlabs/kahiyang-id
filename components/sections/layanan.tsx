@@ -1,6 +1,5 @@
 ﻿"use client"
 
-import { useState } from "react"
 import Link from "next/link"
 import { ArrowUpRight } from "lucide-react"
 
@@ -11,14 +10,15 @@ const SERVICES = [
     code: "AGY-EXP",
     title: "Kahiyang Agency",
     tagline: "TALENT & BRAND ACCELERATOR",
-    desc: "Manajemen kreator TikTok Shop skala nasional. Mulai dari formulasi hook retensi, optimasi profiling, hingga direct connection ke brand tier-1 dengan sistem komisi transparan.",
+    desc: "Manajemen kreator TikTok Shop skala nasional. Formulasi hook retensi, optimasi profiling, dan direct connection ke brand tier-1 dengan sistem split transparan.",
     href: "https://agency.kahiyang.id",
     metrics: [
       { label: "CREATORS", val: "500+" },
       { label: "SPLIT RATIO", val: "70 / 30" },
       { label: "PIPELINE", val: "Direct Brand" }
     ],
-    highlight: "COMMISSION ENGINE"
+    highlight: "COMMISSION ENGINE",
+    isAccent: true
   },
   {
     id: "studio",
@@ -26,14 +26,15 @@ const SERVICES = [
     code: "STU-GEN",
     title: "Kahiyang Studio",
     tagline: "AI VISUAL & PRODUCT RENDERING",
-    desc: "Laboratorium visual berbasis generative synthetic media. Memproduksi staging produk fotorealistis 4K, video transisi katalog 3D, dan scene dinamis tanpa biaya sewa studio fisik.",
+    desc: "Laboratorium visual generatif. Memproduksi staging produk fotorealistis 4K, video transisi 3D katalog, dan scene dinamis tanpa biaya sewa studio fisik.",
     href: "https://studio.kahiyang.id",
     metrics: [
       { label: "OUTPUT", val: "4K UHD" },
       { label: "STAGING COST", val: "Zero Studio" },
       { label: "CYCLE TIME", val: "< 24 Jam" }
     ],
-    highlight: "SYNTHETIC MEDIA"
+    highlight: "SYNTHETIC MEDIA",
+    isAccent: false
   },
   {
     id: "analyzer",
@@ -41,14 +42,15 @@ const SERVICES = [
     code: "ANL-VIR",
     title: "Viral Analyzer",
     tagline: "ALGORITHMIC AUDIT & METRICS",
-    desc: "SaaS analitik akun TikTok. Membedah kurva retensi 3 detik pertama, indeks kesehatan profil, deteksi audio trending harian, serta perbandingan metrik kompetitor secara presisi.",
+    desc: "SaaS analitik akun TikTok. Membedah kurva retensi 3 detik pertama, indeks kesehatan profil, deteksi audio trending harian, dan audit kompetitor.",
     href: "https://analyzer.kahiyang.id",
     metrics: [
       { label: "CONFIDENCE", val: "98.4%" },
       { label: "AUDIT SCOPE", val: "Real-time" },
       { label: "INDEX", val: "FYP Potential" }
     ],
-    highlight: "NEURAL SCORING"
+    highlight: "NEURAL SCORING",
+    isAccent: false
   },
   {
     id: "affiliate",
@@ -56,14 +58,15 @@ const SERVICES = [
     code: "AFF-CLS",
     title: "Affiliate Syndicate",
     tagline: "INTENSIVE MENTORSHIP & BLUEPRINT",
-    desc: "Inkubasi taktis affiliate TikTok Shop berbasis data. Playbook operasional akun ternak, optimasi live streaming tanpa modal besar, dan panduan bypass pembatasan algoritma.",
+    desc: "Inkubasi taktis affiliate TikTok Shop berbasis data. Playbook operasional akun ternak, optimasi live streaming tanpa modal besar, dan bypass batas algoritma.",
     href: "#komunitas",
     metrics: [
       { label: "COMMUNITY", val: "1,200+ Member" },
       { label: "PLATFORM", val: "Private Vault" },
       { label: "TACTIC", val: "Zero-Capital" }
     ],
-    highlight: "WAR ROOM"
+    highlight: "WAR ROOM",
+    isAccent: true
   },
   {
     id: "web-dev",
@@ -71,7 +74,7 @@ const SERVICES = [
     code: "ENG-AWW",
     title: "Cinematic Web Engineering",
     tagline: "HIGH-END AWWWARDS-GRADE ARCHITECTURE",
-    desc: "Pembangunan web interaktif kelas dunia. Memadukan Next.js App Router, Lenis Smooth Scroll, transisi kinetik Obys, dan performa 100/100 Lighthouse untuk brand yang menolak tampil biasa.",
+    desc: "Pembangunan web interaktif kelas dunia. Next.js App Router, Lenis Smooth Scroll, transisi kinetik Obys, dan performa 100/100 Lighthouse.",
     href: "https://t.me/kahiyang_partnership",
     metrics: [
       { label: "PERFORMANCE", val: "100/100" },
@@ -79,86 +82,93 @@ const SERVICES = [
       { label: "FRAMEWORK", val: "Next.js + Lenis" }
     ],
     highlight: "EDITORIAL BRUTALISM",
-    isFull: true
+    isFull: true,
+    isAccent: false
   }
 ]
 
 export default function Layanan() {
-  const [activeTab, setActiveTab] = useState(SERVICES[0].id)
-
   return (
-    <section className="w-full bg-[#0e0e0e] text-[#f4f4f4] py-20 border-b border-[#222222] font-sans select-none">
+    <section className="w-full text-[#222222] py-20 font-sans select-none">
       
-      {/* Header Section */}
-      <div className="flex flex-wrap justify-between items-end pb-8 border-b border-[#222222] mb-12">
+      {/* Editorial Section Header */}
+      <div className="flex flex-wrap justify-between items-end pb-6 border-b border-white/20 mb-10 text-white">
         <div>
-          <span className="text-xs font-mono text-[#777777] uppercase tracking-[0.2em] block mb-3">
+          <span className="text-xs font-mono text-[#d25933] uppercase tracking-[0.2em] block mb-2 font-bold">
             [ SECTION 02 &bull; DEPLOYED CAPABILITIES ]
           </span>
-          <h2 className="text-3xl sm:text-5xl font-bold tracking-tight text-white uppercase">
+          <h2 className="text-3xl sm:text-5xl font-black tracking-tight uppercase">
             Ecosystem Matrix.
           </h2>
         </div>
-        <div className="text-right font-mono text-xs text-[#666666]">
-          <span>INDEX (05 DISCIPLINES)</span>
+        <div className="text-right font-mono text-xs text-white/60">
+          <span>05 REGISTERED SPECIMENS</span>
         </div>
       </div>
 
-      {/* Grid of Specimen Cards */}
+      {/* Grid of Specimen Cards with Real Obys Textures */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-6">
         {SERVICES.map((item) => {
-          const isSelected = activeTab === item.id
           const colSpan = item.isFull ? "lg:col-span-12" : "lg:col-span-6"
+          const bgTexture = item.isAccent 
+            ? 'url("/textures/binder-orange.avif")' 
+            : 'url("/textures/paper-white.webp")'
+          const bgColor = item.isAccent ? "#d25933" : "#f5f5f5"
+          const textColor = item.isAccent ? "text-white" : "text-[#222222]"
 
           return (
             <div
               key={item.id}
-              onClick={() => setActiveTab(item.id)}
-              className={`${colSpan} group cursor-pointer transition-all duration-300`}
+              className={`${colSpan} group shadow-[0_10px_30px_rgba(0,0,0,0.5)] transition-transform duration-200 hover:-translate-y-1`}
             >
-              <div className={`p-8 border bg-[#141414] flex flex-col justify-between h-full transition-all duration-300 ${
-                isSelected 
-                  ? "border-white bg-[#1a1a1a]" 
-                  : "border-[#222222] hover:border-[#555555]"
-              }`}>
+              <div 
+                className={`p-8 flex flex-col justify-between h-full border border-black/20 ${textColor}`}
+                style={{
+                  backgroundColor: bgColor,
+                  backgroundImage: bgTexture,
+                  backgroundSize: "cover"
+                }}
+              >
                 <div>
-                  <div className="flex justify-between items-start font-mono text-xs pb-4 border-b border-[#222222] mb-6">
-                    <span className={isSelected ? "text-white font-bold" : "text-[#777777]"}>
-                      NO. {item.num}
-                    </span>
-                    <span className="text-[#888888] tracking-widest">{item.highlight}</span>
-                    <span className="text-[#555555]">{item.code}</span>
+                  <div className="flex justify-between items-start font-mono text-xs pb-4 border-b border-current/20 mb-6">
+                    <span className="font-bold">NO. {item.num}</span>
+                    <span className="tracking-widest text-[11px] opacity-80">{item.highlight}</span>
+                    <span className="opacity-60">{item.code}</span>
                   </div>
 
-                  <span className="text-[11px] font-mono tracking-widest text-[#888888] uppercase block mb-1">
+                  <span className="text-[11px] font-mono tracking-widest uppercase block mb-1 opacity-75">
                     {item.tagline}
                   </span>
-                  <h3 className="text-2xl font-bold text-white uppercase tracking-tight mb-4 group-hover:text-white transition-colors">
+                  <h3 className="text-2xl font-black uppercase tracking-tight mb-4">
                     {item.title}
                   </h3>
-                  <p className="text-sm text-[#aaaaaa] font-light leading-relaxed mb-6">
+                  <p className="text-sm font-normal leading-relaxed mb-6 opacity-90">
                     {item.desc}
                   </p>
                 </div>
 
                 <div>
-                  <div className="grid grid-cols-3 gap-4 pt-4 border-t border-[#222222] font-mono text-xs">
+                  <div className="grid grid-cols-3 gap-4 pt-4 border-t border-current/20 font-mono text-xs">
                     {item.metrics.map((m, idx) => (
                       <div key={idx}>
-                        <span className="text-[#666666] block text-[10px] uppercase">{m.label}</span>
-                        <span className="text-white font-medium">{m.val}</span>
+                        <span className="block text-[10px] uppercase opacity-70">{m.label}</span>
+                        <span className="font-bold">{m.val}</span>
                       </div>
                     ))}
                   </div>
 
-                  <div className="mt-6 flex justify-between items-center pt-4 border-t border-[#222222]">
-                    <span className="text-xs font-mono text-[#777777] group-hover:text-white transition-colors">
-                      [ ACCESS MODULE ]
+                  <div className="mt-6 flex justify-between items-center pt-4 border-t border-current/20">
+                    <span className="text-xs font-mono opacity-80">
+                      [ ACCESS SPECIMEN ]
                     </span>
                     <Link
                       href={item.href}
                       target={item.href.startsWith("http") ? "_blank" : undefined}
-                      className="inline-flex items-center gap-2 text-xs font-mono text-white border border-[#333333] px-3 py-1.5 hover:bg-white hover:text-black transition-all"
+                      className={`inline-flex items-center gap-2 text-xs font-mono px-3 py-1.5 border transition-all ${
+                        item.isAccent 
+                          ? "border-white bg-white text-black hover:bg-black hover:text-white hover:border-black" 
+                          : "border-black bg-black text-white hover:bg-white hover:text-black"
+                      }`}
                     >
                       EXPLORE <ArrowUpRight className="w-3.5 h-3.5" />
                     </Link>
