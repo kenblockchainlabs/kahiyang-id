@@ -106,7 +106,7 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
       </head>
-      <body className={`${inter.className} bg-[#0a0a0a] antialiased`}>
+      <body className={`${inter.className} bg-[#0e0e0e] text-[#f4f4f4] antialiased selection:bg-white selection:text-black`}>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
