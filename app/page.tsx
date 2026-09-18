@@ -1,6 +1,4 @@
-﻿import Navbar from "@/components/navbar"
-import ObysHero from "@/components/sections/obys-hero"
-import MarqueeTicker from "@/components/ui/marquee-ticker"
+﻿import ObysHero from "@/components/sections/obys-hero"
 import Layanan from "@/components/sections/layanan"
 import Tentang from "@/components/sections/tentang"
 import CTA from "@/components/sections/cta"
@@ -8,16 +6,10 @@ import Footer from "@/components/sections/footer"
 
 export default function Page() {
   return (
-    <main className="bg-[#0e0e0e] text-[#f4f4f4] min-h-screen relative overflow-x-clip selection:bg-white selection:text-black font-sans">
+    <main className="bg-[#000000] text-[#f4f4f4] min-h-screen relative overflow-x-clip selection:bg-white selection:text-black font-sans">
       
-      {/* Floating Tactical Navbar */}
-      <Navbar />
-
-      {/* SECTION 01: HERO SECTION (OBYS LIBRARY EDITORIAL BRUTALISM) */}
+      {/* SECTION 01: HERO SECTION (100% PURE OBYS.AGENCY 3-PANE ARCHITECTURE) */}
       <ObysHero />
-
-      {/* Ticker Tape Separator */}
-      <MarqueeTicker />
 
       {/* SECTION 02: ECOSYSTEM MATRIX & SERVICES */}
       <div className="max-w-[1580px] mx-auto px-6 sm:px-10">
