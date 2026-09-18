@@ -1,8 +1,5 @@
 ﻿"use client"
 
-import Link from "next/link"
-import { ArrowUpRight, Shield, Award, Terminal } from "lucide-react"
-
 export default function Tentang() {
   return (
     <section className="w-full bg-[#0e0e0e] text-[#f4f4f4] py-20 border-b border-[#222222] font-sans select-none">

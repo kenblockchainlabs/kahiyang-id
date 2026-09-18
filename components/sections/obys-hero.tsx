@@ -1,7 +1,6 @@
 "use client"
 
 import { useState, useRef } from "react"
-import { ArrowUpRight, X, Sparkles, Layers, Sliders, Cpu, Database } from "lucide-react"
 
 interface NodeSpec {
   id: string

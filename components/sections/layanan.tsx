@@ -1,8 +1,8 @@
 ﻿"use client"
 
-import { useEffect, useRef, useState } from "react"
+import { useState } from "react"
 import Link from "next/link"
-import { ArrowUpRight, CheckCircle2, TrendingUp, Users, Video, Flame, Sparkles } from "lucide-react"
+import { ArrowUpRight } from "lucide-react"
 
 const SERVICES = [
   {
@@ -85,7 +85,6 @@ const SERVICES = [
 
 export default function Layanan() {
   const [activeTab, setActiveTab] = useState(SERVICES[0].id)
-  const activeService = SERVICES.find(s => s.id === activeTab) || SERVICES[0]
 
   return (
     <section className="w-full bg-[#0e0e0e] text-[#f4f4f4] py-20 border-b border-[#222222] font-sans select-none">

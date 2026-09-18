@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { ArrowUpRight, MessageSquare, ShieldCheck, Terminal } from "lucide-react"
+import { ArrowUpRight, MessageSquare } from "lucide-react"
 
 export default function CTA() {
   return (
