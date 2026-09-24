@@ -5,11 +5,11 @@ import { ArrowUpRight, MessageSquare } from "lucide-react"
 
 export default function CTA() {
   return (
-    <section className="w-full text-[#222222] py-24 font-sans select-none">
-      
+    <section className="w-full text-[#222222] py-16 sm:py-24 font-sans select-none">
+
       {/* Massive Callout Box with Terracotta Binder Accent (#d25933) */}
-      <div 
-        className="p-8 sm:p-14 lg:p-16 border border-black/30 shadow-[0_20px_50px_rgba(0,0,0,0.8)] text-white relative overflow-hidden"
+      <div
+        className="p-6 sm:p-10 md:p-14 lg:p-16 border border-black/30 shadow-[0_20px_50px_rgba(0,0,0,0.8)] text-white relative overflow-hidden"
         style={{
           backgroundColor: "#d25933",
           backgroundImage: 'url("/textures/binder-orange.avif")',
@@ -17,37 +17,37 @@ export default function CTA() {
         }}
       >
         {/* Frame Top Indicators */}
-        <div className="flex justify-between items-center text-xs font-mono text-white/70 mb-8 pb-4 border-b border-white/20">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center text-[10px] sm:text-xs font-mono text-white/70 mb-6 sm:mb-8 pb-3 sm:pb-4 border-b border-white/20 gap-1">
           <span>KAHIYANG SYNDICATE ONBOARDING</span>
-          <span>CYCLE 2026</span>
-          <span>MALANG &bull; GLOBAL GATEWAY</span>
+          <span className="hidden sm:inline">CYCLE 2026</span>
+          <span className="hidden md:inline">MALANG &bull; GLOBAL GATEWAY</span>
         </div>
 
         <div className="max-w-4xl">
-          <span className="text-xs font-mono text-white/80 uppercase tracking-widest block mb-4 font-bold">
+          <span className="text-[10px] sm:text-xs font-mono text-white/80 uppercase tracking-widest block mb-3 sm:mb-4 font-bold">
             [ DIRECT ENROLLMENT & PARTNERSHIP ]
           </span>
-          <h2 className="text-4xl sm:text-6xl md:text-7xl font-black tracking-tight uppercase leading-[1.02] text-white mb-8">
+          <h2 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-black tracking-tight uppercase leading-[1.05] text-white mb-6 sm:mb-8">
             Kuasai Algoritma. Bangun Imperium TikTok Shop Anda.
           </h2>
-          <p className="text-base sm:text-lg text-white/90 font-normal leading-relaxed mb-10 max-w-2xl">
+          <p className="text-[14px] sm:text-base md:text-lg text-white/90 font-normal leading-relaxed mb-8 sm:mb-10 max-w-2xl">
             Akses taktis ke private vault playbook, sistem otomasi n8n, dan bimbingan langsung talent manager Kahiyang. Kuota terbatas per siklus onboarding.
           </p>
 
-          <div className="flex flex-wrap gap-4 items-center">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 items-stretch sm:items-center">
             <Link
               href="https://t.me/kahiyang_partnership"
               target="_blank"
-              className="inline-flex items-center gap-3 bg-black text-white font-mono font-bold text-xs uppercase px-7 py-4 hover:bg-white hover:text-black transition-all shadow-lg"
+              className="inline-flex items-center justify-center gap-3 bg-black text-white font-mono font-bold text-[11px] sm:text-xs uppercase px-6 sm:px-7 py-3.5 sm:py-4 hover:bg-white hover:text-black transition-all shadow-lg"
             >
-              <MessageSquare className="w-4 h-4" />
+              <MessageSquare className="w-4 h-4 flex-shrink-0" />
               <span>GABUNG PRIVATE TELEGRAM</span>
-              <ArrowUpRight className="w-4 h-4" />
+              <ArrowUpRight className="w-4 h-4 flex-shrink-0" />
             </Link>
 
             <Link
               href="mailto:partnership@kahiyang.id"
-              className="inline-flex items-center gap-3 border border-white text-white font-mono text-xs uppercase px-7 py-4 hover:bg-white hover:text-black transition-all"
+              className="inline-flex items-center justify-center gap-3 border border-white text-white font-mono text-[11px] sm:text-xs uppercase px-6 sm:px-7 py-3.5 sm:py-4 hover:bg-white hover:text-black transition-all"
             >
               <span>PARTNERSHIP INQUIRY</span>
             </Link>
@@ -55,22 +55,22 @@ export default function CTA() {
         </div>
 
         {/* Footer Specimen Row */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 pt-10 border-t border-white/20 mt-12 font-mono text-xs text-white/80">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6 pt-8 sm:pt-10 border-t border-white/20 mt-10 sm:mt-12 font-mono text-[10px] sm:text-xs text-white/80">
           <div>
             <span className="text-white/60 block mb-1 uppercase">ACCESS LEVEL</span>
-            <span className="font-bold text-white">Private Vault</span>
+            <span className="font-bold text-white text-[11px] sm:text-xs">Private Vault</span>
           </div>
           <div>
             <span className="text-white/60 block mb-1 uppercase">STATUS</span>
-            <span className="font-bold text-white">Verified Talent Only</span>
+            <span className="font-bold text-white text-[11px] sm:text-xs">Verified Talent Only</span>
           </div>
           <div>
             <span className="text-white/60 block mb-1 uppercase">INTEGRATION</span>
-            <span className="font-bold text-white">Direct Brand API</span>
+            <span className="font-bold text-white text-[11px] sm:text-xs">Direct Brand API</span>
           </div>
           <div>
             <span className="text-white/60 block mb-1 uppercase">CREATOR SPLIT</span>
-            <span className="font-bold text-white">70% Net Revenue</span>
+            <span className="font-bold text-white text-[11px] sm:text-xs">70% Net Revenue</span>
           </div>
         </div>
 

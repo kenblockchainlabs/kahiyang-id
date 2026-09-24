@@ -89,29 +89,29 @@ const SERVICES = [
 
 export default function Layanan() {
   return (
-    <section className="w-full text-[#222222] py-20 font-sans select-none">
-      
+    <section id="layanan" className="w-full text-[#222222] py-16 sm:py-20 font-sans select-none">
+
       {/* Editorial Section Header */}
-      <div className="flex flex-wrap justify-between items-end pb-6 border-b border-white/20 mb-10 text-white">
+      <div className="flex flex-col sm:flex-row sm:flex-wrap justify-between items-start sm:items-end pb-5 sm:pb-6 border-b border-white/20 mb-8 sm:mb-10 text-white gap-2">
         <div>
-          <span className="text-xs font-mono text-[#d25933] uppercase tracking-[0.2em] block mb-2 font-bold">
+          <span className="text-[10px] sm:text-xs font-mono text-[#d25933] uppercase tracking-[0.2em] block mb-2 font-bold">
             [ SECTION 02 &bull; DEPLOYED CAPABILITIES ]
           </span>
-          <h2 className="text-3xl sm:text-5xl font-black tracking-tight uppercase">
+          <h2 className="text-2xl sm:text-3xl md:text-5xl font-black tracking-tight uppercase">
             Ecosystem Matrix.
           </h2>
         </div>
-        <div className="text-right font-mono text-xs text-white/60">
+        <div className="text-left sm:text-right font-mono text-[10px] sm:text-xs text-white/60">
           <span>05 REGISTERED SPECIMENS</span>
         </div>
       </div>
 
-      {/* Grid of Specimen Cards with Real Obys Textures */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-6">
+      {/* Grid of Specimen Cards */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-4 sm:gap-6">
         {SERVICES.map((item) => {
           const colSpan = item.isFull ? "lg:col-span-12" : "lg:col-span-6"
-          const bgTexture = item.isAccent 
-            ? 'url("/textures/binder-orange.avif")' 
+          const bgTexture = item.isAccent
+            ? 'url("/textures/binder-orange.avif")'
             : 'url("/textures/paper-white.webp")'
           const bgColor = item.isAccent ? "#d25933" : "#f5f5f5"
           const textColor = item.isAccent ? "text-white" : "text-[#222222]"
@@ -121,8 +121,8 @@ export default function Layanan() {
               key={item.id}
               className={`${colSpan} group shadow-[0_10px_30px_rgba(0,0,0,0.5)] transition-transform duration-200 hover:-translate-y-1`}
             >
-              <div 
-                className={`p-8 flex flex-col justify-between h-full border border-black/20 ${textColor}`}
+              <div
+                className={`p-6 sm:p-8 flex flex-col justify-between h-full border border-black/20 ${textColor}`}
                 style={{
                   backgroundColor: bgColor,
                   backgroundImage: bgTexture,
@@ -130,43 +130,43 @@ export default function Layanan() {
                 }}
               >
                 <div>
-                  <div className="flex justify-between items-start font-mono text-xs pb-4 border-b border-current/20 mb-6">
+                  <div className="flex justify-between items-start font-mono text-[10px] sm:text-xs pb-3 sm:pb-4 border-b border-current/20 mb-4 sm:mb-6">
                     <span className="font-bold">NO. {item.num}</span>
-                    <span className="tracking-widest text-[11px] opacity-80">{item.highlight}</span>
+                    <span className="tracking-widest text-[10px] sm:text-[11px] opacity-80 hidden sm:inline">{item.highlight}</span>
                     <span className="opacity-60">{item.code}</span>
                   </div>
 
-                  <span className="text-[11px] font-mono tracking-widest uppercase block mb-1 opacity-75">
+                  <span className="text-[10px] sm:text-[11px] font-mono tracking-widest uppercase block mb-1 opacity-75">
                     {item.tagline}
                   </span>
-                  <h3 className="text-2xl font-black uppercase tracking-tight mb-4">
+                  <h3 className="text-xl sm:text-2xl font-black uppercase tracking-tight mb-3 sm:mb-4">
                     {item.title}
                   </h3>
-                  <p className="text-sm font-normal leading-relaxed mb-6 opacity-90">
+                  <p className="text-[13px] sm:text-sm font-normal leading-relaxed mb-5 sm:mb-6 opacity-90">
                     {item.desc}
                   </p>
                 </div>
 
                 <div>
-                  <div className="grid grid-cols-3 gap-4 pt-4 border-t border-current/20 font-mono text-xs">
+                  <div className="grid grid-cols-3 gap-3 sm:gap-4 pt-3 sm:pt-4 border-t border-current/20 font-mono text-[10px] sm:text-xs">
                     {item.metrics.map((m, idx) => (
                       <div key={idx}>
-                        <span className="block text-[10px] uppercase opacity-70">{m.label}</span>
-                        <span className="font-bold">{m.val}</span>
+                        <span className="block text-[9px] sm:text-[10px] uppercase opacity-70">{m.label}</span>
+                        <span className="font-bold text-[11px] sm:text-xs">{m.val}</span>
                       </div>
                     ))}
                   </div>
 
-                  <div className="mt-6 flex justify-between items-center pt-4 border-t border-current/20">
-                    <span className="text-xs font-mono opacity-80">
+                  <div className="mt-5 sm:mt-6 flex flex-col sm:flex-row justify-between items-start sm:items-center pt-3 sm:pt-4 border-t border-current/20 gap-3">
+                    <span className="text-[10px] sm:text-xs font-mono opacity-80">
                       [ ACCESS SPECIMEN ]
                     </span>
                     <Link
                       href={item.href}
                       target={item.href.startsWith("http") ? "_blank" : undefined}
-                      className={`inline-flex items-center gap-2 text-xs font-mono px-3 py-1.5 border transition-all ${
-                        item.isAccent 
-                          ? "border-white bg-white text-black hover:bg-black hover:text-white hover:border-black" 
+                      className={`inline-flex items-center gap-2 text-[10px] sm:text-xs font-mono px-3 py-1.5 border transition-all ${
+                        item.isAccent
+                          ? "border-white bg-white text-black hover:bg-black hover:text-white hover:border-black"
                           : "border-black bg-black text-white hover:bg-white hover:text-black"
                       }`}
                     >

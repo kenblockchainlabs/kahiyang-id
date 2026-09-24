@@ -175,11 +175,36 @@ export default function ObysHero() {
     }
   }
 
+  // Touch handling for mobile card browsing
+  const handleTouchStart = (e: React.TouchEvent) => {
+    if (introStage !== "revealed") return
+    isDragging.current = true
+    startY.current = e.touches[0].clientY
+  }
+
+  const handleTouchEnd = () => {
+    isDragging.current = false
+  }
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (!isDragging.current || introStage !== "revealed") return
+    const diff = startY.current - e.touches[0].clientY
+    if (diff > 60) {
+      setActiveIdx(prev => (prev + 1) % WORKS.length)
+      isDragging.current = false
+    } else if (diff < -60) {
+      setActiveIdx(prev => (prev - 1 + WORKS.length) % WORKS.length)
+      isDragging.current = false
+    }
+  }
+
   return (
-    <section 
+    <section
       onWheel={handleWheel}
-      className="relative w-full min-h-screen bg-[#000000] text-white overflow-hidden select-none font-sans flex flex-col justify-between"
-      style={{ height: "100vh" }}
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
+      className="relative w-full h-screen bg-[#000000] text-white overflow-hidden select-none font-sans flex flex-col justify-between"
     >
       {/* ========================================================================= */}
       {/* OBYS CINEMATIC PRELOADER OVERLAY & SPLIT MONOGRAM REVEAL */}
@@ -227,8 +252,8 @@ export default function ObysHero() {
       )}
 
       {/* 1. TOP HEADER (Obys Logo, Time, Navigation) */}
-      <header 
-        className={`fixed top-0 left-0 w-full z-40 px-6 sm:px-12 py-7 flex justify-between items-center text-xs tracking-wider uppercase font-mono text-[#888888] pointer-events-auto transition-opacity duration-1000 ${
+      <header
+        className={`absolute top-0 left-0 w-full z-40 px-6 sm:px-12 py-6 sm:py-7 flex justify-between items-center text-xs tracking-wider uppercase font-mono text-[#888888] pointer-events-auto transition-opacity duration-1000 ${
           introStage === "revealed" ? "opacity-100" : "opacity-0"
         }`}
       >
@@ -257,10 +282,10 @@ export default function ObysHero() {
       </header>
 
       {/* 2. THREE-PANE CINEMATIC VIEWPORT (100% Obys Agency Real Layout) */}
-      <div className="w-full h-full flex items-center justify-between px-6 sm:px-12 relative z-10 pt-20 pb-16">
-        
+      <div className="w-full flex-1 flex items-center justify-between px-6 sm:px-12 relative z-10 pt-20 pb-16">
+
         {/* LEFT PANE: Minimalist Project List with Hover / Active Sync */}
-        <div 
+        <div
           className={`hidden lg:flex flex-col justify-center space-y-2.5 w-[280px] z-20 transition-all duration-1000 ${
             introStage === "revealed" ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-8"
           }`}
@@ -285,17 +310,17 @@ export default function ObysHero() {
         </div>
 
         {/* CENTER PANE: The Iconic Floating Cinematic Card (Zoom-reveal from depth) */}
-        <div 
+        <div
           onMouseDown={handleMouseDown}
           onMouseUp={handleMouseUp}
           onMouseMove={handleMouseMove}
-          className="mx-auto flex flex-col items-center justify-center cursor-grab active:cursor-grabbing z-20"
+          className="mx-auto flex flex-col items-center justify-center cursor-grab active:cursor-grabbing z-20 px-4 sm:px-0"
         >
-          <div 
+          <div
             onClick={() => setSelected(activeWork)}
-            className={`relative ${activeWork.aspect} ${activeWork.widthClass} transition-all duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] shadow-[0_30px_90px_rgba(0,0,0,0.9)] overflow-hidden group border border-[#1a1a1a] hover:border-[#555555] ${
-              introStage === "revealed" 
-                ? "scale-100 opacity-100 blur-0" 
+            className={`relative ${activeWork.aspect} ${activeWork.widthClass} max-w-[75vw] sm:max-w-none transition-all duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] shadow-[0_30px_90px_rgba(0,0,0,0.9)] overflow-hidden group border border-[#1a1a1a] hover:border-[#555555] ${
+              introStage === "revealed"
+                ? "scale-100 opacity-100 blur-0"
                 : "scale-[0.6] opacity-0 blur-md"
             }`}
           >
@@ -322,17 +347,33 @@ export default function ObysHero() {
           </div>
 
           {/* Under-Card Context Indicator */}
-          <div 
-            className={`mt-6 text-center transition-opacity duration-1000 ${
+          <div
+            className={`mt-5 sm:mt-6 text-center transition-opacity duration-1000 ${
               introStage === "revealed" ? "opacity-100" : "opacity-0"
             }`}
           >
-            <h2 className="text-xl sm:text-2xl font-bold uppercase tracking-tight text-white">
+            <h2 className="text-lg sm:text-2xl font-bold uppercase tracking-tight text-white">
               {activeWork.title}
             </h2>
-            <p className="text-xs font-mono text-[#777777] mt-1">
+            <p className="text-[11px] font-mono text-[#777777] mt-1">
               {activeWork.category} &bull; {activeWork.subCategory}
             </p>
+
+            {/* Mobile navigation dots */}
+            <div className="flex items-center justify-center gap-2 mt-4 lg:hidden">
+              {WORKS.map((_, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => setActiveIdx(idx)}
+                  className={`transition-all duration-300 rounded-full ${
+                    idx === activeIdx
+                      ? "w-6 h-1.5 bg-white"
+                      : "w-1.5 h-1.5 bg-white/30 hover:bg-white/50"
+                  }`}
+                  aria-label={`View work ${idx + 1}`}
+                />
+              ))}
+            </div>
           </div>
         </div>
 
@@ -366,22 +407,27 @@ export default function ObysHero() {
       </div>
 
       {/* 3. BOTTOM FOOTER BAR */}
-      <footer 
-        className={`fixed bottom-0 left-0 w-full z-30 px-6 sm:px-12 py-5 flex justify-between items-center text-xs font-mono text-[#555555] border-t border-[#141414] bg-black/80 backdrop-blur-md transition-opacity duration-1000 ${
+      <footer
+        className={`absolute bottom-0 left-0 w-full z-30 px-6 sm:px-12 py-5 flex justify-between items-center text-xs font-mono text-[#555555] border-t border-[#141414] bg-black/80 backdrop-blur-md transition-opacity duration-1000 ${
           introStage === "revealed" ? "opacity-100" : "opacity-0"
         }`}
       >
-        <span>ALL RIGHTS RESERVED &copy; 2026 KAHIYANG</span>
-        <div className="flex items-center gap-4">
-          <span>SCROLL OR DRAG IMAGE TO BROWSE</span>
-          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+        <span className="hidden sm:inline">ALL RIGHTS RESERVED &copy; 2026 KAHIYANG</span>
+        <span className="sm:hidden text-[10px]">&copy; 2026 KAHIYANG</span>
+        <div className="flex items-center gap-3">
+          <span className="hidden sm:inline">SCROLL OR DRAG IMAGE TO BROWSE</span>
+          <span className="sm:hidden text-[10px]">SWIPE TO BROWSE</span>
+          <span className="w-1.5 h-1.5 rounded-full bg-white/60 animate-pulse" />
         </div>
       </footer>
 
       {/* 4. ON-CLICK FULLSCREEN CONTEXT INSPECTION (Obys Work Modal) */}
       {selected && (
-        <div className="fixed inset-0 z-50 bg-black/90 backdrop-blur-2xl flex items-center justify-center p-6 sm:p-12 animate-in fade-in duration-300">
-          <div className="relative w-full max-w-4xl bg-[#0d0d0d] border border-[#222222] p-8 sm:p-12 text-white shadow-2xl">
+        <div
+          className="fixed inset-0 z-50 bg-black/90 backdrop-blur-2xl flex items-start sm:items-center justify-center p-4 sm:p-6 md:p-12 overflow-y-auto animate-in fade-in duration-300"
+          onClick={(e) => { if (e.target === e.currentTarget) setSelected(null) }}
+        >
+          <div className="relative w-full max-w-4xl bg-[#0d0d0d] border border-[#222222] p-6 sm:p-8 md:p-12 text-white shadow-2xl my-4 sm:my-0">
             
             <button
               onClick={() => setSelected(null)}

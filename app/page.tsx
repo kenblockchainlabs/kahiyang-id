@@ -12,17 +12,17 @@ export default function Page() {
       <ObysHero />
 
       {/* SECTION 02: ECOSYSTEM MATRIX & SERVICES */}
-      <div className="max-w-[1580px] mx-auto px-6 sm:px-10">
+      <div className="max-w-[1580px] mx-auto px-5 sm:px-10">
         <Layanan />
       </div>
 
       {/* SECTION 03: PERS MANIFESTO (BINAR PAGI NUSANTARA) */}
-      <div className="max-w-[1580px] mx-auto px-6 sm:px-10">
+      <div className="max-w-[1580px] mx-auto px-5 sm:px-10">
         <Tentang />
       </div>
 
       {/* SECTION 04: ONBOARDING & CTA GATEWAY */}
-      <div className="max-w-[1580px] mx-auto px-6 sm:px-10">
+      <div className="max-w-[1580px] mx-auto px-5 sm:px-10">
         <CTA />
       </div>
 
