@@ -1,8 +1,19 @@
-﻿import type { Metadata, Viewport } from "next"
-import { Inter } from "next/font/google"
+import type { Metadata, Viewport } from "next"
+import { Inter, JetBrains_Mono } from "next/font/google"
 import "./globals.css"
 
-const inter = Inter({ subsets: ["latin"] })
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+  display: "swap",
+})
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-jetbrains",
+  display: "swap",
+  weight: ["400", "500", "600", "700"],
+})
 
 import LenisProvider from "@/components/providers/lenis-provider"
 import ScrollProgress from "@/components/scroll-progress"
@@ -86,7 +97,7 @@ export const metadata: Metadata = {
 }
 
 export const viewport: Viewport = {
-  themeColor: "#0a0a0a",
+  themeColor: "#050505",
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
@@ -98,15 +109,22 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="id" className="!scroll-smooth">
+    <html lang="id">
       <head>
+        {/* Instrument Serif — editorial display font */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap"
+          rel="stylesheet"
+        />
         <link rel="manifest" href="/manifest.json" />
         <link rel="apple-touch-icon" href="/logo.png" />
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
       </head>
-      <body className={`${inter.className} bg-[#0e0e0e] text-[#f4f4f4] antialiased selection:bg-white selection:text-black`}>
+      <body className={`${inter.variable} ${jetbrainsMono.variable} font-sans bg-[#050505] text-[#f4f4f4] antialiased`}>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -119,6 +137,10 @@ export default function RootLayout({
             __html: JSON.stringify(generateWebsiteSchema()),
           }}
         />
+
+        {/* Film grain noise overlay */}
+        <div className="noise-overlay pointer-events-none fixed inset-0 z-[9998]" aria-hidden="true" />
+
         <ScrollProgress />
         <LenisProvider>{children}</LenisProvider>
         <script dangerouslySetInnerHTML={{ __html: `

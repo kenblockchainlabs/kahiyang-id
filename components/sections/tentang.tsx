@@ -1,12 +1,99 @@
-﻿"use client"
+"use client"
+
+import { useRef, useEffect } from "react"
+import gsap from "gsap"
+import { ScrollTrigger } from "gsap/ScrollTrigger"
+
+gsap.registerPlugin(ScrollTrigger)
 
 export default function Tentang() {
+  const sectionRef = useRef<HTMLElement>(null)
+  const containerRef = useRef<HTMLDivElement>(null)
+  const headlineRef = useRef<HTMLHeadingElement>(null)
+  const block1Ref = useRef<HTMLDivElement>(null)
+  const block2Ref = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // Container reveal with scale
+      if (containerRef.current) {
+        gsap.fromTo(
+          containerRef.current,
+          { y: 80, opacity: 0, scale: 0.98 },
+          {
+            y: 0,
+            opacity: 1,
+            scale: 1,
+            duration: 1.2,
+            ease: "expo.out",
+            scrollTrigger: {
+              trigger: containerRef.current,
+              start: "top 85%",
+              toggleActions: "play none none none"
+            }
+          }
+        )
+      }
+
+      // Headline word-by-word reveal
+      if (headlineRef.current) {
+        const text = headlineRef.current.textContent || ""
+        const words = text.split(" ")
+        headlineRef.current.innerHTML = words
+          .map(word => `<span class="inline-block overflow-hidden"><span class="headline-word inline-block">${word}</span></span>`)
+          .join(" ")
+
+        const wordEls = headlineRef.current.querySelectorAll(".headline-word")
+        gsap.fromTo(
+          wordEls,
+          { y: "100%", opacity: 0 },
+          {
+            y: "0%",
+            opacity: 1,
+            duration: 0.8,
+            ease: "expo.out",
+            stagger: 0.04,
+            scrollTrigger: {
+              trigger: headlineRef.current,
+              start: "top 80%",
+              toggleActions: "play none none none"
+            }
+          }
+        )
+      }
+
+      // Two blocks stagger
+      const blocks = [block1Ref.current, block2Ref.current].filter(Boolean)
+      if (blocks.length) {
+        gsap.fromTo(
+          blocks,
+          { y: 60, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 1,
+            ease: "expo.out",
+            stagger: 0.2,
+            scrollTrigger: {
+              trigger: blocks[0]!,
+              start: "top 85%",
+              toggleActions: "play none none none"
+            }
+          }
+        )
+      }
+    }, sectionRef)
+
+    return () => ctx.revert()
+  }, [])
+
   return (
-    <section id="tentang" className="w-full text-[#222222] py-16 sm:py-20 font-sans select-none">
+    <section ref={sectionRef} id="tentang" className="w-full py-20 sm:py-28 font-sans select-none">
 
       {/* Manifesto Container in White Textured Paper */}
       <div
-        className="p-6 sm:p-8 md:p-14 border border-black/30 shadow-[0_20px_50px_rgba(0,0,0,0.6)]"
+        ref={containerRef}
+        className="p-6 sm:p-8 md:p-14 border border-black/30 shadow-[0_20px_60px_rgba(0,0,0,0.5)]"
         style={{
           backgroundColor: "#f5f5f5",
           backgroundImage: 'url("/textures/paper-white.webp")',
@@ -32,7 +119,10 @@ export default function Tentang() {
             <span className="text-[10px] sm:text-xs font-mono text-[#d25933] uppercase tracking-widest block mb-2 font-bold">
               [ ADVOKASI EKONOMI & KEDAULATAN KONTEN ]
             </span>
-            <h2 className="text-2xl sm:text-3xl md:text-5xl font-black tracking-tight uppercase leading-[1.08] text-[#111111]">
+            <h2
+              ref={headlineRef}
+              className="text-2xl sm:text-3xl md:text-5xl font-display tracking-tight uppercase leading-[1.08] text-[#111111]"
+            >
               Literasi Algoritma Tanpa Kompromi. Perlindungan Hak Kreator & UMKM.
             </h2>
           </div>
@@ -51,7 +141,8 @@ export default function Tentang() {
 
           {/* Block 1 */}
           <div
-            className="p-6 sm:p-8 border border-black/20 text-[#222222] flex flex-col justify-between"
+            ref={block1Ref}
+            className="p-6 sm:p-8 border border-black/20 text-[#222222] flex flex-col justify-between card-lift"
             style={{
               backgroundColor: "#e8e8e8",
               backgroundImage: 'url("/textures/paper-white.webp")',
@@ -63,7 +154,7 @@ export default function Tentang() {
                 <span className="font-bold">MANIFESTO // 01</span>
                 <span className="hidden sm:inline">DATA SCIENTIFIC AUDIT</span>
               </div>
-              <h3 className="text-lg sm:text-xl font-bold uppercase tracking-tight mb-3">
+              <h3 className="text-lg sm:text-xl font-display uppercase tracking-tight mb-3">
                 Transparansi Algoritma TikTok Shop
               </h3>
               <p className="text-[13px] sm:text-sm text-[#555555] font-normal leading-relaxed">
@@ -78,7 +169,8 @@ export default function Tentang() {
 
           {/* Block 2: Terracotta Orange Accent */}
           <div
-            className="p-6 sm:p-8 border border-black/20 text-white flex flex-col justify-between"
+            ref={block2Ref}
+            className="p-6 sm:p-8 border border-black/20 text-white flex flex-col justify-between card-lift"
             style={{
               backgroundColor: "#d25933",
               backgroundImage: 'url("/textures/binder-orange.avif")',
@@ -90,7 +182,7 @@ export default function Tentang() {
                 <span className="font-bold">MANIFESTO // 02</span>
                 <span className="hidden sm:inline">DIRECT SYNDICATE</span>
               </div>
-              <h3 className="text-lg sm:text-xl font-bold uppercase tracking-tight mb-3">
+              <h3 className="text-lg sm:text-xl font-display uppercase tracking-tight mb-3">
                 Kedaulatan Bagi Hasil 70/30
               </h3>
               <p className="text-[13px] sm:text-sm text-white/90 font-normal leading-relaxed">

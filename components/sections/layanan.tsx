@@ -1,7 +1,12 @@
-﻿"use client"
+"use client"
 
+import { useRef, useEffect } from "react"
 import Link from "next/link"
 import { ArrowUpRight } from "lucide-react"
+import gsap from "gsap"
+import { ScrollTrigger } from "gsap/ScrollTrigger"
+
+gsap.registerPlugin(ScrollTrigger)
 
 const SERVICES = [
   {
@@ -88,26 +93,87 @@ const SERVICES = [
 ]
 
 export default function Layanan() {
+  const sectionRef = useRef<HTMLElement>(null)
+  const headerRef = useRef<HTMLDivElement>(null)
+  const cardsRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // Section header reveal
+      if (headerRef.current) {
+        gsap.fromTo(
+          headerRef.current,
+          { y: 60, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 1,
+            ease: "expo.out",
+            scrollTrigger: {
+              trigger: headerRef.current,
+              start: "top 85%",
+              toggleActions: "play none none none"
+            }
+          }
+        )
+      }
+
+      // Stagger card reveals
+      if (cardsRef.current) {
+        const cards = cardsRef.current.querySelectorAll(".service-card")
+        gsap.fromTo(
+          cards,
+          {
+            y: 80,
+            opacity: 0,
+            scale: 0.96,
+          },
+          {
+            y: 0,
+            opacity: 1,
+            scale: 1,
+            duration: 0.9,
+            ease: "expo.out",
+            stagger: {
+              amount: 0.5,
+              from: "start"
+            },
+            scrollTrigger: {
+              trigger: cardsRef.current,
+              start: "top 80%",
+              toggleActions: "play none none none"
+            }
+          }
+        )
+      }
+    }, sectionRef)
+
+    return () => ctx.revert()
+  }, [])
+
   return (
-    <section id="layanan" className="w-full text-[#222222] py-16 sm:py-20 font-sans select-none">
+    <section ref={sectionRef} id="layanan" className="w-full py-20 sm:py-28 font-sans select-none">
 
       {/* Editorial Section Header */}
-      <div className="flex flex-col sm:flex-row sm:flex-wrap justify-between items-start sm:items-end pb-5 sm:pb-6 border-b border-white/20 mb-8 sm:mb-10 text-white gap-2">
+      <div
+        ref={headerRef}
+        className="flex flex-col sm:flex-row sm:flex-wrap justify-between items-start sm:items-end pb-5 sm:pb-6 border-b border-white/10 mb-10 sm:mb-14 text-white gap-2"
+      >
         <div>
           <span className="text-[10px] sm:text-xs font-mono text-[#d25933] uppercase tracking-[0.2em] block mb-2 font-bold">
             [ SECTION 02 &bull; DEPLOYED CAPABILITIES ]
           </span>
-          <h2 className="text-2xl sm:text-3xl md:text-5xl font-black tracking-tight uppercase">
-            Ecosystem Matrix.
+          <h2 className="text-display-lg text-white">
+            Ecosystem Matrix<span className="text-[#d25933]">.</span>
           </h2>
         </div>
-        <div className="text-left sm:text-right font-mono text-[10px] sm:text-xs text-white/60">
+        <div className="text-left sm:text-right font-mono text-[10px] sm:text-xs text-white/40">
           <span>05 REGISTERED SPECIMENS</span>
         </div>
       </div>
 
       {/* Grid of Specimen Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-4 sm:gap-6">
+      <div ref={cardsRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-4 sm:gap-6">
         {SERVICES.map((item) => {
           const colSpan = item.isFull ? "lg:col-span-12" : "lg:col-span-6"
           const bgTexture = item.isAccent
@@ -119,17 +185,24 @@ export default function Layanan() {
           return (
             <div
               key={item.id}
-              className={`${colSpan} group shadow-[0_10px_30px_rgba(0,0,0,0.5)] transition-transform duration-200 hover:-translate-y-1`}
+              className={`${colSpan} service-card group card-lift`}
             >
               <div
-                className={`p-6 sm:p-8 flex flex-col justify-between h-full border border-black/20 ${textColor}`}
+                className={`p-6 sm:p-8 flex flex-col justify-between h-full border border-black/20 ${textColor} relative overflow-hidden`}
                 style={{
                   backgroundColor: bgColor,
                   backgroundImage: bgTexture,
                   backgroundSize: "cover"
                 }}
               >
-                <div>
+                {/* Hover gradient overlay */}
+                <div className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none ${
+                  item.isAccent
+                    ? "bg-gradient-to-br from-black/10 to-transparent"
+                    : "bg-gradient-to-br from-[#d25933]/5 to-transparent"
+                }`} />
+
+                <div className="relative z-10">
                   <div className="flex justify-between items-start font-mono text-[10px] sm:text-xs pb-3 sm:pb-4 border-b border-current/20 mb-4 sm:mb-6">
                     <span className="font-bold">NO. {item.num}</span>
                     <span className="tracking-widest text-[10px] sm:text-[11px] opacity-80 hidden sm:inline">{item.highlight}</span>
@@ -139,7 +212,7 @@ export default function Layanan() {
                   <span className="text-[10px] sm:text-[11px] font-mono tracking-widest uppercase block mb-1 opacity-75">
                     {item.tagline}
                   </span>
-                  <h3 className="text-xl sm:text-2xl font-black uppercase tracking-tight mb-3 sm:mb-4">
+                  <h3 className="text-xl sm:text-2xl font-display uppercase tracking-tight mb-3 sm:mb-4">
                     {item.title}
                   </h3>
                   <p className="text-[13px] sm:text-sm font-normal leading-relaxed mb-5 sm:mb-6 opacity-90">
@@ -147,7 +220,7 @@ export default function Layanan() {
                   </p>
                 </div>
 
-                <div>
+                <div className="relative z-10">
                   <div className="grid grid-cols-3 gap-3 sm:gap-4 pt-3 sm:pt-4 border-t border-current/20 font-mono text-[10px] sm:text-xs">
                     {item.metrics.map((m, idx) => (
                       <div key={idx}>
@@ -164,10 +237,10 @@ export default function Layanan() {
                     <Link
                       href={item.href}
                       target={item.href.startsWith("http") ? "_blank" : undefined}
-                      className={`inline-flex items-center gap-2 text-[10px] sm:text-xs font-mono px-3 py-1.5 border transition-all ${
+                      className={`inline-flex items-center gap-2 text-[10px] sm:text-xs font-mono px-3 py-1.5 border transition-all duration-300 ${
                         item.isAccent
                           ? "border-white bg-white text-black hover:bg-black hover:text-white hover:border-black"
-                          : "border-black bg-black text-white hover:bg-white hover:text-black"
+                          : "border-black bg-black text-white hover:bg-[#d25933] hover:text-white hover:border-[#d25933]"
                       }`}
                     >
                       EXPLORE <ArrowUpRight className="w-3.5 h-3.5" />

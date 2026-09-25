@@ -1,8 +1,12 @@
 "use client"
 
-import { useState, useRef, useEffect } from "react"
+import { useState, useRef, useEffect, useCallback } from "react"
 import Link from "next/link"
 import { ArrowUpRight, X } from "lucide-react"
+import gsap from "gsap"
+import { ScrollTrigger } from "gsap/ScrollTrigger"
+
+gsap.registerPlugin(ScrollTrigger)
 
 interface WorkItem {
   id: string
@@ -113,6 +117,13 @@ export default function ObysHero() {
   const [introStage, setIntroStage] = useState<"counting" | "split" | "revealed">("counting")
   const isDragging = useRef(false)
   const startY = useRef(0)
+  const sectionRef = useRef<HTMLElement>(null)
+  const headerRef = useRef<HTMLElement>(null)
+  const leftPaneRef = useRef<HTMLDivElement>(null)
+  const cardRef = useRef<HTMLDivElement>(null)
+  const rightPaneRef = useRef<HTMLDivElement>(null)
+  const footerBarRef = useRef<HTMLElement>(null)
+  const titleRef = useRef<HTMLHeadingElement>(null)
   const activeWork = WORKS[activeIdx]
 
   // OBYS CINEMATIC PRE-OPEN CHOREOGRAPHY
@@ -124,13 +135,11 @@ export default function ObysHero() {
         current = 100
         setProgress(100)
         clearInterval(timer)
-        
-        // Stage 1: split logo
+
         setTimeout(() => {
           setIntroStage("split")
         }, 200)
 
-        // Stage 2: full hero reveal
         setTimeout(() => {
           setIntroStage("revealed")
         }, 1100)
@@ -142,15 +151,112 @@ export default function ObysHero() {
     return () => clearInterval(timer)
   }, [])
 
-  // Wheel scroll with inertia
-  const handleWheel = (e: React.WheelEvent) => {
+  // GSAP entrance choreography after reveal
+  useEffect(() => {
+    if (introStage !== "revealed") return
+
+    const tl = gsap.timeline({ defaults: { ease: "expo.out" } })
+
+    // Stagger the header items
+    if (headerRef.current) {
+      tl.fromTo(
+        headerRef.current.children,
+        { y: -30, opacity: 0 },
+        { y: 0, opacity: 1, duration: 1, stagger: 0.1 },
+        0
+      )
+    }
+
+    // Left pane list items
+    if (leftPaneRef.current) {
+      tl.fromTo(
+        leftPaneRef.current.children,
+        { x: -40, opacity: 0 },
+        { x: 0, opacity: 1, duration: 0.8, stagger: 0.06 },
+        0.2
+      )
+    }
+
+    // Card zoom-in from depth
+    if (cardRef.current) {
+      tl.fromTo(
+        cardRef.current,
+        { scale: 0.6, opacity: 0, filter: "blur(20px)" },
+        { scale: 1, opacity: 1, filter: "blur(0px)", duration: 1.4 },
+        0.1
+      )
+    }
+
+    // Right pane
+    if (rightPaneRef.current) {
+      tl.fromTo(
+        rightPaneRef.current.children,
+        { x: 40, opacity: 0 },
+        { x: 0, opacity: 1, duration: 0.8, stagger: 0.1 },
+        0.3
+      )
+    }
+
+    // Footer bar
+    if (footerBarRef.current) {
+      tl.fromTo(
+        footerBarRef.current,
+        { y: 30, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.8 },
+        0.5
+      )
+    }
+
+    return () => { tl.kill() }
+  }, [introStage])
+
+  // Card transition animation when switching works
+  const animateCardTransition = useCallback((newIdx: number) => {
+    if (!cardRef.current) return
+
+    gsap.to(cardRef.current, {
+      opacity: 0,
+      scale: 0.95,
+      y: 15,
+      duration: 0.25,
+      ease: "power2.in",
+      onComplete: () => {
+        setActiveIdx(newIdx)
+        gsap.fromTo(
+          cardRef.current,
+          { opacity: 0, scale: 0.95, y: -15 },
+          { opacity: 1, scale: 1, y: 0, duration: 0.5, ease: "expo.out" }
+        )
+      }
+    })
+
+    // Also animate the title
+    if (titleRef.current) {
+      gsap.to(titleRef.current, {
+        opacity: 0,
+        y: 10,
+        duration: 0.2,
+        ease: "power2.in",
+        onComplete: () => {
+          gsap.fromTo(
+            titleRef.current,
+            { opacity: 0, y: -10 },
+            { opacity: 1, y: 0, duration: 0.4, ease: "expo.out" }
+          )
+        }
+      })
+    }
+  }, [])
+
+  // Wheel scroll with animated transitions
+  const handleWheel = useCallback((e: React.WheelEvent) => {
     if (introStage !== "revealed") return
     if (e.deltaY > 0) {
-      setActiveIdx(prev => (prev + 1) % WORKS.length)
+      animateCardTransition((activeIdx + 1) % WORKS.length)
     } else if (e.deltaY < 0) {
-      setActiveIdx(prev => (prev - 1 + WORKS.length) % WORKS.length)
+      animateCardTransition((activeIdx - 1 + WORKS.length) % WORKS.length)
     }
-  }
+  }, [introStage, activeIdx, animateCardTransition])
 
   // Pointer drag on center column
   const handleMouseDown = (e: React.MouseEvent) => {
@@ -167,10 +273,10 @@ export default function ObysHero() {
     if (!isDragging.current || introStage !== "revealed") return
     const diff = startY.current - e.clientY
     if (diff > 50) {
-      setActiveIdx(prev => (prev + 1) % WORKS.length)
+      animateCardTransition((activeIdx + 1) % WORKS.length)
       isDragging.current = false
     } else if (diff < -50) {
-      setActiveIdx(prev => (prev - 1 + WORKS.length) % WORKS.length)
+      animateCardTransition((activeIdx - 1 + WORKS.length) % WORKS.length)
       isDragging.current = false
     }
   }
@@ -190,33 +296,47 @@ export default function ObysHero() {
     if (!isDragging.current || introStage !== "revealed") return
     const diff = startY.current - e.touches[0].clientY
     if (diff > 60) {
-      setActiveIdx(prev => (prev + 1) % WORKS.length)
+      animateCardTransition((activeIdx + 1) % WORKS.length)
       isDragging.current = false
     } else if (diff < -60) {
-      setActiveIdx(prev => (prev - 1 + WORKS.length) % WORKS.length)
+      animateCardTransition((activeIdx - 1 + WORKS.length) % WORKS.length)
       isDragging.current = false
     }
   }
 
   return (
     <section
+      ref={sectionRef}
       onWheel={handleWheel}
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
-      className="relative w-full h-screen bg-[#000000] text-white overflow-hidden select-none font-sans flex flex-col justify-between"
+      className="relative w-full h-screen bg-[#050505] text-white overflow-hidden select-none font-sans flex flex-col justify-between"
     >
-      {/* ========================================================================= */}
-      {/* OBYS CINEMATIC PRELOADER OVERLAY & SPLIT MONOGRAM REVEAL */}
-      {/* ========================================================================= */}
+      {/* ═══ Ambient Background Glow ═══ */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-[#d25933]/[0.03] blur-[120px]" />
+        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-transparent via-transparent to-[#050505]/80" />
+      </div>
+
+      {/* ═══ Grid Lines — cinematic structural overlay ═══ */}
+      <div className="absolute inset-0 pointer-events-none z-[1]">
+        <div className="absolute left-[8%] top-0 bottom-0 w-px bg-white/[0.03]" />
+        <div className="absolute right-[8%] top-0 bottom-0 w-px bg-white/[0.03]" />
+        <div className="absolute left-1/2 top-0 bottom-0 w-px bg-white/[0.02] hidden lg:block" />
+      </div>
+
+      {/* ═══════════════════════════════════════════════════════════════ */}
+      {/* OBYS CINEMATIC PRELOADER OVERLAY & SPLIT MONOGRAM REVEAL     */}
+      {/* ═══════════════════════════════════════════════════════════════ */}
       {introStage !== "revealed" && (
-        <div 
+        <div
           className={`fixed inset-0 z-50 pointer-events-none flex items-center justify-center transition-opacity duration-1000 ${
             introStage === "split" ? "opacity-0" : "opacity-100"
           }`}
-          style={{ backgroundColor: "#000000" }}
+          style={{ backgroundColor: "#050505" }}
         >
-          {/* Running Counter (Khas Obys: Kanan Tengah) */}
+          {/* Running Counter */}
           <div className="absolute right-8 sm:right-16 top-1/2 -translate-y-1/2 font-mono text-xs sm:text-sm tracking-widest text-white/70">
             <span className="text-white font-bold">{progress.toString().padStart(2, "0")}</span>
             <span className="text-[#555555] ml-1">%</span>
@@ -224,8 +344,7 @@ export default function ObysHero() {
 
           {/* Huge Monolith Logo (Splits in halves) */}
           <div className="relative w-40 h-40 sm:w-56 sm:h-56 flex items-center justify-center">
-            {/* Left wing of logo */}
-            <div 
+            <div
               className="absolute left-0 top-0 w-1/2 h-full overflow-hidden transition-transform duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)]"
               style={{
                 transform: introStage === "split" ? "translate3d(-140%, 0, 0)" : "translate3d(0, 0, 0)"
@@ -236,8 +355,7 @@ export default function ObysHero() {
               </svg>
             </div>
 
-            {/* Right wing of logo */}
-            <div 
+            <div
               className="absolute right-0 top-0 w-1/2 h-full overflow-hidden transition-transform duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)]"
               style={{
                 transform: introStage === "split" ? "translate3d(140%, 0, 0)" : "translate3d(0, 0, 0)"
@@ -251,10 +369,11 @@ export default function ObysHero() {
         </div>
       )}
 
-      {/* 1. TOP HEADER (Obys Logo, Time, Navigation) */}
+      {/* ═══ 1. TOP HEADER ═══ */}
       <header
-        className={`absolute top-0 left-0 w-full z-40 px-6 sm:px-12 py-6 sm:py-7 flex justify-between items-center text-xs tracking-wider uppercase font-mono text-[#888888] pointer-events-auto transition-opacity duration-1000 ${
-          introStage === "revealed" ? "opacity-100" : "opacity-0"
+        ref={headerRef}
+        className={`absolute top-0 left-0 w-full z-40 px-6 sm:px-12 py-6 sm:py-7 flex justify-between items-center text-xs tracking-wider uppercase font-mono text-[#888888] pointer-events-auto ${
+          introStage === "revealed" ? "" : "invisible"
         }`}
       >
         <div className="flex items-center gap-6">
@@ -263,31 +382,32 @@ export default function ObysHero() {
           </Link>
           <div className="hidden sm:flex items-center gap-6 text-[#777777]">
             <span className="text-white">WORK,</span>
-            <Link href="#tentang" className="hover:text-white transition-colors">ABOUT</Link>
+            <Link href="#tentang" className="hover:text-white transition-colors duration-300">ABOUT</Link>
           </div>
         </div>
 
         <div className="flex items-center gap-8">
-          <span className="hidden md:inline font-mono text-[11px] text-[#666666]">
-            MALANG 07:58 CEST
+          <span className="hidden md:inline font-mono text-[11px] text-[#555555]">
+            MALANG — 2026
           </span>
-          <Link 
+          <Link
             href="https://t.me/kahiyang_partnership"
             target="_blank"
-            className="text-white border border-[#333333] px-3.5 py-1.5 hover:bg-white hover:text-black transition-all"
+            className="text-white border border-[#333333] px-3.5 py-1.5 hover:bg-white hover:text-black transition-all duration-300"
           >
             CONTACT
           </Link>
         </div>
       </header>
 
-      {/* 2. THREE-PANE CINEMATIC VIEWPORT (100% Obys Agency Real Layout) */}
+      {/* ═══ 2. THREE-PANE CINEMATIC VIEWPORT ═══ */}
       <div className="w-full flex-1 flex items-center justify-between px-6 sm:px-12 relative z-10 pt-20 pb-16">
 
-        {/* LEFT PANE: Minimalist Project List with Hover / Active Sync */}
+        {/* LEFT PANE: Project List */}
         <div
-          className={`hidden lg:flex flex-col justify-center space-y-2.5 w-[280px] z-20 transition-all duration-1000 ${
-            introStage === "revealed" ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-8"
+          ref={leftPaneRef}
+          className={`hidden lg:flex flex-col justify-center space-y-2.5 w-[280px] z-20 ${
+            introStage === "revealed" ? "" : "invisible"
           }`}
         >
           {WORKS.map((w, idx) => {
@@ -295,21 +415,24 @@ export default function ObysHero() {
             return (
               <button
                 key={w.id}
-                onClick={() => setActiveIdx(idx)}
+                onClick={() => animateCardTransition(idx)}
                 className={`text-left text-sm transition-all duration-300 flex items-center gap-3 ${
-                  isActive 
-                    ? "text-white font-semibold translate-x-2" 
+                  isActive
+                    ? "text-white font-semibold translate-x-2"
                     : "text-[#444444] hover:text-[#aaaaaa]"
                 }`}
               >
                 <span className="font-mono text-[10px] opacity-60">{w.id}</span>
                 <span className="truncate">{w.title}</span>
+                {isActive && (
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#d25933] ml-auto flex-shrink-0" />
+                )}
               </button>
             )
           })}
         </div>
 
-        {/* CENTER PANE: The Iconic Floating Cinematic Card (Zoom-reveal from depth) */}
+        {/* CENTER PANE: The Iconic Floating Cinematic Card */}
         <div
           onMouseDown={handleMouseDown}
           onMouseUp={handleMouseUp}
@@ -317,11 +440,10 @@ export default function ObysHero() {
           className="mx-auto flex flex-col items-center justify-center cursor-grab active:cursor-grabbing z-20 px-4 sm:px-0"
         >
           <div
+            ref={cardRef}
             onClick={() => setSelected(activeWork)}
-            className={`relative ${activeWork.aspect} ${activeWork.widthClass} max-w-[75vw] sm:max-w-none transition-all duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] shadow-[0_30px_90px_rgba(0,0,0,0.9)] overflow-hidden group border border-[#1a1a1a] hover:border-[#555555] ${
-              introStage === "revealed"
-                ? "scale-100 opacity-100 blur-0"
-                : "scale-[0.6] opacity-0 blur-md"
+            className={`relative ${activeWork.aspect} ${activeWork.widthClass} max-w-[75vw] sm:max-w-none shadow-[0_30px_90px_rgba(0,0,0,0.9)] overflow-hidden group border border-[#1a1a1a] hover:border-[#555555] transition-[border-color] duration-500 ${
+              introStage === "revealed" ? "" : "invisible"
             }`}
           >
             <img
@@ -330,7 +452,7 @@ export default function ObysHero() {
               draggable={false}
               className="w-full h-full object-cover grayscale brightness-95 contrast-105 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 pointer-events-none"
             />
-            {/* Subtle cinematic vignette */}
+            {/* Cinematic vignette */}
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20 pointer-events-none" />
 
             {/* Serial badge */}
@@ -346,13 +468,16 @@ export default function ObysHero() {
             </div>
           </div>
 
-          {/* Under-Card Context Indicator */}
+          {/* Under-Card Context */}
           <div
-            className={`mt-5 sm:mt-6 text-center transition-opacity duration-1000 ${
-              introStage === "revealed" ? "opacity-100" : "opacity-0"
+            className={`mt-5 sm:mt-6 text-center ${
+              introStage === "revealed" ? "" : "invisible"
             }`}
           >
-            <h2 className="text-lg sm:text-2xl font-bold uppercase tracking-tight text-white">
+            <h2
+              ref={titleRef}
+              className="text-lg sm:text-2xl font-display uppercase tracking-tight text-white"
+            >
               {activeWork.title}
             </h2>
             <p className="text-[11px] font-mono text-[#777777] mt-1">
@@ -364,10 +489,10 @@ export default function ObysHero() {
               {WORKS.map((_, idx) => (
                 <button
                   key={idx}
-                  onClick={() => setActiveIdx(idx)}
+                  onClick={() => animateCardTransition(idx)}
                   className={`transition-all duration-300 rounded-full ${
                     idx === activeIdx
-                      ? "w-6 h-1.5 bg-white"
+                      ? "w-6 h-1.5 bg-[#d25933]"
                       : "w-1.5 h-1.5 bg-white/30 hover:bg-white/50"
                   }`}
                   aria-label={`View work ${idx + 1}`}
@@ -377,27 +502,27 @@ export default function ObysHero() {
           </div>
         </div>
 
-        {/* RIGHT PANE: Obys Agency Signature Studio Statement */}
-        <div 
-          className={`hidden lg:block w-[300px] text-right z-20 space-y-6 transition-all duration-1000 ${
-            introStage === "revealed" ? "opacity-100 translate-x-0" : "opacity-0 translate-x-8"
+        {/* RIGHT PANE: Studio Statement */}
+        <div
+          ref={rightPaneRef}
+          className={`hidden lg:block w-[300px] text-right z-20 space-y-6 ${
+            introStage === "revealed" ? "" : "invisible"
           }`}
         >
-          <p className="text-xs text-[#777777] font-light leading-relaxed">
+          <p className="text-xs text-[#777777] font-light leading-relaxed font-display italic">
             The studio is shaped by people who care deeply about design and the autonomous process behind. Each system becomes a live case study developed with precision and empirical telemetry.
           </p>
 
           <div className="pt-4 border-t border-[#181818] font-mono text-xs text-[#888888]">
             <span className="block text-[#555555] mb-1">DIRECT INQUIRY</span>
-            <Link 
-              href="mailto:partnership@kahiyang.id" 
+            <Link
+              href="mailto:partnership@kahiyang.id"
               className="text-white hover:underline"
             >
               partnership@kahiyang.id
             </Link>
           </div>
 
-          {/* View mode toggle */}
           <div className="pt-2 font-mono text-[11px] text-[#555555]">
             <span className="text-white">Vertical,</span>
             <span className="ml-2 hover:text-white cursor-pointer transition-colors">Grid</span>
@@ -406,10 +531,11 @@ export default function ObysHero() {
 
       </div>
 
-      {/* 3. BOTTOM FOOTER BAR */}
+      {/* ═══ 3. BOTTOM FOOTER BAR ═══ */}
       <footer
-        className={`absolute bottom-0 left-0 w-full z-30 px-6 sm:px-12 py-5 flex justify-between items-center text-xs font-mono text-[#555555] border-t border-[#141414] bg-black/80 backdrop-blur-md transition-opacity duration-1000 ${
-          introStage === "revealed" ? "opacity-100" : "opacity-0"
+        ref={footerBarRef}
+        className={`absolute bottom-0 left-0 w-full z-30 px-6 sm:px-12 py-5 flex justify-between items-center text-xs font-mono text-[#555555] border-t border-[#141414] bg-black/80 backdrop-blur-md ${
+          introStage === "revealed" ? "" : "invisible"
         }`}
       >
         <span className="hidden sm:inline">ALL RIGHTS RESERVED &copy; 2026 KAHIYANG</span>
@@ -417,18 +543,18 @@ export default function ObysHero() {
         <div className="flex items-center gap-3">
           <span className="hidden sm:inline">SCROLL OR DRAG IMAGE TO BROWSE</span>
           <span className="sm:hidden text-[10px]">SWIPE TO BROWSE</span>
-          <span className="w-1.5 h-1.5 rounded-full bg-white/60 animate-pulse" />
+          <span className="w-1.5 h-1.5 rounded-full bg-[#d25933] animate-pulse" />
         </div>
       </footer>
 
-      {/* 4. ON-CLICK FULLSCREEN CONTEXT INSPECTION (Obys Work Modal) */}
+      {/* ═══ 4. FULLSCREEN CONTEXT INSPECTION ═══ */}
       {selected && (
         <div
-          className="fixed inset-0 z-50 bg-black/90 backdrop-blur-2xl flex items-start sm:items-center justify-center p-4 sm:p-6 md:p-12 overflow-y-auto animate-in fade-in duration-300"
+          className="fixed inset-0 z-50 bg-black/95 backdrop-blur-2xl flex items-start sm:items-center justify-center p-4 sm:p-6 md:p-12 overflow-y-auto"
           onClick={(e) => { if (e.target === e.currentTarget) setSelected(null) }}
         >
-          <div className="relative w-full max-w-4xl bg-[#0d0d0d] border border-[#222222] p-6 sm:p-8 md:p-12 text-white shadow-2xl my-4 sm:my-0">
-            
+          <div className="relative w-full max-w-4xl bg-[#0a0a0a] border border-[#222222] p-6 sm:p-8 md:p-12 text-white shadow-2xl my-4 sm:my-0">
+
             <button
               onClick={() => setSelected(null)}
               className="absolute top-6 right-6 font-mono text-xs uppercase tracking-widest text-[#777777] hover:text-white border border-[#333333] px-3 py-1.5 flex items-center gap-2 transition-colors"
@@ -453,10 +579,10 @@ export default function ObysHero() {
                   <div className="flex items-center gap-3 font-mono text-xs text-[#777777] pb-3 border-b border-[#222222] mb-4">
                     <span>SPECIMEN {selected.id}</span>
                     <span>&bull;</span>
-                    <span className="text-emerald-400">{selected.category}</span>
+                    <span className="text-[#d25933]">{selected.category}</span>
                   </div>
 
-                  <h2 className="text-2xl sm:text-3xl font-bold uppercase tracking-tight text-white mb-4">
+                  <h2 className="text-2xl sm:text-3xl font-display uppercase tracking-tight text-white mb-4">
                     {selected.title}
                   </h2>
 
@@ -469,7 +595,7 @@ export default function ObysHero() {
                   <div className="border-t border-[#222222] pt-4 font-mono text-xs text-[#888888] space-y-2">
                     <div>
                       <span className="text-[#555555] block text-[10px] uppercase">TELEMETRY</span>
-                      <span className="text-white font-semibold">{selected.metric}</span>
+                      <span className="text-white font-semibold" dangerouslySetInnerHTML={{ __html: selected.metric }} />
                     </div>
                     <div>
                       <span className="text-[#555555] block text-[10px] uppercase">CLIENT ENTITY</span>
@@ -484,7 +610,7 @@ export default function ObysHero() {
                     <Link
                       href={selected.href}
                       target={selected.href.startsWith("http") ? "_blank" : undefined}
-                      className="inline-flex items-center gap-2 bg-white text-black font-mono font-bold text-xs uppercase px-5 py-2.5 hover:bg-neutral-200 transition-colors"
+                      className="inline-flex items-center gap-2 bg-white text-black font-mono font-bold text-xs uppercase px-5 py-2.5 hover:bg-[#d25933] hover:text-white transition-colors duration-300"
                     >
                       EXPLORE WORK <ArrowUpRight className="w-3.5 h-3.5" />
                     </Link>
