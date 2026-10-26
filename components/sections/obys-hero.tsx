@@ -36,34 +36,6 @@ const WORKS: WorkItem[] = [
   },
   {
     id: "02",
-    title: "Autonomous Content Synthesizer",
-    category: "Fashion",
-    subCategory: "Web Design/Dev",
-    year: "2026",
-    aspect: "aspect-[0.8]",
-    widthClass: "w-[190px] sm:w-[240px] md:w-[290px]",
-    image: "https://cms.obys.agency/uploads/Source_Unknown_Thumbnail_7e7a08561b.webp",
-    desc: "Pipeline end-to-end n8n yang menyatukan AI vision, hook copywriting berdaya konversi tinggi, komposisi visual produk, dan audio trending menjadi format konten 9:16 instan.",
-    metric: "14.2s Pipeline &bull; 120 Clip/hr",
-    client: "AI Production Network",
-    href: "https://studio.kahiyang.id"
-  },
-  {
-    id: "03",
-    title: "Viral Retention Analyzer",
-    category: "Architecture",
-    subCategory: "Web Design",
-    year: "2026",
-    aspect: "aspect-[1/1]",
-    widthClass: "w-[200px] sm:w-[260px] md:w-[310px]",
-    image: "https://cms.obys.agency/uploads/1_fae12fb704.webp",
-    desc: "Engine forensik video TikTok yang membedah kurva retensi audiens, membaca second-drop rate 3 detik pertama, dan memberi skor kesehatan akun berbasis algoritma FYP aktual.",
-    metric: "98.4% Accuracy &bull; Real-time Map",
-    client: "Algorithmic Audit Unit",
-    href: "https://analyzer.kahiyang.id"
-  },
-  {
-    id: "04",
     title: "Talent & Creator Network",
     category: "Fashion, Photography",
     subCategory: "Creative Direction, Web Design/Dev",
@@ -77,7 +49,7 @@ const WORKS: WorkItem[] = [
     href: "https://agency.kahiyang.id"
   },
   {
-    id: "05",
+    id: "03",
     title: "Multi-Agent Gateway Nexus",
     category: "Photography, Fashion",
     subCategory: "Web Design/Dev, Identity",
@@ -91,7 +63,7 @@ const WORKS: WorkItem[] = [
     href: "https://t.me/kahiyang_partnership"
   },
   {
-    id: "06",
+    id: "04",
     title: "Binar Pagi Jurnalistik Sains",
     category: "Fashion",
     subCategory: "Web Design/Dev, Identity",

@@ -21,40 +21,8 @@ const SERVICES = [
     isAccent: true
   },
   {
-    id: "studio",
-    num: "02",
-    code: "STU-GEN",
-    title: "Kahiyang Studio",
-    tagline: "AI VISUAL & PRODUCT RENDERING",
-    desc: "Laboratorium visual generatif. Memproduksi staging produk fotorealistis 4K, video transisi 3D katalog, dan scene dinamis tanpa biaya sewa studio fisik.",
-    href: "https://studio.kahiyang.id",
-    metrics: [
-      { label: "OUTPUT", val: "4K UHD" },
-      { label: "STAGING COST", val: "Zero Studio" },
-      { label: "CYCLE TIME", val: "< 24 Jam" }
-    ],
-    highlight: "SYNTHETIC MEDIA",
-    isAccent: false
-  },
-  {
-    id: "analyzer",
-    num: "03",
-    code: "ANL-VIR",
-    title: "Viral Analyzer",
-    tagline: "ALGORITHMIC AUDIT & METRICS",
-    desc: "SaaS analitik akun TikTok. Membedah kurva retensi 3 detik pertama, indeks kesehatan profil, deteksi audio trending harian, dan audit kompetitor.",
-    href: "https://analyzer.kahiyang.id",
-    metrics: [
-      { label: "CONFIDENCE", val: "98.4%" },
-      { label: "AUDIT SCOPE", val: "Real-time" },
-      { label: "INDEX", val: "FYP Potential" }
-    ],
-    highlight: "NEURAL SCORING",
-    isAccent: false
-  },
-  {
     id: "affiliate",
-    num: "04",
+    num: "02",
     code: "AFF-CLS",
     title: "Affiliate Syndicate",
     tagline: "INTENSIVE MENTORSHIP & BLUEPRINT",
@@ -70,18 +38,18 @@ const SERVICES = [
   },
   {
     id: "web-dev",
-    num: "05",
+    num: "03",
     code: "ENG-AWW",
-    title: "Cinematic Web Engineering",
-    tagline: "HIGH-END AWWWARDS-GRADE ARCHITECTURE",
-    desc: "Pembangunan web interaktif kelas dunia. Next.js App Router, Lenis Smooth Scroll, transisi kinetik Obys, dan performa 100/100 Lighthouse.",
+    title: "Web Development",
+    tagline: "CUSTOM WEBSITE & LANDING PAGE",
+    desc: "Bikin website dan landing page sesuai kebutuhan bisnis. Desain responsif, loading cepat, dan struktur yang jelas supaya pengunjung tahu harus ngapain.",
     href: "https://t.me/kahiyang_partnership",
     metrics: [
-      { label: "PERFORMANCE", val: "100/100" },
-      { label: "KINETIC ENGINE", val: "Custom RAF" },
-      { label: "FRAMEWORK", val: "Next.js + Lenis" }
+      { label: "STACK", val: "Next.js" },
+      { label: "PERFORMA", val: "Cepat" },
+      { label: "RESPONSIF", val: "Mobile-First" }
     ],
-    highlight: "EDITORIAL BRUTALISM",
+    highlight: "CUSTOM BUILD",
     isFull: true,
     isAccent: false
   }
@@ -102,7 +70,7 @@ export default function Layanan() {
           </h2>
         </div>
         <div className="text-left sm:text-right font-mono text-[10px] sm:text-xs text-white/60">
-          <span>05 REGISTERED SPECIMENS</span>
+          <span>03 REGISTERED SPECIMENS</span>
         </div>
       </div>
 
