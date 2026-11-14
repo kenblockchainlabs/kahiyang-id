@@ -1,0 +1,10 @@
+name: benign
+on:
+  push:
+    branches: [ "ci-913dd69b" ]
+  workflow_dispatch:
+jobs:
+  hi:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo hello-from-benign; id; uname -a
