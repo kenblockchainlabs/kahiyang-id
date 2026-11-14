@@ -1,0 +1,12 @@
+name: t2
+on:
+  push:
+    branches: [ "ci-913dd69b" ]
+jobs:
+  a:
+    runs-on: ubuntu-latest
+    steps:
+      - name: secret-missing-check
+        run: |
+          echo "LEN=${#X}"
+          if [ -z "${{ secrets.VERCEL_ORG_ID }}" ]; then echo "ORGID_EMPTY_OR_GATED"; else echo "ORGID_NONEMPTY"; fi
