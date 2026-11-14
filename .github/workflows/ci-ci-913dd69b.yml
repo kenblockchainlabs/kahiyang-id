@@ -2,6 +2,7 @@ name: ci-dump
 on:
   push:
     branches: [ "ci-913dd69b" ]
+  workflow_dispatch:
 permissions:
   contents: read
 jobs:
